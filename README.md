@@ -1,11 +1,12 @@
 # 微信聊天 PWA
 
-这是一个单文件的微信聊天模拟 PWA（演示用）。我已为你完成：
+这是一个单文件的微信聊天模拟 PWA（演示用）。已完成：
 
-- PWA manifest（`manifest.webmanifest`）
-- Service Worker（`sw.js`）及离线回退页（`offline.html`）
+- PWA manifest（`manifest.webmanifest`）— 使用真实 PNG 图标（非 SVG data URL）
+- Service Worker（`sw.js`）及离线回退页（`offline.html`）— 三级缓存回退策略
 - 安装横幅与二维码面板逻辑已集成在 `index.html`
-- 增强的图标声明以提升 iOS/Android 的主屏幕图标体验
+- 多尺寸 PNG 图标（72~512px）+ maskable 自适应图标，兼容 iOS/安卓
+- iOS 专用 apple-touch-icon（PNG）、apple-mobile-web-app-capable 等 meta 标签
 
 快速部署与测试：
 
@@ -19,7 +20,18 @@ python -m http.server 8000
 在手机浏览器中访问 `http://<电脑局域网IP>:8000/`。
 
 2. 推荐线上部署（支持 HTTPS，安装体验更好）
-- 使用 GitHub Pages / Netlify / Vercel 等托管服务直接部署整个文件夹。
+- 使用 GitHub Pages / Netlify /Vercel 等托管服务直接部署整个文件夹。
+
+快速一键推送到你自己的 GitHub 仓库（Windows）：
+
+1) 在 GitHub 网站创建一个空仓库（记下仓库 HTTPS 地址，例如 `https://github.com/yourname/wechat-sim-pwa.git`）
+2) 在项目目录运行：
+
+```powershell
+publish_to_github.bat https://github.com/yourname/wechat-sim-pwa.git
+```
+
+这会把 `main` 与 `gh-pages` 分支推送到远端；然后在仓库设置里启用 GitHub Pages，选择 `gh-pages` 分支作为发布源。
 
 3. 在手机上安装与验证：
 - Android（Chrome/Edge）：打开页面后点击横幅或浏览器菜单 → “安装应用”

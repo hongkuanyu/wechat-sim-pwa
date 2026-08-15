@@ -6,52 +6,19 @@
 <title>微信聊天</title>
 <meta name="theme-color" content="#07C160">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="微信聊天">
-<!-- 动态生成 PNG 图标并创建 manifest（提高 iOS/Android 图标兼容性） -->
-<script>
-(function(){
-  try{
-    const svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'>"+
-      "<rect width='128' height='128' rx='28' fill='%2307C160'/>"+
-      "<text x='64' y='82' font-family='sans-serif' font-size='70' fill='white' text-anchor='middle' font-weight='bold'>微</text>"+
-      "</svg>";
-    const svgUrl = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
-    const sizes = [72,96,120,128,152,180,192,512];
-    const loadImg = src => new Promise((res, rej) => { const img = new Image(); img.onload = () => res(img); img.onerror = rej; img.src = src; });
-    loadImg(svgUrl).then(img => {
-      const icons = [];
-      sizes.forEach(sz => {
-        const c = document.createElement('canvas'); c.width = sz; c.height = sz;
-        const ctx = c.getContext('2d');
-        ctx.fillStyle = '#ffffff'; ctx.fillRect(0,0,sz,sz);
-        ctx.drawImage(img, 0, 0, sz, sz);
-        const data = c.toDataURL('image/png');
-        icons.push({ src: data, sizes: sz + 'x' + sz, type: 'image/png' });
-        // 同时注入 apple-touch-icon 链接以提升 iOS 主屏幕图标体验
-        const link = document.createElement('link'); link.rel = 'apple-touch-icon'; link.sizes = sz + 'x' + sz; link.href = data; document.head.appendChild(link);
-      });
-      const manifest = {
-        name: '微信聊天', short_name: '微信', start_url: '.', display: 'standalone',
-        scope: '.', background_color: '#ffffff', theme_color: '#07C160', orientation: 'portrait', icons
-      };
-      const blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const ml = document.querySelector('link[rel="manifest"]');
-      if (ml) ml.href = url; else { const l = document.createElement('link'); l.rel = 'manifest'; l.href = url; document.head.appendChild(l); }
-    }).catch(()=>{});
-  }catch(e){}
-})();
-</script>
 <link rel="manifest" href="manifest.webmanifest">
-<!-- 静态图标优先：在 manifest 中引用了 icons/ 下的 PNG 文件 -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='28' fill='%2307C160'/><text x='64' y='82' font-family='sans-serif' font-size='70' fill='white' text-anchor='middle' font-weight='bold'>微</text></svg>">
-<link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='28' fill='%2307C160'/><text x='64' y='82' font-family='sans-serif' font-size='70' fill='white' text-anchor='middle' font-weight='bold'>微</text></svg>">
-<link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='28' fill='%2307C160'/><text x='64' y='82' font-family='sans-serif' font-size='70' fill='white' text-anchor='middle' font-weight='bold'>微</text></svg>">
-<link rel="apple-touch-icon" sizes="152x152" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='28' fill='%2307C160'/><text x='64' y='82' font-family='sans-serif' font-size='70' fill='white' text-anchor='middle' font-weight='bold'>微</text></svg>">
-<link rel="apple-touch-icon" sizes="120x120" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='28' fill='%2307C160'/><text x='64' y='82' font-family='sans-serif' font-size='70' fill='white' text-anchor='middle' font-weight='bold'>微</text></svg>">
-<link rel="apple-touch-icon" sizes="76x76" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='28' fill='%2307C160'/><text x='64' y='82' font-family='sans-serif' font-size='70' fill='white' text-anchor='middle' font-weight='bold'>微</text></svg>">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="76x76" href="icons/icon-76x76.png">
+<link rel="apple-touch-icon" sizes="120x120" href="icons/icon-120x120.png">
+<link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
 <meta name="msapplication-TileColor" content="#07C160">
+<meta name="msapplication-TileImage" content="icons/icon-192x192.png">
 <style>
   /* ============ 全局重置与基础样式 ============ */
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -107,11 +74,11 @@
   }
   .tabbar .tab {
     flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-    cursor: pointer; color: #666; gap: 2px; user-select: none;
+    cursor: pointer; color: #7A7E83; gap: 3px; user-select: none;
     transition: transform .1s;
   }
-  .tabbar .tab:active { transform: scale(0.95); }
-  .tabbar .tab .t-ico { font-size: 22px; line-height: 1; }
+  .tabbar .tab:active { transform: scale(0.92); }
+  .tabbar .tab .t-svg { width: 26px; height: 26px; line-height: 1; }
   .tabbar .tab .t-txt { font-size: 10px; line-height: 1.2; }
   .tabbar .tab.active { color: #07C160; }
 
@@ -206,7 +173,7 @@
   }
   .contact-item .del {
     position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
-    width: 28px; height: 28px; min-width: 28px; min-height: 28px; border-radius: 50%; background: #ccc;
+    width: 36px; height: 36px; min-width: 36px; min-height: 36px; border-radius: 50%; background: #ccc;
     color: #fff; font-size: 16px; line-height: 1; z-index: 3;
     display: none; align-items: center; justify-content: center;
   }
@@ -311,42 +278,57 @@
   .card.redpacket .rp-sub { font-size: 12px; opacity: .85; margin-top: 4px; }
   .card.redpacket .rp-amt { font-size: 12px; opacity: .85; margin-top: 6px; }
 
-  /* —— 输入区 —— */
-  .input-area { flex-shrink: 0; background: #fff; border-top: 1px solid #E2E2E2; }
-  /* 发言身份切换条 */
-  .role-switch-bar {
-    display: flex; align-items: center; gap: 8px;
-    padding: 6px 12px; border-bottom: 1px solid #F0F0F0; background: #FAFAFA;
+  /* —— 输入区（微信风格） —— */
+  .input-area { flex-shrink: 0; background: #F7F7F7; border-top: 1px solid #E2E2E2; }
+  .input-row { display: flex; align-items: flex-end; padding: 8px 10px; gap: 8px; padding-bottom: calc(8px + env(safe-area-inset-bottom)); }
+  .voice-ico-btn {
+    width: 34px; height: 34px; flex-shrink: 0; font-size: 20px;
+    background: #fff; border-radius: 6px; border: 1px solid #E2E2E2;
+    display: flex; align-items: center; justify-content: center;
   }
-  .role-switch-bar .rs-label { font-size: 12px; color: #888; flex-shrink: 0; }
-  .role-switch-bar .rs-btn {
-    height: 28px; min-height: 28px; padding: 0 14px; border-radius: 14px;
-    font-size: 12px; color: #666; background: #EEE; border: 1.5px solid transparent;
-    transition: all .15s;
-  }
-  .role-switch-bar .rs-btn.active { color: #fff; background: #07C160; border-color: #07C160; }
-  .role-switch-bar .rs-hint { font-size: 11px; color: #AAA; margin-left: auto; }
-  .quick-bar {
-    display: flex; gap: 4px; padding: 6px 12px; border-bottom: 1px solid #F0F0F0;
-    flex-wrap: wrap; justify-content: space-around;
-  }
-  .quick-btn {
-    display: flex; flex-direction: column; align-items: center; gap: 3px;
-    padding: 8px 6px; border-radius: 6px; color: #555; font-size: 11px;
-    min-width: 56px; min-height: 48px;
-  }
-  .quick-btn .qi { font-size: 22px; line-height: 1; }
-  .input-row { display: flex; align-items: flex-end; padding: 10px 12px 12px; gap: 10px; }
   .input-row textarea {
-    flex: 1; resize: none; height: 28px; max-height: 108px;
-    border-radius: 6px; background: #F5F5F5; padding: 6px 10px;
-    font-size: 14px; line-height: 1.5; color: #111;
+    flex: 1; resize: none; height: 34px; max-height: 108px;
+    border-radius: 6px; background: #fff; padding: 7px 10px;
+    font-size: 15px; line-height: 1.4; color: #111; border: 1px solid #E2E2E2;
   }
+  .emoji-btn {
+    width: 34px; height: 34px; flex-shrink: 0; font-size: 22px;
+    background: none; display: flex; align-items: center; justify-content: center;
+  }
+  .plus-btn {
+    width: 34px; height: 34px; flex-shrink: 0; font-size: 24px; font-weight: 300;
+    background: #fff; border-radius: 6px; border: 1px solid #E2E2E2;
+    display: flex; align-items: center; justify-content: center;
+    color: #555; transition: transform .15s;
+  }
+  .plus-btn:active { transform: scale(0.92); }
+  .plus-btn.active { background: #E2E2E2; }
   .send-btn {
-    height: 34px; min-height: 34px; padding: 0 18px; border-radius: 6px; background: #07C160;
-    color: #fff; font-size: 13px; flex-shrink: 0;
+    height: 34px; min-height: 34px; padding: 0 16px; border-radius: 6px; background: #07C160;
+    color: #fff; font-size: 14px; flex-shrink: 0;
   }
   .send-btn:disabled { background: #ccc; }
+
+  /* 加号面板（微信风格） */
+  .plus-panel {
+    background: #F7F7F7; border-top: 1px solid #E2E2E2;
+    padding: 16px 12px calc(16px + env(safe-area-inset-bottom));
+    overflow-y: auto; max-height: 280px;
+  }
+  .pp-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px 8px;
+  }
+  .pp-item {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    cursor: pointer; user-select: none; transition: transform .12s;
+  }
+  .pp-item:active { transform: scale(0.92); }
+  .pp-icon {
+    width: 56px; height: 56px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; color: #fff;
+  }
+  .pp-label { font-size: 12px; color: #555; text-align: center; line-height: 1.2; }
 
   /* ============ 通用输入弹窗 ============ */
   .modal-mask {
@@ -366,6 +348,19 @@
     font-size: 16px; color: #111; text-align: center;
   }
   .modal-input:focus { background: #fff; box-shadow: inset 0 0 0 1.5px #07C160; }
+
+  /* 发布身份选择器 */
+  .modal-author-row {
+    display: flex; align-items: center; gap: 10px;
+    margin: 0 20px 12px; padding: 8px 12px;
+    background: #F5F5F5; border-radius: 6px;
+  }
+  .ma-label { font-size: 13px; color: #888; flex-shrink: 0; }
+  .ma-select {
+    flex: 1; height: 36px; border-radius: 6px; background: #fff;
+    border: 1px solid #E0E0E0; padding: 0 10px; font-size: 14px; color: #111;
+    -webkit-appearance: auto; appearance: auto;
+  }
 
   /* 头像选择区 */
   .modal-avatar-row {
@@ -416,7 +411,7 @@
     /* 聊天栏：返回按钮显示 */
     .chat-head .mobile-back { display: flex; }
     .chat-head { padding: 0 12px; gap: 8px; height: 52px; }
-    .chat-head .reply-btn { padding: 0 10px; font-size: 12px; height: 30px; }
+    .chat-head .reply-btn { padding: 0 12px; font-size: 12px; height: 36px; }
 
     .sidebar-head { padding: 12px 10px 8px; }
     .add-row input { height: 40px; font-size: 14px; }
@@ -438,13 +433,14 @@
     .card { width: 200px; }
     .msg-row .content { max-width: calc(100% - 56px); }
 
-    .quick-bar { padding: 6px 8px; gap: 2px; }
-    .quick-btn { min-width: 52px; padding: 6px 4px; }
-    .quick-btn .qi { font-size: 24px; }
+    .plus-panel { padding: 12px 10px calc(12px + env(safe-area-inset-bottom)); }
+    .pp-icon { width: 52px; height: 52px; border-radius: 12px; font-size: 26px; }
+    .pp-label { font-size: 11px; }
 
-    .input-row { padding: 8px 10px calc(10px + env(safe-area-inset-bottom)); }
+    .input-row { padding: 7px 8px calc(7px + env(safe-area-inset-bottom)); }
     .input-row textarea { font-size: 15px; }
     .send-btn { height: 36px; padding: 0 16px; }
+    .voice-ico-btn, .plus-btn, .emoji-btn { width: 32px; height: 32px; }
 
     .modal-box { width: 90vw; border-radius: 12px; }
     .modal-actions button { height: 50px; font-size: 16px; }
@@ -598,7 +594,7 @@
     display: flex; align-items: center; justify-content: space-between;
     padding: 12px 16px 8px; font-size: 14px; font-weight: 600; color: #191919;
   }
-  .qr-close { font-size: 20px; color: #999; width: 28px; height: 28px; }
+  .qr-close { font-size: 20px; color: #999; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
   .qr-img { display: flex; justify-content: center; padding: 0 16px 8px; }
   .qr-img img { width: 200px; height: 200px; border-radius: 8px; }
   .qr-url { text-align: center; font-size: 11px; color: #999; padding: 0 16px 8px; word-break: break-all; }
@@ -681,21 +677,21 @@
     </div>
     <div class="messages" id="messages"></div>
     <div class="input-area">
-      <div class="role-switch-bar">
-        <span class="rs-label">发言身份：</span>
-        <button class="rs-btn active" data-role="me" id="roleMeBtn">我</button>
-        <button class="rs-btn" data-role="friend" id="roleFriendBtn">对方</button>
-        <span class="rs-hint" id="roleHint"></span>
-      </div>
-      <div class="quick-bar">
-        <button class="quick-btn" data-act="transfer"><span class="qi">💰</span>转账</button>
-        <button class="quick-btn" data-act="redpacket"><span class="qi">🧧</span>红包</button>
-        <button class="quick-btn" data-act="voice"><span class="qi">📞</span>语音</button>
-        <button class="quick-btn" data-act="video"><span class="qi">📹</span>视频</button>
-      </div>
       <div class="input-row">
-        <textarea id="msgInput" placeholder="Enter发送，Shift+Enter换行" rows="1"></textarea>
-        <button class="send-btn" id="sendBtn">发送</button>
+        <button class="voice-ico-btn" id="voiceIcoBtn" title="按住说话">🎤</button>
+        <textarea id="msgInput" placeholder="" rows="1"></textarea>
+        <button class="emoji-btn" id="emojiBtn">😊</button>
+        <button class="plus-btn" id="plusBtn">+</button>
+        <button class="send-btn" id="sendBtn" style="display:none">发送</button>
+      </div>
+      <div class="plus-panel" id="plusPanel" style="display:none">
+        <div class="pp-grid">
+          <div class="pp-item" data-act="redpacket"><div class="pp-icon" style="background:#FA5151">🧧</div><div class="pp-label">红包</div></div>
+          <div class="pp-item" data-act="transfer"><div class="pp-icon" style="background:#FF9500">💰</div><div class="pp-label">转账</div></div>
+          <div class="pp-item" data-act="voice"><div class="pp-icon" style="background:#07C160">📞</div><div class="pp-label">语音通话</div></div>
+          <div class="pp-item" data-act="video"><div class="pp-icon" style="background:#07C160">📹</div><div class="pp-label">视频通话</div></div>
+          <div class="pp-item" data-act="role"><div class="pp-icon" id="ppRoleIcon" style="background:#576B95">我</div><div class="pp-label" id="ppRoleLabel">切换为对方</div></div>
+        </div>
       </div>
     </div>
   </div>
@@ -740,19 +736,19 @@
 <!-- 底部 TabBar：微信 / 通讯录 / 发现 / 我 -->
 <div class="tabbar">
   <div class="tab active" data-nav="chat">
-    <div class="t-ico">💬</div>
+    <svg class="t-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8.5 3C4.36 3 1 6.13 1 10c0 2.13 1.05 4.03 2.7 5.3-.1.6-.42 1.74-.96 2.66-.12.2.03.44.26.4 1.2-.18 2.4-.58 3.27-.94.98.36 2.05.58 3.18.58.28 0 .56-.01.83-.04-.18-.6-.28-1.24-.28-1.9 0-3.76 3.58-6.81 8-6.81.27 0 .53.01.79.03C17.88 5.6 13.6 3 8.5 3zM6 8.5a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5zm5 0a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5z"/><path d="M23 15.06c0-3.1-2.91-5.62-6.5-5.62S10 11.96 10 15.06c0 3.1 2.91 5.62 6.5 5.62.83 0 1.62-.13 2.35-.37.65.27 1.5.57 2.34.7.18.03.31-.15.22-.31-.37-.62-.62-1.4-.7-1.85.81-.86 1.29-1.96 1.29-3.15zm-8.5-.75a1 1 0 110 2 1 1 0 010-2zm4 0a1 1 0 110 2 1 1 0 010-2z"/></svg>
     <div class="t-txt">微信</div>
   </div>
   <div class="tab" data-nav="contacts">
-    <div class="t-ico">👥</div>
+    <svg class="t-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16a1 1 0 011 1v14a1 1 0 01-1 1H4a1 1 0 01-1-1V5a1 1 0 011-1zm1 2v12h14V6H5zm3 2h8v2H8V8zm0 3h8v2H8v-2zm0 3h5v2H8v-2z"/><circle cx="16" cy="15" r="0.5"/></svg>
     <div class="t-txt">通讯录</div>
   </div>
   <div class="tab" data-nav="moments">
-    <div class="t-ico">🧭</div>
+    <svg class="t-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 2c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8zm-1 4l1.5 3.5L16 13l-3.5 1.5L11 18l-1.5-3.5L6 13l3.5-1.5L11 8z"/></svg>
     <div class="t-txt">发现</div>
   </div>
   <div class="tab" data-nav="me">
-    <div class="t-ico">👤</div>
+    <svg class="t-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v3h20v-3c0-3.33-6.67-5-10-5z"/></svg>
     <div class="t-txt">我</div>
   </div>
 </div>
@@ -806,6 +802,10 @@
   <div class="modal-box">
     <div class="modal-title" id="modalTitle">转账金额</div>
     <div class="modal-sub" id="modalSub">请输入金额</div>
+    <div class="modal-author-row" id="modalAuthorRow" style="display:none">
+      <label class="ma-label">发布身份</label>
+      <select class="ma-select" id="modalAuthorSelect"></select>
+    </div>
     <input class="modal-input" id="modalInput" type="text">
     <div class="modal-avatar-row" id="modalAvatarRow" style="display:none">
       <div class="modal-avatar-preview" id="modalAvatarPreview"></div>
@@ -1003,6 +1003,9 @@ function sendText() {
   pushMessage('text', { from: state.currentRole, text });
   input.value = '';
   autoResize(input);
+  // 重置按钮：无文字时显示"+"，隐藏"发送"
+  document.getElementById('sendBtn').style.display = 'none';
+  document.getElementById('plusBtn').style.display = 'flex';
   // 收起软键盘（移动端）
   if (isMobile()) input.blur();
 }
@@ -1020,16 +1023,20 @@ function friendReply()  { if (!state.current) return; pushMessage('text', { from
 /* ---------- 切换发言身份 ---------- */
 function switchRole(role) {
   state.currentRole = role;
-  document.getElementById('roleMeBtn').classList.toggle('active', role === 'me');
-  document.getElementById('roleFriendBtn').classList.toggle('active', role === 'friend');
-  // 更新提示文字
-  const hint = document.getElementById('roleHint');
-  const contact = state.contacts.find(c => c.id === state.current);
-  if (role === 'friend' && contact) {
-    hint.textContent = '当前以「' + contact.name + '」身份发言';
-    hint.style.color = '#FA5151';
-  } else {
-    hint.textContent = '';
+  save();
+  // 更新加号面板中的身份切换图标
+  const ppRoleIcon = document.getElementById('ppRoleIcon');
+  const ppRoleLabel = document.getElementById('ppRoleLabel');
+  if (ppRoleIcon && ppRoleLabel) {
+    if (role === 'friend') {
+      ppRoleIcon.textContent = '友';
+      ppRoleLabel.textContent = '当前：对方';
+      flashTip('已切换为对方身份发言');
+    } else {
+      ppRoleIcon.textContent = '我';
+      ppRoleLabel.textContent = '切换为对方';
+      flashTip('已切换为我的身份发言');
+    }
   }
 }
 
@@ -1138,6 +1145,7 @@ function showInputModal(title, sub, defaultVal, onOk, options) {
   document.getElementById('modalSub').textContent = sub || '';
   const input = document.getElementById('modalInput');
   const avRow = document.getElementById('modalAvatarRow');
+  const authorRow = document.getElementById('modalAuthorRow');
   if (options.showAvatarRow) {
     avRow.style.display = 'flex';
     modalCtx = Object.assign({}, options.avatarCtx || {});
@@ -1146,6 +1154,7 @@ function showInputModal(title, sub, defaultVal, onOk, options) {
     avRow.style.display = 'none';
     modalCtx = {};
   }
+  authorRow.style.display = options.showAuthorRow ? 'flex' : 'none';
   input.value = defaultVal || '';
   input.style.display = options.hideInput ? 'none' : 'block';
   document.getElementById('modal').classList.add('show');
@@ -1412,22 +1421,41 @@ function renderMomentsPage() {
 
 /* ---------- 朋友圈：发表动态 ---------- */
 function showPostMomentModal() {
-  showInputModal('发表朋友圈', '说点什么吧…', '', val => {
+  // 填充发布身份选择器：我 + 所有联系人
+  const sel = document.getElementById('modalAuthorSelect');
+  let opts = `<option value="me">${escapeHtml(state.me.name || '我')}（我）</option>`;
+  state.contacts.forEach(c => {
+    opts += `<option value="${c.id}">${escapeHtml(c.name)}</option>`;
+  });
+  sel.innerHTML = opts;
+
+  showInputModal('发表朋友圈', '选择发布身份，说点什么…', '', val => {
     const text = (val || '').trim();
     if (!text) return;
+    const authorId = sel.value;
+    let authorName, color, avatar;
+    if (authorId === 'me') {
+      authorName = state.me.name || '我';
+      color = state.me.color;
+      avatar = state.me.avatar;
+    } else {
+      const c = state.contacts.find(x => x.id === authorId);
+      if (!c) return;
+      authorName = c.name;
+      color = c.color;
+      avatar = c.avatar;
+    }
     const m = {
-      id: uid(), authorId: 'me', authorName: state.me.name || '我',
-      color: state.me.color, avatar: state.me.avatar,
+      id: uid(), authorId, authorName,
+      color, avatar,
       text, ts: nowTime(), likes: [], comments: []
     };
     state.moments.push(m);
     save();
     renderMomentsPage();
-  }, { showAvatarRow: false, hideInput: false });
-  // 改为多行输入
+  }, { showAuthorRow: true, showAvatarRow: false, hideInput: false });
   const input = document.getElementById('modalInput');
   if (input) {
-    input.type = 'text';
     input.placeholder = '这一刻的想法…';
   }
 }
@@ -1553,17 +1581,44 @@ function bindEvents() {
   msgInput.addEventListener('keydown', e => {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendText(); }
   });
-  msgInput.addEventListener('input', () => autoResize(msgInput));
 
-  // 快捷按钮
-  document.querySelectorAll('.quick-btn').forEach(btn => {
-    btn.onclick = () => {
-      const act = btn.dataset.act;
+  // 快捷按钮 → 加号面板
+  const plusBtn = document.getElementById('plusBtn');
+  const plusPanel = document.getElementById('plusPanel');
+  const sendBtn = document.getElementById('sendBtn');
+  const msgInputEl = document.getElementById('msgInput');
+
+  plusBtn.addEventListener('click', () => {
+    const isShown = plusPanel.style.display !== 'none';
+    plusPanel.style.display = isShown ? 'none' : 'block';
+    plusBtn.classList.toggle('active', !isShown);
+    if (!isShown) msgInputEl.blur();
+  });
+
+  // 输入框有文字时显示"发送"按钮，无文字时显示"+"按钮
+  msgInputEl.addEventListener('input', () => {
+    autoResize(msgInputEl);
+    const hasText = msgInputEl.value.trim().length > 0;
+    sendBtn.style.display = hasText ? 'block' : 'none';
+    plusBtn.style.display = hasText ? 'none' : 'flex';
+  });
+
+  // 加号面板功能项
+  document.querySelectorAll('.pp-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const act = item.dataset.act;
       if (act === 'transfer') sendTransfer();
       else if (act === 'redpacket') sendRedPacket();
       else if (act === 'voice') sendVoice();
       else if (act === 'video') sendVideo();
-    };
+      else if (act === 'role') {
+        if (!state.current) { flashTip('请先选择联系人'); return; }
+        switchRole(state.currentRole === 'me' ? 'friend' : 'me');
+      }
+      // 操作后关闭面板
+      plusPanel.style.display = 'none';
+      plusBtn.classList.remove('active');
+    });
   });
 
   // 模拟好友回复
@@ -1606,13 +1661,6 @@ function bindEvents() {
   document.getElementById('resetAvatarBtn').addEventListener('click', () => {
     modalCtx.avatar = null;
     updateModalAvatarPreview();
-  });
-
-  // 发言身份切换
-  document.getElementById('roleMeBtn').addEventListener('click', () => switchRole('me'));
-  document.getElementById('roleFriendBtn').addEventListener('click', () => {
-    if (!state.current) { flashTip('请先选择联系人'); return; }
-    switchRole('friend');
   });
 
   /* ===== 导航切换 / 通讯录 / 朋友圈 / 我 事件 ===== */
@@ -1693,8 +1741,24 @@ function init() {
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('./sw.js', { scope: './' })
-        .then(reg => console.log('[PWA] ServiceWorker 注册成功，scope:', reg.scope))
+        .then(reg => {
+          console.log('[PWA] ServiceWorker 注册成功，scope:', reg.scope);
+          // 检测更新
+          reg.addEventListener('updatefound', () => {
+            const newWorker = reg.installing;
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                newWorker.postMessage('SKIP_WAITING');
+              }
+            });
+          });
+        })
         .catch(err => console.warn('[PWA] SW 未注册：', err.message || err));
+      // SW 接管后自动刷新页面
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (!refreshing) { refreshing = true; location.reload(); }
+      });
     });
   }
 
@@ -1796,13 +1860,26 @@ function showQRPanel() {
   const qrPanel = document.getElementById('qrPanel');
   const qrImg = document.getElementById('qrImg');
   const qrUrl = document.getElementById('qrUrl');
-  const url = window.location.href; // 当前页面的完整 URL（含局域网 IP）
+  const url = window.location.href;
 
-  // 用在线 API 生成二维码（安装时需要网络，安装后即可离线）
-  qrImg.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=8&data=${encodeURIComponent(url)}" alt="扫码打开">`;
+  // 优先用在线 API 生成二维码；离线时降级显示 URL 文本
+  const img = new Image();
+  img.alt = '扫码打开';
+  img.onload = () => { qrImg.innerHTML = ''; qrImg.appendChild(img); };
+  img.onerror = () => {
+    qrImg.innerHTML = '<div style="padding:20px;text-align:center;color:#999;font-size:13px;">当前处于离线状态，无法生成二维码。<br>请手动复制下方网址到手机浏览器打开：</div>';
+  };
+  img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=8&data=' + encodeURIComponent(url);
+  qrImg.innerHTML = '<div style="padding:20px;color:#999;">正在生成二维码...</div>';
+
   qrUrl.textContent = url;
+  qrUrl.style.cursor = 'pointer';
+  qrUrl.title = '点击复制网址';
+  qrUrl.onclick = () => {
+    if (navigator.clipboard) navigator.clipboard.writeText(url).then(()=>alert('网址已复制，可粘贴到手机浏览器打开'));
+    else { document.execCommand('copy'); alert('网址已复制'); }
+  };
 
-  // 检测是否是 iOS（显示苹果指引）
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
   document.getElementById('qrStepsAndroid').style.display = isIOS ? 'none' : 'block';
   document.getElementById('qrStepsIOS').style.display = isIOS ? 'block' : 'none';

@@ -1,30 +1,12 @@
 {
-  "name": "微信聊天",
-  "short_name": "微信",
-  "start_url": ".",
-  "display": "standalone",
-  "scope": ".",
-  "background_color": "#ffffff",
-  "theme_color": "#07C160",
-  "orientation": "portrait",
-  "icons": [
-    { "src": "icons/icon-72x72.png", "sizes": "72x72", "type": "image/png" },
-    { "src": "icons/icon-96x96.png", "sizes": "96x96", "type": "image/png" },
-    { "src": "icons/icon-120x120.png", "sizes": "120x120", "type": "image/png" },
-    { "src": "icons/icon-128x128.png", "sizes": "128x128", "type": "image/png" },
-    { "src": "icons/icon-152x152.png", "sizes": "152x152", "type": "image/png" },
-    { "src": "icons/icon-180x180.png", "sizes": "180x180", "type": "image/png" },
-    { "src": "icons/icon-192x192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "icons/icon-512x512.png", "sizes": "512x512", "type": "image/png" }
-  ]
-}
-{
   "name": "微信聊天模拟",
   "short_name": "微信聊天",
   "description": "仿微信多联系人聊天应用，支持自定义头像、转账/红包/通话卡片、离线运行",
-  "start_url": "./index.html",
+  "id": "./index.html",
+  "start_url": "./index.html?source=pwa",
   "scope": "./",
   "display": "standalone",
+  "display_override": ["standalone", "fullscreen", "minimal-ui"],
   "orientation": "portrait",
   "background_color": "#EDEDED",
   "theme_color": "#07C160",
@@ -33,22 +15,61 @@
   "categories": ["communication", "social", "utilities"],
   "icons": [
     {
-      "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='42' fill='%2307C160'/><text x='96' y='123' font-family='PingFang SC,Microsoft YaHei,sans-serif' font-size='106' fill='white' text-anchor='middle' font-weight='bold'>微</text></svg>",
-      "sizes": "192x192",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "src": "icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='112' fill='%2307C160'/><text x='256' y='328' font-family='PingFang SC,Microsoft YaHei,sans-serif' font-size='282' fill='white' text-anchor='middle' font-weight='bold'>微</text></svg>",
+      "src": "icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-192x192-maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512x512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "shortcuts": [
     {
       "name": "新对话",
-      "url": "./index.html"
+      "url": "./index.html?source=pwa",
+      "icons": [
+        { "src": "icons/icon-96x96.png", "sizes": "96x96", "type": "image/png" }
+      ]
     }
   ]
 }

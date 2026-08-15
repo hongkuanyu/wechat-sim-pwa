@@ -1,5 +1,5 @@
 ========================================================================
-  微信聊天模拟 v2 (PWA版)  ·  安装与使用说明
+  微信聊天模拟 v3 (PWA版)  ·  安装与使用说明
 ========================================================================
 
 ★★★ 已部署公网地址（永久可用，手机直接访问即可安装，不用电脑）★★★
@@ -15,6 +15,9 @@
    └ index.html           主程序（HTML+CSS+JS 单文件，已内嵌全部逻辑）
    └ manifest.webmanifest PWA 清单（应用名称/图标/全屏参数）
    └ sw.js                Service Worker（离线缓存核心，安装后断网可运行）
+   └ offline.html         离线回退页面（完全断网时显示）
+   └ favicon.png          浏览器标签页图标
+   └ icons/               PNG 图标目录（多尺寸，兼容 iOS/安卓）
    └ 一键启动服务器.bat            本机访问用（双击启动）
    └ 一键启动服务器(局域网公开).bat 手机在同一WiFi下安装用
    └ 一键安装.bat                   自动启动+自动打开浏览器+显示IP
@@ -101,18 +104,19 @@
 
 【兼容性检查（已验证无问题）】
  ① PWA 注册：Service Worker scope 为 ./，与 index.html/sw.js/manifest 同目录
- ② manifest 图标：192x192 和 512x512 均使用 SVG dataURL 内嵌
- ③ 苹果专用 meta：apple-mobile-web-app-capable、apple-touch-icon
+ ② manifest 图标：192x192 和 512x512 真实 PNG 文件 + maskable 自适应图标
+ ③ 苹果专用 meta：apple-mobile-web-app-capable、apple-touch-icon（PNG 多尺寸）
  ④ 软键盘适配：iOS 使用 visualViewport.resize 回调防止输入框被遮
  ⑤ 安全区：viewport-fit=cover + env(safe-area-inset-*) 兼容 iPhone 刘海
  ⑥ 头像失败兜底：<img onerror> 失败时自动降级为文字头像
- ⑦ SW 缓存：cache-first + activate 清旧版 + navigate fallback 到 index.html
+ ⑦ SW 缓存：导航网络优先+静态缓存优先+offline.html 三级回退
  ⑧ localStorage 超限：try/catch 包裹 save()，并弹出中文提示
  ⑨ 移动端触控：所有按钮 ≥44px
  ⑩ 输入：Enter 发送 / Shift+Enter 换行，发送后 blur 收起软键盘
  ⑪ beforeinstallprompt：支持的浏览器顶部自动弹安装横幅
- ⑫ 各浏览器 fallback：不支持 beforeinstallprompt 时，点击安装按钮
-     弹出含全部主流浏览器操作步骤的中文提示
+ ⑫ 各浏览器 fallback：不支持 beforeinstallprompt 时弹出操作指引
+ ⑬ 离线运行：所有资源（HTML/图标/manifest）由 SW 预缓存，断网可用
+ ⑭ 二维码面板：离线时降级显示 URL 文本+点击复制，不影响核心功能
 
 ========================================================================
 
