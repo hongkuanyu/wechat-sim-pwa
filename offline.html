@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>离线 - 微信聊天</title>
+  <meta name="theme-color" content="#07C160">
+  <style>
+    body{font-family: -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;margin:0;display:flex;align-items:center;justify-content:center;height:100vh;background:#f5f5f5;color:#333}
+    .box{width:90%;max-width:420px;background:#fff;border-radius:12px;padding:24px;text-align:center;box-shadow:0 6px 30px rgba(0,0,0,.08)}
+    .logo{font-size:48px;margin-bottom:12px}
+    h1{font-size:18px;margin:6px 0}
+    p{color:#666;font-size:14px}
+    button{margin-top:18px;background:#07C160;color:#fff;border:none;padding:10px 18px;border-radius:8px;font-size:15px}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="logo">📱</div>
+    <h1>当前处于离线或网络不可用</h1>
+    <p>应用已缓存到设备后可离线使用。请检查网络或稍后重试，若已安装请从主屏幕打开。</p>
+    <div>
+      <button onclick="location.reload()">重试</button>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>微信聊天</title>
+<meta name="theme-color" content="#07C160">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="微信聊天">
+<!-- 动态生成 PNG 图标并创建 manifest（提高 iOS/Android 图标兼容性） -->
+<script>
+(function(){
+  try{
+    const svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'>"+
+      "<rect width='128' height='128' rx='28' fill='%2307C160'/>"+
+      "<text x='64' y='82' font-family='sans-serif' font-size='70' fill='white' text-anchor='middle' font-weight='bold'>微</text>"+
+      "</svg>";
+    const svgUrl = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+    const sizes = [72,96,120,128,152,180,192,512];
+    const loadImg = src => new Promise((res, rej) => { const img = new Image(); img.onload = () => res(img); img.onerror = rej; img.src = src; });
+    loadImg(svgUrl).then(img => {
+      const icons = [];
+      sizes.forEach(sz => {
+        const c = document.createElement('canvas'); c.width = sz; c.height = sz;
+        const ctx = c.getContext('2d');
+        ctx.fillStyle = '#ffffff'; ctx.fillRect(0,0,sz,sz);
+        ctx.drawImage(img, 0, 0, sz, sz);
+        const data = c.toDataURL('image/png');
+        icons.push({ src: data, sizes: sz + 'x' + sz, type: 'image/png' });
+        // 同时注入 apple-touch-icon 链接以提升 iOS 主屏幕图标体验
+        const link = document.createElement('link'); link.rel = 'apple-touch-icon'; link.sizes = sz + 'x' + sz; link.href = data; document.head.appendChild(link);
+      });
+      const manifest = {
+        name: '微信聊天', short_name: '微信', start_url: '.', display: 'standalone',
+        scope: '.', background_color: '#ffffff', theme_color: '#07C160', orientation: 'portrait', icons
+      };
+      const blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const ml = document.querySelector('link[rel="manifest"]');
+      if (ml) ml.href = url; else { const l = document.createElement('link'); l.rel = 'manifest'; l.href = url; document.head.appendChild(l); }
+    }).catch(()=>{});
+  }catch(e){}
+})();
+</script>
+<link rel="manifest" href="manifest.webmanifest">
+<!-- 静态图标优先：在 manifest 中引用了 icons/ 下的 PNG 文件 -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='28' fill='%2307C160'/><text x='64' y='82' font-family='sans-serif' font-size='70' fill='white' text-anchor='middle' font-weight='bold'>微</text></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='28' fill='%2307C160'/><text x='64' y='82' font-family='sans-serif' font-size='70' fill='white' text-anchor='middle' font-weight='bold'>微</text></svg>">
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='28' fill='%2307C160'/><text x='64' y='82' font-family='sans-serif' font-size='70' fill='white' text-anchor='middle' font-weight='bold'>微</text></svg>">
+<link rel="apple-touch-icon" sizes="152x152" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='28' fill='%2307C160'/><text x='64' y='82' font-family='sans-serif' font-size='70' fill='white' text-anchor='middle' font-weight='bold'>微</text></svg>">
+<link rel="apple-touch-icon" sizes="120x120" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='28' fill='%2307C160'/><text x='64' y='82' font-family='sans-serif' font-size='70' fill='white' text-anchor='middle' font-weight='bold'>微</text></svg>">
+<link rel="apple-touch-icon" sizes="76x76" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='28' fill='%2307C160'/><text x='64' y='82' font-family='sans-serif' font-size='70' fill='white' text-anchor='middle' font-weight='bold'>微</text></svg>">
+<meta name="msapplication-TileColor" content="#07C160">
+<style>
+  /* ============ 全局重置与基础样式 ============ */
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; width: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    font-size: 14px; color: #111; background: #f5f5f5; overflow: hidden;
+    /* 苹果刘海屏安全区 */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  input, textarea { -webkit-user-select: text; user-select: text; }
+  button { font-family: inherit; cursor: pointer; border: none; outline: none; background: none; -webkit-appearance: none; }
+  input, textarea { font-family: inherit; outline: none; border: none; -webkit-appearance: none; }
+
+  /* ============ 主容器：三栏布局 + 底部 TabBar 预留空间 ============ */
+  .app {
+    display: flex; height: 100%; width: 100%; position: relative;
+    overflow: hidden; padding-bottom: 56px; box-sizing: border-box;
+  }
+
+  /* —— 左侧窄用户栏（仅显示我的头像，仿微信 PC 功能栏） —— */
+  .navbar {
+    width: 60px; background: #2E2E2E; flex-shrink: 0;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 18px 0 14px;
+  }
+  .navbar .my-avatar {
+    width: 40px; height: 40px; border-radius: 6px; position: relative; cursor: pointer;
+    background: #07C160; color: #fff; font-size: 16px; overflow: hidden;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .navbar .my-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .navbar .my-avatar::after {
+    content: ""; position: absolute; inset: 0;
+  }
+
+  /* 预留底部 TabBar 空间 */
+  .app { padding-bottom: 56px; box-sizing: border-box; }
+  .page-contacts, .page-moments, .page-me { padding-bottom: 56px; box-sizing: border-box; }
+
+  /* —— 底部 TabBar（仿微信 4 个主入口） —— */
+  .tabbar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 990;
+    height: 56px; background: #F7F7F7; border-top: 1px solid #E2E2E2;
+    display: flex;
+    /* iOS 安全区 */
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  .tabbar .tab {
+    flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    cursor: pointer; color: #666; gap: 2px; user-select: none;
+    transition: transform .1s;
+  }
+  .tabbar .tab:active { transform: scale(0.95); }
+  .tabbar .tab .t-ico { font-size: 22px; line-height: 1; }
+  .tabbar .tab .t-txt { font-size: 10px; line-height: 1.2; }
+  .tabbar .tab.active { color: #07C160; }
+
+  /* —— "我"页面样式 —— */
+  .page-me {
+    display: none; flex-direction: column; flex: 1; background: #EDEDED;
+  }
+  body.view-me .page-me { display: flex; }
+  body.view-me .sidebar, body.view-me .chat { display: none; }
+
+  .me-list { flex: 1; overflow-y: auto; padding: 12px 0; }
+  .me-card-big {
+    display: flex; align-items: center; gap: 14px;
+    background: #fff; padding: 18px 16px; margin-bottom: 10px;
+    border-bottom: 1px solid #EEE; border-top: 1px solid #EEE;
+    cursor: pointer;
+  }
+  .me-card-big .me-av {
+    width: 62px; height: 62px; border-radius: 8px; flex-shrink: 0;
+    background: #07C160; color: #fff; font-size: 22px;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  .me-card-big .me-av img { width: 100%; height: 100%; object-fit: cover; }
+  .me-card-big .me-info { flex: 1; min-width: 0; }
+  .me-card-big .me-nm { font-size: 18px; color: #191919; font-weight: 600; }
+  .me-card-big .me-wx { font-size: 12px; color: #888; margin-top: 4px; }
+  .me-card-big .me-arrow { color: #BBB; font-size: 20px; }
+
+  .me-group {
+    background: #fff; border-top: 1px solid #EEE; border-bottom: 1px solid #EEE;
+    margin-bottom: 10px;
+  }
+  .me-group .me-row {
+    display: flex; align-items: center; padding: 14px 16px;
+    border-bottom: 1px solid #F2F2F2; cursor: pointer;
+  }
+  .me-group .me-row:last-child { border-bottom: none; }
+  .me-group .me-ico { width: 24px; height: 24px; font-size: 18px; margin-right: 12px; text-align: center; }
+  .me-group .me-name { flex: 1; font-size: 15px; color: #191919; }
+  .me-group .me-arrow { color: #BBB; font-size: 18px; }
+
+  /* —— 中间联系人列表栏 —— */
+  .sidebar {
+    width: 300px; flex-shrink: 0; background: #F4F4F4;
+    display: flex; flex-direction: column; border-right: 1px solid #E2E2E2;
+  }
+  .sidebar-head { padding: 14px 12px 10px; }
+  .add-row { display: flex; gap: 8px; }
+  .add-row input {
+    flex: 1; height: 34px; border-radius: 6px; background: #E3E3E3;
+    padding: 0 12px; font-size: 13px; color: #333;
+  }
+  .add-row input::placeholder { color: #999; }
+  .add-btn {
+    width: 34px; height: 34px; border-radius: 6px; background: #07C160;
+    color: #fff; font-size: 20px; line-height: 1;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .search-box { margin-top: 8px; }
+  .search-box input {
+    width: 100%; height: 28px; border-radius: 6px; background: #E3E3E3;
+    padding: 0 12px; font-size: 12px; color: #333;
+  }
+
+  .contact-list { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .contact-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px; cursor: pointer; position: relative;
+    border-bottom: 1px solid #ECECEC;
+    min-height: 56px;
+  }
+  .contact-item:hover { background: #ECECEC; }
+  .contact-item.active { background: #DCDCDC; }
+  .contact-item .avatar-wrap {
+    width: 40px; height: 40px; border-radius: 6px; flex-shrink: 0; position: relative;
+    color: #fff; font-size: 17px; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .contact-item .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .contact-item .avatar-edit-hint {
+    position: absolute; inset: 0; background: rgba(0,0,0,.5); color: #fff; font-size: 10px;
+    display: none; align-items: center; justify-content: center;
+  }
+  .contact-item .meta { flex: 1; min-width: 0; }
+  .contact-item .name {
+    font-size: 14px; color: #191919; font-weight: 500;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .contact-item .last {
+    font-size: 12px; color: #999; margin-top: 3px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .contact-item .del {
+    position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+    width: 28px; height: 28px; min-width: 28px; min-height: 28px; border-radius: 50%; background: #ccc;
+    color: #fff; font-size: 16px; line-height: 1; z-index: 3;
+    display: none; align-items: center; justify-content: center;
+  }
+  .contact-item:hover .del { display: flex; }
+  .empty-list { padding: 30px 12px; text-align: center; color: #aaa; font-size: 13px; }
+
+  /* —— 右侧聊天窗口 —— */
+  .chat {
+    flex: 1; display: flex; flex-direction: column; background: #F5F5F5; min-width: 0;
+  }
+  .chat-head {
+    height: 56px; min-height: 48px; flex-shrink: 0; background: #F5F5F5;
+    border-bottom: 1px solid #E2E2E2;
+    display: flex; align-items: center; padding: 0 20px; gap: 12px;
+  }
+  .chat-head .mobile-back {
+    display: none; width: 32px; height: 32px; align-items: center; justify-content: center;
+    font-size: 22px; color: #555; margin-right: 4px;
+  }
+  .chat-head .title { font-size: 16px; font-weight: 500; color: #191919; flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .reply-btn {
+    height: 32px; min-height: 32px; padding: 0 12px; border-radius: 4px; background: #07C160;
+    color: #fff; font-size: 13px; display: flex; align-items: center; gap: 5px; flex-shrink: 0;
+  }
+  .reply-btn:disabled { background: #bbb; }
+
+  .messages {
+    flex: 1; overflow-y: auto; padding: 16px 20px; background: #EDEDED;
+    -webkit-overflow-scrolling: touch;
+  }
+  .empty-chat {
+    height: 100%; display: flex; align-items: center; justify-content: center;
+    color: #bbb; font-size: 15px; flex-direction: column; gap: 12px;
+  }
+  .empty-chat .logo { font-size: 52px; opacity: .5; }
+
+  /* 时间分隔条 */
+  .time-sep {
+    text-align: center; margin: 14px 0 10px; color: #999; font-size: 12px;
+  }
+
+  /* 消息行 */
+  .msg-row {
+    display: flex; align-items: flex-start; margin-bottom: 16px; gap: 10px;
+  }
+  .msg-row.me { flex-direction: row-reverse; }
+  .msg-row .avatar-wrap {
+    width: 38px; height: 38px; border-radius: 6px; flex-shrink: 0; position: relative; overflow: hidden;
+    color: #fff; font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .msg-row .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .msg-row .content { max-width: 60%; display: flex; flex-direction: column; }
+  .msg-row.me .content { align-items: flex-end; }
+
+  /* 气泡 */
+  .bubble {
+    position: relative; padding: 9px 13px; border-radius: 6px;
+    font-size: 14px; line-height: 1.55; word-break: break-word;
+    max-width: 100%;
+  }
+  .msg-row.me .bubble { background: #95EC69; color: #000; }
+  .msg-row.friend .bubble { background: #fff; color: #111; }
+  .bubble::before {
+    content: ""; position: absolute; top: 13px; border: 6px solid transparent;
+  }
+  .msg-row.me .bubble::before { right: -10px; border-left-color: #95EC69; }
+  .msg-row.friend .bubble::before { left: -10px; border-right-color: #fff; }
+
+  /* 系统消息 */
+  .msg-sys {
+    text-align: center; margin: 12px 0; color: #888; font-size: 12px;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .msg-sys .pill {
+    background: #fff; border-radius: 6px; padding: 6px 12px;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+
+  /* 转账卡片 */
+  .card { width: 220px; border-radius: 6px; overflow: hidden; cursor: pointer; }
+  .card.transfer { background: #FFF7E6; }
+  .card.transfer .ct-top { display: flex; align-items: center; gap: 10px; padding: 14px; }
+  .card.transfer .ct-icon {
+    width: 36px; height: 36px; border-radius: 50%; background: #FF9500;
+    color: #fff; font-size: 18px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .card.transfer .ct-title { font-size: 13px; color: #888; }
+  .card.transfer .ct-amt { font-size: 17px; font-weight: 600; color: #222; margin-top: 2px; }
+  .card.transfer .ct-foot {
+    padding: 7px 14px; font-size: 12px; color: #999; border-top: 1px solid #FFE9C2;
+  }
+
+  /* 红包卡片 */
+  .card.redpacket { background: #FA5151; display: flex; align-items: stretch; }
+  .card.redpacket .rp-left {
+    width: 56px; display: flex; align-items: center; justify-content: center;
+    font-size: 26px; background: rgba(0,0,0,.08);
+  }
+  .card.redpacket .rp-right { padding: 12px 14px; color: #fff; flex: 1; }
+  .card.redpacket .rp-title { font-size: 15px; font-weight: 500; }
+  .card.redpacket .rp-sub { font-size: 12px; opacity: .85; margin-top: 4px; }
+  .card.redpacket .rp-amt { font-size: 12px; opacity: .85; margin-top: 6px; }
+
+  /* —— 输入区 —— */
+  .input-area { flex-shrink: 0; background: #fff; border-top: 1px solid #E2E2E2; }
+  /* 发言身份切换条 */
+  .role-switch-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 12px; border-bottom: 1px solid #F0F0F0; background: #FAFAFA;
+  }
+  .role-switch-bar .rs-label { font-size: 12px; color: #888; flex-shrink: 0; }
+  .role-switch-bar .rs-btn {
+    height: 28px; min-height: 28px; padding: 0 14px; border-radius: 14px;
+    font-size: 12px; color: #666; background: #EEE; border: 1.5px solid transparent;
+    transition: all .15s;
+  }
+  .role-switch-bar .rs-btn.active { color: #fff; background: #07C160; border-color: #07C160; }
+  .role-switch-bar .rs-hint { font-size: 11px; color: #AAA; margin-left: auto; }
+  .quick-bar {
+    display: flex; gap: 4px; padding: 6px 12px; border-bottom: 1px solid #F0F0F0;
+    flex-wrap: wrap; justify-content: space-around;
+  }
+  .quick-btn {
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    padding: 8px 6px; border-radius: 6px; color: #555; font-size: 11px;
+    min-width: 56px; min-height: 48px;
+  }
+  .quick-btn .qi { font-size: 22px; line-height: 1; }
+  .input-row { display: flex; align-items: flex-end; padding: 10px 12px 12px; gap: 10px; }
+  .input-row textarea {
+    flex: 1; resize: none; height: 28px; max-height: 108px;
+    border-radius: 6px; background: #F5F5F5; padding: 6px 10px;
+    font-size: 14px; line-height: 1.5; color: #111;
+  }
+  .send-btn {
+    height: 34px; min-height: 34px; padding: 0 18px; border-radius: 6px; background: #07C160;
+    color: #fff; font-size: 13px; flex-shrink: 0;
+  }
+  .send-btn:disabled { background: #ccc; }
+
+  /* ============ 通用输入弹窗 ============ */
+  .modal-mask {
+    position: fixed; inset: 0; background: rgba(0,0,0,.45);
+    display: none; align-items: center; justify-content: center; z-index: 999;
+    padding: 20px;
+  }
+  .modal-mask.show { display: flex; }
+  .modal-box {
+    width: 320px; max-width: 100%; background: #fff; border-radius: 10px; overflow: hidden;
+  }
+  .modal-title { padding: 18px 20px 6px; font-size: 16px; font-weight: 500; text-align: center; }
+  .modal-sub { text-align: center; font-size: 12px; color: #999; padding: 0 20px 10px; }
+  .modal-input {
+    display: block; width: calc(100% - 40px); margin: 0 20px 12px;
+    height: 42px; border-radius: 6px; background: #F2F2F2; padding: 0 12px;
+    font-size: 16px; color: #111; text-align: center;
+  }
+  .modal-input:focus { background: #fff; box-shadow: inset 0 0 0 1.5px #07C160; }
+
+  /* 头像选择区 */
+  .modal-avatar-row {
+    display: flex; align-items: center; gap: 12px; padding: 8px 20px 14px;
+  }
+  .modal-avatar-preview {
+    width: 56px; height: 56px; border-radius: 8px; flex-shrink: 0; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; color: #fff;
+  }
+  .modal-avatar-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .modal-avatar-actions { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+  .file-label {
+    display: inline-flex; align-items: center; justify-content: center;
+    height: 36px; padding: 0 14px; border-radius: 6px; background: #07C160;
+    color: #fff; font-size: 13px; cursor: pointer;
+  }
+  .file-label.sub { background: #999; }
+  .modal-avatar-actions small { color: #aaa; font-size: 11px; }
+
+  .modal-actions { display: flex; border-top: 1px solid #EEE; }
+  .modal-actions button { flex: 1; height: 48px; min-height: 44px; font-size: 15px; }
+  .modal-actions .cancel { color: #888; }
+  .modal-actions .ok { color: #07C160; font-weight: 500; border-left: 1px solid #EEE; }
+
+  /* 隐藏的原生文件输入框 */
+  .hidden-file { display: none; }
+
+  /* 滚动条 */
+  ::-webkit-scrollbar { width: 7px; height: 7px; }
+  ::-webkit-scrollbar-thumb { background: #cfcfcf; border-radius: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+
+  /* ============ 移动端适配（真实媒体查询，不用注入） ============ */
+  @media (max-width: 768px) {
+    .navbar { display: none; }
+    .app { /* 让列表和聊天在手机上是重叠切换，不是并排 */ }
+
+    /* 路由态：body.list-view => 显示列表；body.chat-view => 显示聊天 */
+    body.chat-view .sidebar { display: none; }
+    body.chat-view .chat { display: flex; width: 100%; }
+
+    body.list-view .sidebar {
+      display: flex; width: 100%; border-right: none;
+    }
+    body.list-view .chat { display: none; }
+
+    /* 聊天栏：返回按钮显示 */
+    .chat-head .mobile-back { display: flex; }
+    .chat-head { padding: 0 12px; gap: 8px; height: 52px; }
+    .chat-head .reply-btn { padding: 0 10px; font-size: 12px; height: 30px; }
+
+    .sidebar-head { padding: 12px 10px 8px; }
+    .add-row input { height: 40px; font-size: 14px; }
+    .add-btn { width: 40px; height: 40px; }
+    .search-box input { height: 34px; font-size: 13px; }
+
+    .contact-item { min-height: 64px; padding: 12px 10px; }
+    .contact-item .avatar-wrap { width: 44px; height: 44px; font-size: 19px; }
+    .contact-item .del {
+      display: flex;  /* 手机上常驻，没有 hover */
+      opacity: 0.7;
+    }
+
+    .messages { padding: 12px 10px; }
+    .msg-row .content { max-width: 72%; }
+    .bubble { font-size: 15px; }
+    .msg-row .avatar-wrap { width: 36px; height: 36px; font-size: 15px; }
+
+    .card { width: 200px; }
+    .msg-row .content { max-width: calc(100% - 56px); }
+
+    .quick-bar { padding: 6px 8px; gap: 2px; }
+    .quick-btn { min-width: 52px; padding: 6px 4px; }
+    .quick-btn .qi { font-size: 24px; }
+
+    .input-row { padding: 8px 10px calc(10px + env(safe-area-inset-bottom)); }
+    .input-row textarea { font-size: 15px; }
+    .send-btn { height: 36px; padding: 0 16px; }
+
+    .modal-box { width: 90vw; border-radius: 12px; }
+    .modal-actions button { height: 50px; font-size: 16px; }
+    .modal-input { height: 46px; }
+    .modal-mask { padding: 12px; }
+
+    .empty-chat { padding: 0 12px; text-align: center; }
+    .empty-chat .logo { font-size: 40px; }
+  }
+
+  /* 极小屏（<360px）进一步紧凑 */
+  @media (max-width: 360px) {
+    .contact-item .avatar-wrap { width: 40px; height: 40px; font-size: 17px; }
+    .msg-row .content { max-width: calc(100% - 52px); }
+  }
+
+  /* ============ 通讯录页面 ============ */
+  .page-contacts {
+    flex: 1; display: none; flex-direction: column; background: #fff;
+    overflow: hidden; min-width: 0;
+  }
+  body.view-contacts .page-contacts { display: flex; }
+  body.view-moments .page-moments { display: flex; }
+  body.view-me .page-me { display: flex; }
+  .pc-head {
+    height: 56px; min-height: 48px; flex-shrink: 0; background: #F5F5F5;
+    border-bottom: 1px solid #E2E2E2;
+    display: flex; align-items: center; padding: 0 20px; gap: 12px;
+  }
+  .pc-head .mobile-back { display: none; width: 32px; height: 32px; align-items: center; justify-content: center; font-size: 22px; color: #555; }
+  .pc-head .title { font-size: 16px; font-weight: 500; color: #191919; flex: 1; }
+  .pc-head .add-friend-btn {
+    height: 32px; padding: 0 12px; border-radius: 4px; background: #07C160;
+    color: #fff; font-size: 13px; display: flex; align-items: center; gap: 5px;
+  }
+  .pc-list { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 8px 0; }
+  .pc-group-head {
+    padding: 6px 16px; font-size: 12px; color: #888; background: #F7F7F7;
+  }
+  .pc-row {
+    display: flex; align-items: center; gap: 12px; padding: 10px 16px; cursor: pointer;
+    border-bottom: 1px solid #F0F0F0; min-height: 56px;
+  }
+  .pc-row:hover { background: #F5F5F5; }
+  .pc-row .avatar-wrap {
+    width: 40px; height: 40px; border-radius: 6px; flex-shrink: 0; position: relative; overflow: hidden;
+    color: #fff; font-size: 17px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .pc-row .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pc-row .info { flex: 1; min-width: 0; }
+  .pc-row .info .nm { font-size: 15px; color: #191919; }
+  .pc-row .info .reg { font-size: 12px; color: #B2B2B2; margin-top: 2px; }
+  .pc-row .chat-arrow { color: #C8C8CC; font-size: 18px; }
+
+  /* ============ 朋友圈页面 ============ */
+  .page-moments {
+    flex: 1; display: none; flex-direction: column; background: #EDEDED;
+    overflow: hidden; min-width: 0;
+  }
+  .pm-head {
+    height: 56px; min-height: 48px; flex-shrink: 0; background: #F5F5F5;
+    border-bottom: 1px solid #E2E2E2;
+    display: flex; align-items: center; padding: 0 20px; gap: 12px;
+  }
+  .pm-head .mobile-back { display: none; width: 32px; height: 32px; align-items: center; justify-content: center; font-size: 22px; color: #555; }
+  .pm-head .title { font-size: 16px; font-weight: 500; color: #191919; flex: 1; }
+  .pm-head .post-btn {
+    height: 32px; padding: 0 12px; border-radius: 4px; background: #07C160;
+    color: #fff; font-size: 13px; display: flex; align-items: center; gap: 5px;
+  }
+  /* 封面 + 我的头像 */
+  .pm-cover {
+    height: 200px; background: linear-gradient(135deg, #4A90D9 0%, #07C160 100%);
+    position: relative; flex-shrink: 0;
+  }
+  .pm-cover .me-card {
+    position: absolute; right: 16px; bottom: -28px; display: flex; align-items: center; gap: 10px;
+  }
+  .pm-cover .me-card .me-name { color: #fff; font-size: 16px; font-weight: 500; text-shadow: 0 1px 3px rgba(0,0,0,.4); }
+  .pm-cover .me-card .me-av {
+    width: 56px; height: 56px; border-radius: 8px; border: 2px solid #fff; overflow: hidden;
+    background: #07C160; color: #fff; font-size: 22px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .pm-cover .me-card .me-av img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pm-list { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 40px 0 16px; }
+  .pm-item {
+    display: flex; gap: 10px; padding: 14px 16px; background: #fff;
+    border-bottom: 1px solid #F0F0F0;
+  }
+  .pm-item .av {
+    width: 42px; height: 42px; border-radius: 6px; flex-shrink: 0; overflow: hidden;
+    color: #fff; font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .pm-item .av img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pm-item .body { flex: 1; min-width: 0; }
+  .pm-item .author { font-size: 15px; font-weight: 600; color: #576B95; }
+  .pm-item .text { font-size: 15px; color: #191919; line-height: 1.5; margin-top: 4px; word-break: break-word; }
+  .pm-item .meta { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; }
+  .pm-item .ts { font-size: 12px; color: #B2B2B2; }
+  .pm-item .actions { display: flex; gap: 10px; }
+  .pm-item .actions button {
+    font-size: 12px; color: #576B95; padding: 2px 8px; border-radius: 4px;
+    min-height: 28px; min-width: 40px;
+  }
+  .pm-item .actions button:hover { background: #F0F4FA; }
+  .pm-item .like-line {
+    margin-top: 6px; padding: 6px 8px; background: #F7F7F7; border-radius: 4px;
+    font-size: 13px; color: #576B95; line-height: 1.5;
+  }
+  .pm-item .cmt {
+    margin-top: 4px; padding: 6px 8px; background: #F7F7F7; border-radius: 4px;
+    font-size: 13px; color: #191919; line-height: 1.5;
+  }
+  .pm-item .cmt .who { color: #576B95; font-weight: 500; }
+  .pm-empty { padding: 60px 20px; text-align: center; color: #aaa; }
+
+  /* ============ 一键安装相关样式 ============ */
+  /* 顶部安装横幅 */
+  .install-banner {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 998;
+    background: #07C160; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,.2);
+    animation: slideDown .3s ease;
+  }
+  @keyframes slideDown { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+  .ib-content { display: flex; align-items: center; gap: 10px; padding: 10px 16px; max-width: 600px; margin: 0 auto; }
+  .ib-icon { font-size: 28px; flex-shrink: 0; }
+  .ib-text { flex: 1; min-width: 0; }
+  .ib-title { font-size: 15px; font-weight: 600; }
+  .ib-sub { font-size: 12px; opacity: .9; margin-top: 2px; }
+  .ib-btn {
+    height: 36px; min-height: 36px; padding: 0 20px; border-radius: 18px;
+    background: #fff; color: #07C160; font-size: 14px; font-weight: 600; flex-shrink: 0;
+  }
+  .ib-close { color: #fff; font-size: 22px; width: 32px; height: 32px; min-width: 32px; min-height: 32px; flex-shrink: 0; }
+
+  /* 二维码面板 */
+  .qr-panel {
+    position: fixed; bottom: 80px; right: 20px; z-index: 997;
+    animation: fadeIn .2s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .qr-box {
+    background: #fff; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,.15);
+    overflow: hidden; width: 260px;
+  }
+  .qr-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px 8px; font-size: 14px; font-weight: 600; color: #191919;
+  }
+  .qr-close { font-size: 20px; color: #999; width: 28px; height: 28px; }
+  .qr-img { display: flex; justify-content: center; padding: 0 16px 8px; }
+  .qr-img img { width: 200px; height: 200px; border-radius: 8px; }
+  .qr-url { text-align: center; font-size: 11px; color: #999; padding: 0 16px 8px; word-break: break-all; }
+  .qr-steps { padding: 0 16px 14px; font-size: 12px; color: #666; line-height: 1.6; }
+
+  /* 右下角浮动按钮 */
+  .fab-install {
+    position: fixed; bottom: 20px; right: 20px; z-index: 996;
+    width: 52px; height: 52px; border-radius: 50%;
+    background: #07C160; color: #fff; font-size: 24px;
+    box-shadow: 0 3px 12px rgba(7,193,96,.4);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .15s;
+  }
+  .fab-install:hover { transform: scale(1.08); }
+
+  /* 移动端：通讯录/朋友圈/我 全屏化 + 返回按钮 + TabBar 49px 触控高度 */
+  @media (max-width: 768px) {
+    /* TabBar 在移动端更高（符合微信标准 49px+安全区） */
+    .tabbar { height: 49px; }
+    .tabbar .tab .t-txt { font-size: 11px; }
+    .app { padding-bottom: calc(49px + env(safe-area-inset-bottom, 0)); }
+    .page-contacts, .page-moments, .page-me { padding-bottom: calc(49px + env(safe-area-inset-bottom, 0)); }
+
+    body.view-contacts .sidebar, body.view-contacts .chat { display: none; }
+    body.view-contacts .page-contacts { display: flex; width: 100%; }
+    body.view-moments .sidebar, body.view-moments .chat { display: none; }
+    body.view-moments .page-moments { display: flex; width: 100%; }
+    body.view-me .sidebar, body.view-me .chat, body.view-me .navbar { display: none; }
+    body.view-me .page-me { display: flex; width: 100%; }
+    .pc-head .mobile-back, .pm-head .mobile-back { display: flex; }
+    .pc-head, .pm-head { padding: 0 12px; height: 52px; }
+    .pm-cover { height: 160px; }
+    .pm-cover .me-card { right: 12px; bottom: -24px; }
+    .pm-cover .me-card .me-av { width: 48px; height: 48px; font-size: 18px; }
+    .pm-cover .me-card .me-name { font-size: 14px; }
+    .pc-row { min-height: 60px; padding: 12px 12px; }
+    .pm-item { padding: 12px; }
+    /* 移动端安装横幅适配 */
+    .qr-panel { bottom: 70px; right: 12px; }
+    .qr-box { width: 220px; }
+    .qr-img img { width: 170px; height: 170px; }
+    .fab-install { bottom: 14px; right: 14px; width: 48px; height: 48px; font-size: 22px; }
+    .ib-content { padding: 8px 12px; gap: 8px; }
+    .ib-sub { display: none; }
+  }
+</style>
+</head>
+<body class="list-view">
+<div class="app">
+  <!-- 左侧窄用户栏（仅显示我的头像） -->
+  <div class="navbar">
+    <div class="my-avatar" id="myAvatarBtn" title="点击修改我的头像">
+      <span id="myAvatarText">我</span>
+    </div>
+  </div>
+
+  <!-- 中间联系人列表 -->
+  <div class="sidebar">
+    <div class="sidebar-head">
+      <div class="add-row">
+        <input id="addInput" type="text" placeholder="输入好友昵称，回车添加" maxlength="20">
+        <button class="add-btn" id="addBtn" title="添加好友">+</button>
+      </div>
+      <div class="search-box">
+        <input id="searchInput" type="text" placeholder="搜索联系人">
+      </div>
+    </div>
+    <div class="contact-list" id="contactList"></div>
+  </div>
+
+  <!-- 右侧聊天窗口 -->
+  <div class="chat">
+    <div class="chat-head">
+      <button class="mobile-back" id="backBtn" title="返回联系人">‹</button>
+      <div class="title" id="chatTitle">微信聊天</div>
+      <button class="reply-btn" id="replyBtn" disabled>
+        <span>🤖</span><span>回复</span>
+      </button>
+    </div>
+    <div class="messages" id="messages"></div>
+    <div class="input-area">
+      <div class="role-switch-bar">
+        <span class="rs-label">发言身份：</span>
+        <button class="rs-btn active" data-role="me" id="roleMeBtn">我</button>
+        <button class="rs-btn" data-role="friend" id="roleFriendBtn">对方</button>
+        <span class="rs-hint" id="roleHint"></span>
+      </div>
+      <div class="quick-bar">
+        <button class="quick-btn" data-act="transfer"><span class="qi">💰</span>转账</button>
+        <button class="quick-btn" data-act="redpacket"><span class="qi">🧧</span>红包</button>
+        <button class="quick-btn" data-act="voice"><span class="qi">📞</span>语音</button>
+        <button class="quick-btn" data-act="video"><span class="qi">📹</span>视频</button>
+      </div>
+      <div class="input-row">
+        <textarea id="msgInput" placeholder="Enter发送，Shift+Enter换行" rows="1"></textarea>
+        <button class="send-btn" id="sendBtn">发送</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 通讯录页面 -->
+  <div class="page-contacts" id="pageContacts">
+    <div class="pc-head">
+      <button class="mobile-back" data-back-nav="chat">‹</button>
+      <div class="title">通讯录</div>
+      <button class="add-friend-btn" id="pcAddBtn">＋ 添加</button>
+    </div>
+    <div class="pc-list" id="pcList"></div>
+  </div>
+
+  <!-- 朋友圈页面 -->
+  <div class="page-moments" id="pageMoments">
+    <div class="pm-head">
+      <button class="mobile-back" data-back-nav="chat">‹</button>
+      <div class="title">朋友圈</div>
+      <button class="post-btn" id="pmPostBtn">＋ 发表</button>
+    </div>
+    <div class="pm-cover">
+      <div class="me-card">
+        <span class="me-name" id="pmMyName">我</span>
+        <div class="me-av" id="pmMyAvatar"></div>
+      </div>
+    </div>
+    <div class="pm-list" id="pmList"></div>
+  </div>
+
+  <!-- "我"页面 -->
+  <div class="page-me" id="pageMe">
+    <div class="pm-head">
+      <button class="mobile-back" data-back-nav="chat">‹</button>
+      <div class="title">我</div>
+      <div style="width:72px"></div>
+    </div>
+    <div class="me-list" id="meList"></div>
+  </div>
+</div>
+
+<!-- 底部 TabBar：微信 / 通讯录 / 发现 / 我 -->
+<div class="tabbar">
+  <div class="tab active" data-nav="chat">
+    <div class="t-ico">💬</div>
+    <div class="t-txt">微信</div>
+  </div>
+  <div class="tab" data-nav="contacts">
+    <div class="t-ico">👥</div>
+    <div class="t-txt">通讯录</div>
+  </div>
+  <div class="tab" data-nav="moments">
+    <div class="t-ico">🧭</div>
+    <div class="t-txt">发现</div>
+  </div>
+  <div class="tab" data-nav="me">
+    <div class="t-ico">👤</div>
+    <div class="t-txt">我</div>
+  </div>
+</div>
+
+<!-- 一键安装横幅（安卓 Chrome 自动弹出安装提示） -->
+<div class="install-banner" id="installBanner" style="display:none">
+  <div class="ib-content">
+    <span class="ib-icon">📱</span>
+    <div class="ib-text">
+      <div class="ib-title">安装到桌面</div>
+      <div class="ib-sub" id="installSub">点击右侧按钮，一键安装为手机/桌面应用</div>
+    </div>
+    <button class="ib-btn" id="installBtn">安装</button>
+    <button class="ib-close" id="installClose">×</button>
+  </div>
+</div>
+
+<!-- 安装二维码面板（桌面端显示，手机扫码用） -->
+<div class="qr-panel" id="qrPanel" style="display:none">
+  <div class="qr-box">
+    <div class="qr-head">
+      <span>📱 手机扫码安装</span>
+      <button class="qr-close" id="qrClose">×</button>
+    </div>
+    <div class="qr-img" id="qrImg"></div>
+    <div class="qr-url" id="qrUrl"></div>
+    <div class="qr-steps">
+      <div id="qrStepsAndroid" style="display:none">
+        <div><b>📱 安卓（任选一个浏览器）：</b></div>
+        <div style="margin-top:4px">
+          ① 用相机或微信扫码 → 选择浏览器打开<br>
+          ② <b>Chrome / Edge</b>：右上角 ⋮ → 「安装应用」<br>
+          ② <b>华为浏览器</b>：右下角 ▤ → 「添加到桌面」→ 安装<br>
+          ② <b>小米/红米浏览器</b>：右上角 ⋮ → 更多工具 → 安装应用<br>
+          ② <b>OPPO/vivo 浏览器</b>：底部菜单 → 添加到桌面 → 安装
+        </div>
+      </div>
+      <div id="qrStepsIOS" style="display:none">
+        <b>🍎 苹果：</b>用 <b>Safari</b> 扫码打开 → 底部「分享」→「添加到主屏幕」
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 桌面端右下角浮动"安装到手机"按钮 -->
+<button class="fab-install" id="fabInstall" title="安装到手机/桌面" style="display:none">
+  📱
+</button>
+
+<div class="modal-mask" id="modal">
+  <div class="modal-box">
+    <div class="modal-title" id="modalTitle">转账金额</div>
+    <div class="modal-sub" id="modalSub">请输入金额</div>
+    <input class="modal-input" id="modalInput" type="text">
+    <div class="modal-avatar-row" id="modalAvatarRow" style="display:none">
+      <div class="modal-avatar-preview" id="modalAvatarPreview"></div>
+      <div class="modal-avatar-actions">
+        <label class="file-label" for="avatarFileInput">📷 从相册选图片</label>
+        <button class="file-label sub" id="resetAvatarBtn" type="button">↺ 恢复默认文字头像</button>
+        <small>建议选正方形照片，会自动压缩到 128px</small>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="cancel" id="modalCancel">取消</button>
+      <button class="ok" id="modalOk">确认</button>
+    </div>
+  </div>
+</div>
+
+<input type="file" id="avatarFileInput" class="hidden-file" accept="image/*">
+<input type="file" id="avatarFileInputContact" class="hidden-file" accept="image/*">
+
+<script>
+/* ============================================================
+ *  微信聊天模拟 v2 (PWA版)
+ *  - 自定义头像：我 / 每个联系人 均可从相册选择图片
+ *  - 移动端自适应：真实 @media + body class 切换列表/聊天视图
+ *  - PWA：manifest + service worker 可安装+离线运行
+ *  - localStorage 持久化（base64头像压缩后存储，<10KB/张）
+ * ============================================================ */
+const STORE_KEY = 'wechat_sim_v2_pwa';
+const MOBILE_BREAKPOINT = 768; // 与CSS @media 一致
+
+let state = {
+  contacts: [],          // [{id, name, color, avatar}]  avatar=null表示文字头像，否则是base64
+  chats: {},             // { 联系人id: [消息数组] }
+  current: null,         // 当前选中的联系人id
+  me: { avatar: null, color: '#07C160', name: '我' },
+  moments: [],           // 朋友圈动态: [{id, authorId, authorName, color, avatar, text, ts, likes:[], comments:[{from,text}]}]
+  currentRole: 'me'      // 当前发言身份: 'me' 或 'friend'（可切换成对方自己回复自己）
+};
+
+const REPLY_POOL = ['收到了','好的','嗯嗯','哈哈','在的','OK','明白','没问题','稍等我看看','哈哈哈','行','收到收到','谢谢','好嘞','不错不错','好的好的'];
+
+/* ---------- 本地存储 ---------- */
+function load() {
+  try {
+    const d = localStorage.getItem(STORE_KEY);
+    if (d) {
+      const parsed = JSON.parse(d);
+      if (parsed && typeof parsed === 'object') {
+        Object.assign(state, parsed);
+        if (!state.contacts) state.contacts = [];
+        if (!state.chats) state.chats = {};
+        if (!state.me) state.me = { avatar: null, color: '#07C160', name: '我' };
+        if (!state.moments) state.moments = [];
+      }
+    }
+  } catch (e) { console.warn('读取本地数据失败', e); }
+}
+function save() {
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); }
+  catch (e) { console.warn('保存本地数据失败（可能超出5MB配额）', e); alert('保存失败：图片头像过多，建议移除几个联系人'); }
+}
+
+/* ---------- 工具函数 ---------- */
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+function pad(n) { return n < 10 ? '0' + n : '' + n; }
+function nowTime() { const d = new Date(); return pad(d.getHours()) + ':' + pad(d.getMinutes()); }
+
+const AV_COLORS = ['#7BA4D9','#E6A23C','#67C23A','#F56C6C','#909399','#9B59B6','#1ABC9C','#E67E22','#3498DB','#FA8C16'];
+function hashColor(name) {
+  let h = 0;
+  for (let i = 0; i < (name || '').length; i++) h = (h * 31 + name.charCodeAt(i)) >>> 0;
+  return AV_COLORS[h % AV_COLORS.length];
+}
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function isMobile() { return window.matchMedia('(max-width: ' + MOBILE_BREAKPOINT + 'px)').matches; }
+function setMobileView(view) {
+  document.body.classList.toggle('list-view', view === 'list');
+  document.body.classList.toggle('chat-view', view === 'chat');
+  // 滚动回顶
+  if (view === 'chat') setTimeout(() => { const b = document.getElementById('messages'); if (b) b.scrollTop = b.scrollHeight; }, 30);
+}
+
+/* ---------- 头像图片压缩：file => base64(最大128x128 jpeg q=0.85) ---------- */
+function compressImage(file, maxSize) {
+  maxSize = maxSize || 128;
+  return new Promise((resolve, reject) => {
+    if (!file || !file.type || !file.type.startsWith('image/')) return reject(new Error('不是图片文件'));
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error('读文件失败'));
+    reader.onload = e => {
+      const img = new Image();
+      img.onerror = () => reject(new Error('图片损坏'));
+      img.onload = () => {
+        const w = img.width, h = img.height;
+        const scale = Math.min(1, maxSize / Math.max(w, h));
+        const tw = Math.max(1, Math.round(w * scale)), th = Math.max(1, Math.round(h * scale));
+        const canvas = document.createElement('canvas');
+        canvas.width = tw; canvas.height = th;
+        const ctx = canvas.getContext('2d');
+        // 白色背景（防透明PNG变黑）
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0, 0, tw, th);
+        // 居中保持比例 draw
+        ctx.drawImage(img, 0, 0, tw, th);
+        try { resolve(canvas.toDataURL('image/jpeg', 0.85)); }
+        catch (e) { reject(new Error('压缩失败')); }
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+/* ---------- 头像 HTML 渲染：区分图片 / 文字，失败兜底 ---------- */
+function avatarHTML(name, color, image) {
+  if (image) {
+    const ch = escapeHtml((name || '?').trim().slice(0, 1) || '?');
+    return `<div class="avatar-wrap" style="background:${color || '#888'}">
+      <img src="${image}" alt="${ch}" loading="lazy"
+           onerror="this.onerror=null;this.remove();this.parentElement.innerHTML='<span style=\\'font-size:inherit;line-height:1\\'>${ch}</span>';">
+    </div>`;
+  }
+  const ch = escapeHtml((name || '?').trim().slice(0, 1) || '?');
+  return `<div class="avatar-wrap" style="background:${color || '#888'}"><span>${ch}</span></div>`;
+}
+
+/* 渲染"我的头像"到左上角导航条 */
+function renderMyAvatar() {
+  const btn = document.getElementById('myAvatarBtn');
+  const textEl = document.getElementById('myAvatarText');
+  if (state.me.avatar) {
+    btn.style.background = state.me.color || '#07C160';
+    btn.innerHTML = `<img src="${state.me.avatar}" alt="我" onerror="this.onerror=null;this.remove();const t=document.createElement('span');t.textContent='我';this.parentElement.appendChild(t);">`;
+  } else {
+    btn.style.background = state.me.color || '#07C160';
+    btn.innerHTML = '<span>我</span>';
+  }
+}
+
+/* ---------- 联系人管理 ---------- */
+function addContact(name) {
+  name = (name || '').trim();
+  if (!name) return;
+  if (state.contacts.some(c => c.name === name)) { flashTip('该联系人已存在'); return; }
+  const c = { id: uid(), name, color: hashColor(name), avatar: null };
+  state.contacts.push(c);
+  state.chats[c.id] = [];
+  save();
+  selectContact(c.id);
+  renderSidebar();
+}
+
+function selectContact(id) {
+  state.current = id;
+  state.currentRole = 'me'; // 切换联系人时重置为"我"发言
+  save();
+  // 移动端：选中后切到聊天视图
+  if (isMobile()) setMobileView('chat');
+  // 重置身份切换按钮
+  switchRole('me');
+  renderSidebar();
+  renderChat();
+}
+
+function deleteContact(id) {
+  const c = state.contacts.find(x => x.id === id);
+  if (!c) return;
+  if (!confirm(`确定删除联系人「${c.name}」及其聊天记录？`)) return;
+  state.contacts = state.contacts.filter(x => x.id !== id);
+  delete state.chats[id];
+  if (state.current === id) {
+    state.current = null;
+    if (isMobile()) setMobileView('list');
+  }
+  save();
+  renderSidebar();
+  renderChat();
+}
+
+/* ---------- 消息发送 ---------- */
+function pushMessage(type, data) {
+  if (!state.current) return;
+  const msg = Object.assign({ id: uid(), type, ts: nowTime() }, data);
+  state.chats[state.current].push(msg);
+  save();
+  renderChat();
+  renderSidebar();
+}
+function sendText() {
+  const input = document.getElementById('msgInput');
+  const text = input.value.trim();
+  if (!text || !state.current) return;
+  pushMessage('text', { from: state.currentRole, text });
+  input.value = '';
+  autoResize(input);
+  // 收起软键盘（移动端）
+  if (isMobile()) input.blur();
+}
+
+/* ---------- 特殊消息卡片 ---------- */
+function fmtAmount(v) { const n = parseFloat(v); return (isNaN(n) || n <= 0) ? '0.00' : n.toFixed(2); }
+function randomDuration() { const total = 30 + Math.floor(Math.random() * 870); const m = Math.floor(total/60), s = total%60; return pad(m)+':'+pad(s); }
+
+function sendTransfer() { if (!state.current) return; showInputModal('转账金额', '请输入金额（元）', '', val => { pushMessage('transfer',{from:state.currentRole, amount:fmtAmount(val)}); }); }
+function sendRedPacket(){ if (!state.current) return; showInputModal('发红包',   '请输入金额（元）', '', val => { pushMessage('redpacket',{from:state.currentRole, amount:fmtAmount(val)}); }); }
+function sendVoice()    { if (!state.current) return; pushMessage('voice', {from:state.currentRole, duration:randomDuration()}); }
+function sendVideo()    { if (!state.current) return; pushMessage('video', {from:state.currentRole, duration:randomDuration()}); }
+function friendReply()  { if (!state.current) return; pushMessage('text', { from:'friend', text: REPLY_POOL[Math.floor(Math.random()*REPLY_POOL.length)] }); }
+
+/* ---------- 切换发言身份 ---------- */
+function switchRole(role) {
+  state.currentRole = role;
+  document.getElementById('roleMeBtn').classList.toggle('active', role === 'me');
+  document.getElementById('roleFriendBtn').classList.toggle('active', role === 'friend');
+  // 更新提示文字
+  const hint = document.getElementById('roleHint');
+  const contact = state.contacts.find(c => c.id === state.current);
+  if (role === 'friend' && contact) {
+    hint.textContent = '当前以「' + contact.name + '」身份发言';
+    hint.style.color = '#FA5151';
+  } else {
+    hint.textContent = '';
+  }
+}
+
+/* ---------- 渲染：联系人列表 ---------- */
+function renderSidebar() {
+  const list = document.getElementById('contactList');
+  const kw = (document.getElementById('searchInput').value || '').trim().toLowerCase();
+  const filtered = state.contacts.filter(c => c.name.toLowerCase().includes(kw));
+  if (filtered.length === 0) {
+    list.innerHTML = `<div class="empty-list">${kw ? '没有匹配的联系人' : '暂无联系人，添加一个开始聊天吧'}</div>`;
+    return;
+  }
+  list.innerHTML = filtered.map(c => {
+    const last = (state.chats[c.id] && state.chats[c.id].length)
+      ? previewText(state.chats[c.id][state.chats[c.id].length - 1]) : '';
+    return `
+      <div class="contact-item ${c.id === state.current ? 'active' : ''}" data-id="${c.id}">
+        <div data-avatar-id="${c.id}" class="avatar-entry">${avatarHTML(c.name, c.color, c.avatar)}</div>
+        <div class="meta">
+          <div class="name">${escapeHtml(c.name)}</div>
+          <div class="last">${escapeHtml(last)}</div>
+        </div>
+        <div class="del" data-del="${c.id}" title="删除">×</div>
+      </div>`;
+  }).join('');
+}
+function previewText(m) {
+  if (m.type === 'text') return (m.from === 'me' ? '我: ' : '') + m.text;
+  if (m.type === 'transfer') return (m.from === 'me' ? '我: ' : '') + '[转账] ¥' + m.amount;
+  if (m.type === 'redpacket') return (m.from === 'me' ? '我: ' : '') + '[红包] ¥' + m.amount;
+  if (m.type === 'voice') return '[语音通话] ' + m.duration;
+  if (m.type === 'video') return '[视频通话] ' + m.duration;
+  return '';
+}
+
+/* ---------- 渲染：聊天窗口 ---------- */
+function renderChat() {
+  const head = document.getElementById('chatTitle');
+  const box = document.getElementById('messages');
+  const replyBtn = document.getElementById('replyBtn');
+
+  if (!state.current) {
+    head.textContent = '微信聊天';
+    replyBtn.disabled = true;
+    box.innerHTML = `<div class="empty-chat"><div class="logo">💬</div><div>选择联系人开始聊天</div></div>`;
+    return;
+  }
+  const contact = state.contacts.find(c => c.id === state.current);
+  head.textContent = contact.name;
+  replyBtn.disabled = false;
+
+  const chat = state.chats[state.current] || [];
+  if (chat.length === 0) {
+    const logoHTML = avatarHTML(contact.name, contact.color, contact.avatar);
+    box.innerHTML = `<div class="empty-chat">
+      <div style="transform:scale(1.6)">${logoHTML}</div>
+      <div>和「${escapeHtml(contact.name)}」开始聊天吧</div>
+    </div>`;
+    return;
+  }
+  let html = ''; let lastTs = null;
+  chat.forEach(m => {
+    if (!lastTs || tsGapMin(lastTs, m.ts) >= 5) html += `<div class="time-sep">${m.ts}</div>`;
+    lastTs = m.ts;
+    html += renderMessage(m, contact);
+  });
+  box.innerHTML = html;
+  box.scrollTop = box.scrollHeight;
+}
+function tsGapMin(a, b) {
+  const [ah, am] = a.split(':').map(Number); const [bh, bm] = b.split(':').map(Number);
+  return Math.abs((bh*60+bm) - (ah*60+am));
+}
+function renderMessage(m, contact) {
+  if (m.type === 'voice' || m.type === 'video') {
+    const icon = m.type === 'voice' ? '📞' : '📹';
+    const label = m.type === 'voice' ? '语音通话' : '视频通话';
+    return `<div class="msg-sys"><span class="pill"><span>${icon}</span><span>${label} ${m.duration}</span></span></div>`;
+  }
+  let inner = '';
+  if (m.type === 'transfer') {
+    inner = `<div class="card transfer">
+      <div class="ct-top"><div class="ct-icon">¥</div><div><div class="ct-title">微信转账</div><div class="ct-amt">¥${m.amount}</div></div></div>
+      <div class="ct-foot">转账</div></div>`;
+  } else if (m.type === 'redpacket') {
+    inner = `<div class="card redpacket">
+      <div class="rp-left">🧧</div>
+      <div class="rp-right"><div class="rp-title">恭喜发财</div><div class="rp-sub">大吉大利</div><div class="rp-amt">¥${m.amount}</div></div></div>`;
+  } else {
+    inner = `<div class="bubble">${escapeHtml(m.text)}</div>`;
+  }
+  return rowWrap(m, inner, contact);
+}
+function rowWrap(m, inner, contact) {
+  if (m.from === 'me') return `<div class="msg-row me">${avatarHTML(state.me.name, state.me.color, state.me.avatar)}<div class="content">${inner}</div></div>`;
+  return `<div class="msg-row friend">${avatarHTML(contact.name, contact.color, contact.avatar)}<div class="content">${inner}</div></div>`;
+}
+
+/* ---------- 通用弹窗（金额输入 / 联系人添加 / 头像修改） ---------- */
+let modalCallback = null;
+let modalCtx = {}; // 弹窗上下文
+
+function showInputModal(title, sub, defaultVal, onOk, options) {
+  options = options || {};
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalSub').textContent = sub || '';
+  const input = document.getElementById('modalInput');
+  const avRow = document.getElementById('modalAvatarRow');
+  if (options.showAvatarRow) {
+    avRow.style.display = 'flex';
+    modalCtx = Object.assign({}, options.avatarCtx || {});
+    updateModalAvatarPreview();
+  } else {
+    avRow.style.display = 'none';
+    modalCtx = {};
+  }
+  input.value = defaultVal || '';
+  input.style.display = options.hideInput ? 'none' : 'block';
+  document.getElementById('modal').classList.add('show');
+  setTimeout(() => { if (!options.hideInput) input.focus(); }, 60);
+  modalCallback = onOk;
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('show');
+  modalCallback = null; modalCtx = {};
+}
+function updateModalAvatarPreview() {
+  const el = document.getElementById('modalAvatarPreview');
+  el.style.background = modalCtx.color || '#888';
+  if (modalCtx.avatar) {
+    el.innerHTML = `<img src="${modalCtx.avatar}" alt="" onerror="this.onerror=null;this.remove();this.parentElement.innerHTML='<span style=\\'font-size:inherit\\'>${escapeHtml((modalCtx.name||'?').trim().slice(0,1)||'?')}</span>';">`;
+  } else {
+    el.innerHTML = `<span>${escapeHtml((modalCtx.name||'?').trim().slice(0,1)||'?')}</span>`;
+  }
+}
+
+/* ---------- 联系人"添加 + 设置头像"弹窗 ---------- */
+function showAddContactModal() {
+  showInputModal('添加联系人', '输入昵称（可设置头像）', '', val => {
+    addContactWithAvatar(val.trim(), modalCtx.avatar || null);
+  }, {
+    showAvatarRow: true,
+    hideInput: false,
+    avatarCtx: { name: '新', color: AV_COLORS[0], avatar: null }
+  });
+  // 动态：输入名字时更新预览
+  const input = document.getElementById('modalInput');
+  input.oninput = () => {
+    modalCtx.name = input.value || '新';
+    modalCtx.color = hashColor(modalCtx.name);
+    updateModalAvatarPreview();
+  };
+}
+function addContactWithAvatar(name, avatar) {
+  if (!name) return;
+  if (state.contacts.some(c => c.name === name)) { flashTip('该联系人已存在'); return; }
+  const c = { id: uid(), name, color: hashColor(name), avatar };
+  state.contacts.push(c);
+  state.chats[c.id] = [];
+  save();
+  selectContact(c.id);
+  renderSidebar();
+}
+
+/* ---------- 已有联系人头像修改弹窗 ---------- */
+function showEditContactAvatarModal(id) {
+  const c = state.contacts.find(x => x.id === id);
+  if (!c) return;
+  showInputModal(`修改「${c.name}」头像`, '点击下方按钮选图片，或恢复默认', '', null, {
+    showAvatarRow: true,
+    hideInput: true,
+    avatarCtx: { name: c.name, color: c.color, avatar: c.avatar, contactId: id }
+  });
+  // 临时替换 OK 逻辑
+  modalCallback = () => {
+    const c2 = state.contacts.find(x => x.id === modalCtx.contactId);
+    if (c2) { c2.avatar = modalCtx.avatar || null; save(); renderSidebar(); renderChat(); }
+  };
+}
+
+/* ---------- 我的头像修改弹窗 ---------- */
+function showEditMyAvatarModal() {
+  showInputModal('修改我的头像', '选择图片或保留默认', '', null, {
+    showAvatarRow: true,
+    hideInput: true,
+    avatarCtx: { name: '我', color: state.me.color, avatar: state.me.avatar, isMe: true }
+  });
+  modalCallback = () => {
+    state.me.avatar = modalCtx.avatar || null;
+    save();
+    renderMyAvatar();
+    renderChat();
+  };
+}
+
+/* ---------- 头像压缩流程 ---------- */
+async function handleAvatarFile(file, target) {
+  try {
+    const data = await compressImage(file, 128);
+    modalCtx.avatar = data;
+    updateModalAvatarPreview();
+  } catch (e) {
+    alert('选择头像失败：' + e.message);
+  }
+}
+
+/* ---------- 简易提示 ---------- */
+function flashTip(msg) {
+  const list = document.getElementById('contactList');
+  const tip = document.createElement('div');
+  tip.className = 'empty-list';
+  tip.textContent = msg;
+  tip.style.color = '#FA5151';
+  list.prepend(tip);
+  setTimeout(() => { tip.remove(); renderSidebar(); }, 1600);
+}
+function autoResize(el) {
+  el.style.height = '28px';
+  el.style.height = Math.min(el.scrollHeight, 108) + 'px';
+}
+
+/* ============================================================
+ *  导航切换：微信(聊天) / 通讯录 / 发现(朋友圈) / 我
+ * ============================================================ */
+function switchNav(view) {
+  // view: 'chat' | 'contacts' | 'moments' | 'me'
+  const body = document.body;
+  // 清掉所有视图 class
+  body.classList.remove('list-view', 'chat-view', 'view-contacts', 'view-moments', 'view-me');
+  // 高亮底部 TabBar 选中的 tab
+  document.querySelectorAll('.tabbar .tab').forEach(el => {
+    el.classList.toggle('active', el.dataset.nav === view);
+  });
+  if (view === 'chat') {
+    // 微信 Tab：移动端 list/chat 互斥，桌面端并排
+    if (isMobile()) setMobileView(state.current ? 'chat' : 'list');
+  } else if (view === 'contacts') {
+    body.classList.add('view-contacts');
+    renderContactsPage();
+  } else if (view === 'moments') {
+    body.classList.add('view-moments');
+    renderMomentsPage();
+  } else if (view === 'me') {
+    body.classList.add('view-me');
+    renderMePage();
+  }
+}
+
+/* ---------- "我"页面渲染 ---------- */
+function renderMePage() {
+  const list = document.getElementById('meList');
+  const meName = state.me.name || '我';
+  const meInitial = (meName || '我').slice(0, 1);
+  const avatarTag = state.me.avatar
+    ? `<img src="${state.me.avatar}" alt="" onerror="this.onerror=null;this.remove();this.parentElement.innerHTML='<span>${escapeHtml(meInitial)}</span>';">`
+    : `<span>${escapeHtml(meInitial)}</span>`;
+  const rows = [
+    { ico: '💰', name: '服务' },
+    { ico: '👛', name: '钱包' },
+    { ico: '🏷', name: '收藏' },
+    { ico: '🤗', name: '表情' },
+    { ico: '⚙️', name: '设置', cb: () => alert('设置：\n• 所有数据已自动保存在本机 localStorage\n• 清空数据：在浏览器控制台执行 localStorage.clear() 并刷新') },
+  ];
+  list.innerHTML = `
+    <div class="me-card-big" id="meCardBig">
+      <div class="me-av" style="background:${state.me.color}">${avatarTag}</div>
+      <div class="me-info">
+        <div class="me-nm">${escapeHtml(meName)}</div>
+        <div class="me-wx">微信号：wx_me_${Date.now().toString().slice(-5)}</div>
+      </div>
+      <div class="me-arrow">›</div>
+    </div>
+    <div class="me-group">
+      ${rows.map(r => `<div class="me-row" data-me-name="${r.name}">
+        <div class="me-ico">${r.ico}</div>
+        <div class="me-name">${r.name}</div>
+        <div class="me-arrow">›</div>
+      </div>`).join('')}
+    </div>
+    <div class="me-group">
+      <div class="me-row" data-me-name="清空数据">
+        <div class="me-ico">🗑</div>
+        <div class="me-name" style="color:#E6454A">清空全部数据</div>
+        <div class="me-arrow">›</div>
+      </div>
+    </div>
+  `;
+  // 事件绑定：点大卡片修改我的头像
+  list.querySelector('#meCardBig').onclick = () => showEditMyAvatarModal();
+  // 菜单行
+  list.querySelectorAll('.me-row').forEach(row => {
+    row.onclick = () => {
+      const name = row.dataset.meName;
+      const target = rows.find(r => r.name === name);
+      if (target && target.cb) { target.cb(); return; }
+      if (name === '清空数据') {
+        if (confirm('确定要清空所有联系人和聊天记录？此操作不可恢复！')) {
+          localStorage.removeItem(STORAGE_KEY);
+          location.reload();
+        }
+      } else {
+        alert(`「${name}」功能入口（示例占位）`);
+      }
+    };
+  });
+}
+
+/* ---------- 通讯录渲染 ---------- */
+function renderContactsPage() {
+  const list = document.getElementById('pcList');
+  if (state.contacts.length === 0) {
+    list.innerHTML = `<div class="pm-empty">还没有联系人，点击右上「添加」</div>`;
+    return;
+  }
+  // 按拼音/字母简单分组（用首字符 code 排序，不做完整拼音转换）
+  const sorted = state.contacts.slice().sort((a, b) => a.name.localeCompare(b.name, 'zh'));
+  let html = `<div class="pc-group-head">好友（${sorted.length}）</div>`;
+  html += sorted.map(c => `
+    <div class="pc-row" data-pc-id="${c.id}">
+      ${avatarHTML(c.name, c.color, c.avatar)}
+      <div class="info">
+        <div class="nm">${escapeHtml(c.name)}</div>
+        <div class="reg">微信号: wx_${c.id.slice(-6)}</div>
+      </div>
+      <span class="chat-arrow">›</span>
+    </div>`).join('');
+  // 额外显示"我"自己
+  html = `<div class="pc-group-head">我</div>
+    <div class="pc-row" data-pc-me="1">
+      ${avatarHTML(state.me.name, state.me.color, state.me.avatar)}
+      <div class="info"><div class="nm">${escapeHtml(state.me.name)}</div><div class="reg">这是我</div></div>
+    </div>
+    <div class="pc-group-head" style="margin-top:4px">好友（${sorted.length}）</div>` + html.split('</div>').slice(1).join('</div>');
+  list.innerHTML = html;
+}
+
+/* ---------- 朋友圈渲染 ---------- */
+function renderMomentsPage() {
+  // 顶部"我的头像+名字"
+  const meAv = document.getElementById('pmMyAvatar');
+  const meName = document.getElementById('pmMyName');
+  meName.textContent = state.me.name || '我';
+  if (state.me.avatar) {
+    meAv.innerHTML = `<img src="${state.me.avatar}" alt="" onerror="this.onerror=null;this.remove();this.parentElement.innerHTML='<span>我</span>';">`;
+  } else {
+    meAv.innerHTML = `<span>${escapeHtml((state.me.name || '我').slice(0,1))}</span>`;
+  }
+  const list = document.getElementById('pmList');
+  if (state.moments.length === 0) {
+    list.innerHTML = `<div class="pm-empty">朋友圈还没有动态<br>点击右上「发表」发第一条吧</div>`;
+    return;
+  }
+  // 按时间倒序（新的在上）
+  const arr = state.moments.slice().reverse();
+  list.innerHTML = arr.map(m => {
+    const liked = m.likes && m.likes.includes(state.me.name);
+    const likeText = (m.likes && m.likes.length) ? m.likes.join('，') : '';
+    const cmts = (m.comments || []).map(c => `<div class="cmt"><span class="who">${escapeHtml(c.from)}：</span>${escapeHtml(c.text)}</div>`).join('');
+    return `
+      <div class="pm-item" data-mid="${m.id}">
+        <div class="av" style="background:${m.color || '#888'}">${m.avatar
+          ? `<img src="${m.avatar}" alt="" onerror="this.onerror=null;this.remove();this.parentElement.innerHTML='<span>${escapeHtml((m.authorName||'?').slice(0,1))}</span>';">`
+          : `<span>${escapeHtml((m.authorName||'?').slice(0,1))}</span>`}</div>
+        <div class="body">
+          <div class="author">${escapeHtml(m.authorName)}</div>
+          <div class="text">${escapeHtml(m.text)}</div>
+          <div class="meta">
+            <span class="ts">${m.ts}</span>
+            <div class="actions">
+              <button data-act="like" data-mid="${m.id}">${liked ? '❤️ 已赞' : '🤍 赞'}${m.likes && m.likes.length ? ' '+m.likes.length : ''}</button>
+              <button data-act="comment" data-mid="${m.id}">💬 评论</button>
+            </div>
+          </div>
+          ${likeText ? `<div class="like-line">❤️ ${escapeHtml(likeText)}</div>` : ''}
+          ${cmts}
+        </div>
+      </div>`;
+  }).join('');
+}
+
+/* ---------- 朋友圈：发表动态 ---------- */
+function showPostMomentModal() {
+  showInputModal('发表朋友圈', '说点什么吧…', '', val => {
+    const text = (val || '').trim();
+    if (!text) return;
+    const m = {
+      id: uid(), authorId: 'me', authorName: state.me.name || '我',
+      color: state.me.color, avatar: state.me.avatar,
+      text, ts: nowTime(), likes: [], comments: []
+    };
+    state.moments.push(m);
+    save();
+    renderMomentsPage();
+  }, { showAvatarRow: false, hideInput: false });
+  // 改为多行输入
+  const input = document.getElementById('modalInput');
+  if (input) {
+    input.type = 'text';
+    input.placeholder = '这一刻的想法…';
+  }
+}
+
+/* ---------- 朋友圈：点赞/评论 ---------- */
+function toggleLike(mid) {
+  const m = state.moments.find(x => x.id === mid);
+  if (!m) return;
+  const me = state.me.name || '我';
+  const idx = (m.likes || []).indexOf(me);
+  if (idx >= 0) m.likes.splice(idx, 1);
+  else (m.likes = m.likes || []).push(me);
+  save();
+  renderMomentsPage();
+}
+function showCommentModal(mid) {
+  const m = state.moments.find(x => x.id === mid);
+  if (!m) return;
+  showInputModal('评论', '回复 ' + m.authorName + '：', '', val => {
+    const text = (val || '').trim();
+    if (!text) return;
+    (m.comments = m.comments || []).push({ from: state.me.name || '我', text });
+    save();
+    renderMomentsPage();
+  }, { showAvatarRow: false, hideInput: false });
+}
+
+/* ---------- 移动端软键盘适配 ---------- */
+function setupKeyboardHack() {
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', () => {
+      document.body.style.marginTop = '0';
+      const h = window.visualViewport.height;
+      // iOS Safari 会把 fixed 元素顶起，这里做简单调整
+      const el = document.querySelector('.input-area');
+      if (el && isMobile()) {
+        // 不需要改 absolute，只需确保输入框在可视区内
+        setTimeout(() => {
+          const box = document.getElementById('messages');
+          if (box) box.scrollTop = box.scrollHeight;
+          document.getElementById('msgInput').scrollIntoView({block:'end', behavior:'smooth'});
+        }, 100);
+      }
+    });
+  }
+  // window resize 时也要刷新 body class
+  window.matchMedia('(max-width: ' + MOBILE_BREAKPOINT + 'px)').addEventListener('change', e => {
+    if (e.matches) {
+      // 刚进入移动端：如果当前有选中联系人，默认在聊天页；否则列表页
+      setMobileView(state.current ? 'chat' : 'list');
+    } else {
+      // 退出移动端：清掉 class（恢复并排）
+      document.body.classList.remove('list-view', 'chat-view');
+    }
+  });
+  // 初始初始化
+  if (isMobile()) setMobileView(state.current ? 'chat' : 'list');
+}
+
+/* ---------- 事件绑定 ---------- */
+function bindEvents() {
+  // 顶部"添加好友"按钮 => 打开带头像选择的弹窗
+  const addInput = document.getElementById('addInput');
+  document.getElementById('addBtn').onclick = () => {
+    addInput.value = '';
+    showAddContactModal();
+  };
+  addInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      if (addInput.value.trim()) {
+        // 回车：走带头像的弹窗，名字填进去
+        const v = addInput.value.trim();
+        addInput.value = '';
+        showInputModal('添加联系人', '确认昵称并可选设置头像', v, val => {
+          addContactWithAvatar(val.trim(), modalCtx.avatar || null);
+        }, {
+          showAvatarRow: true,
+          hideInput: false,
+          avatarCtx: { name: v, color: hashColor(v), avatar: null }
+        });
+      } else showAddContactModal();
+    }
+  });
+
+  // 搜索过滤
+  document.getElementById('searchInput').addEventListener('input', renderSidebar);
+
+  // 联系人列表点击
+  const listEl = document.getElementById('contactList');
+  listEl.addEventListener('click', e => {
+    const del = e.target.closest('[data-del]');
+    if (del) { e.stopPropagation(); deleteContact(del.dataset.del); return; }
+    const avEntry = e.target.closest('[data-avatar-id]');
+    const item = e.target.closest('[data-id]');
+    if (avEntry && item) {
+      // 点到头像区域 => 进入头像编辑
+      e.stopPropagation();
+      showEditContactAvatarModal(item.dataset.id);
+      return;
+    }
+    if (item) selectContact(item.dataset.id);
+  });
+  listEl.addEventListener('contextmenu', e => {
+    const item = e.target.closest('[data-id]');
+    if (item) { e.preventDefault(); deleteContact(item.dataset.id); }
+  });
+
+  // 我的头像点击
+  document.getElementById('myAvatarBtn').addEventListener('click', showEditMyAvatarModal);
+
+  // 返回按钮（手机）
+  document.getElementById('backBtn').addEventListener('click', () => {
+    state.current = null;
+    save();
+    setMobileView('list');
+    renderSidebar();
+    renderChat();
+  });
+
+  // 发送文本
+  const msgInput = document.getElementById('msgInput');
+  document.getElementById('sendBtn').onclick = sendText;
+  msgInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendText(); }
+  });
+  msgInput.addEventListener('input', () => autoResize(msgInput));
+
+  // 快捷按钮
+  document.querySelectorAll('.quick-btn').forEach(btn => {
+    btn.onclick = () => {
+      const act = btn.dataset.act;
+      if (act === 'transfer') sendTransfer();
+      else if (act === 'redpacket') sendRedPacket();
+      else if (act === 'voice') sendVoice();
+      else if (act === 'video') sendVideo();
+    };
+  });
+
+  // 模拟好友回复
+  document.getElementById('replyBtn').onclick = friendReply;
+
+  // 弹窗通用
+  document.getElementById('modalOk').onclick = () => {
+    const val = document.getElementById('modalInput').value;
+    const cb = modalCallback;
+    closeModal();
+    if (cb) cb(val);
+  };
+  document.getElementById('modalCancel').onclick = closeModal;
+  document.getElementById('modalInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      document.getElementById('modalOk').click();
+    }
+  });
+  document.getElementById('modal').addEventListener('click', e => {
+    if (e.target.id === 'modal') closeModal();
+  });
+
+  // 文件选择框
+  document.getElementById('avatarFileInput').addEventListener('change', e => {
+    const f = e.target.files && e.target.files[0];
+    if (f) handleAvatarFile(f);
+    e.target.value = '';
+  });
+  document.getElementById('avatarFileInputContact').addEventListener('change', e => {
+    const f = e.target.files && e.target.files[0];
+    if (f) handleAvatarFile(f);
+    e.target.value = '';
+  });
+  // 头像弹窗里的"从相册选择" => 触发第一个文件输入框
+  const avRowLabel = document.querySelector('#modalAvatarRow .file-label');
+  if (avRowLabel) avRowLabel.setAttribute('for', 'avatarFileInput');
+
+  // 恢复默认文字头像
+  document.getElementById('resetAvatarBtn').addEventListener('click', () => {
+    modalCtx.avatar = null;
+    updateModalAvatarPreview();
+  });
+
+  // 发言身份切换
+  document.getElementById('roleMeBtn').addEventListener('click', () => switchRole('me'));
+  document.getElementById('roleFriendBtn').addEventListener('click', () => {
+    if (!state.current) { flashTip('请先选择联系人'); return; }
+    switchRole('friend');
+  });
+
+  /* ===== 导航切换 / 通讯录 / 朋友圈 / 我 事件 ===== */
+  // 底部 TabBar
+  document.querySelectorAll('.tabbar .tab[data-nav]').forEach(el => {
+    el.addEventListener('click', () => switchNav(el.dataset.nav));
+  });
+
+  // 通讯录：点行进入该联系人聊天
+  document.getElementById('pcList').addEventListener('click', e => {
+    const row = e.target.closest('[data-pc-id]');
+    if (row) {
+      const id = row.dataset.pcId;
+      // 选中并切到聊天
+      selectContact(id);
+      switchNav('chat');
+      return;
+    }
+    const meRow = e.target.closest('[data-pc-me]');
+    if (meRow) {
+      // 点"我"那行 => 修改我的头像
+      showEditMyAvatarModal();
+    }
+  });
+  // 通讯录顶部"添加"按钮 => 复用添加联系人弹窗
+  document.getElementById('pcAddBtn').addEventListener('click', showAddContactModal);
+
+  // 通讯录/朋友圈的移动端返回按钮
+  document.querySelectorAll('[data-back-nav]').forEach(b => {
+    b.addEventListener('click', () => switchNav(b.dataset.backNav));
+  });
+
+  // 朋友圈：发表
+  document.getElementById('pmPostBtn').addEventListener('click', showPostMomentModal);
+  // 朋友圈：点赞 / 评论（事件委托）
+  document.getElementById('pmList').addEventListener('click', e => {
+    const btn = e.target.closest('button[data-act]');
+    if (!btn) return;
+    const mid = btn.dataset.mid;
+    if (btn.dataset.act === 'like') toggleLike(mid);
+    else if (btn.dataset.act === 'comment') showCommentModal(mid);
+  });
+}
+
+/* ---------- 初始化 ---------- */
+function init() {
+  load();
+  bindEvents();
+  // 预置数据（仅首次空库）
+  if (state.contacts.length === 0) {
+    [
+      { name: '张三', seed: [['text','me','你好呀，最近怎么样？'],['text','friend','挺好的，你呢？']] },
+      { name: '老妈', seed: [['text','friend','记得吃饭'],['text','me','知道啦']] }
+    ].forEach(item => {
+      const c = { id: uid(), name: item.name, color: hashColor(item.name), avatar: null };
+      state.contacts.push(c);
+      state.chats[c.id] = item.seed.map(s => ({ id: uid(), type: s[0], from: s[1], text: s[2], ts: nowTime() }));
+    });
+    save();
+  }
+  // 预置朋友圈示例动态（仅首次空 moments）
+  if (state.moments.length === 0) {
+    const zs = state.contacts[0], lm = state.contacts[1];
+    state.moments = [
+      { id: uid(), authorId: zs ? zs.id : 'x', authorName: zs ? zs.name : '张三', color: zs ? zs.color : '#7BA4D9', avatar: zs ? zs.avatar : null,
+        text: '今天天气真不错，出去跑步了！', ts: '09:12', likes: [state.me.name || '我', '老妈'], comments: [{from: '老妈', text: '多运动好'}] },
+      { id: uid(), authorId: lm ? lm.id : 'y', authorName: lm ? lm.name : '老妈', color: lm ? lm.color : '#E6A23C', avatar: lm ? lm.avatar : null,
+        text: '家里的花开了，分享给大家看看 🌸', ts: '08:30', likes: [], comments: [] }
+    ];
+    save();
+  }
+  renderMyAvatar();
+  renderSidebar();
+  renderChat();
+  setupKeyboardHack();
+
+  /* ---------- Service Worker 注册（PWA 离线 + 安装到桌面的核心） ---------- */
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js', { scope: './' })
+        .then(reg => console.log('[PWA] ServiceWorker 注册成功，scope:', reg.scope))
+        .catch(err => console.warn('[PWA] SW 未注册：', err.message || err));
+    });
+  }
+
+  /* ---------- 一键安装逻辑（beforeinstallprompt + 二维码） ---------- */
+  setupInstall();
+}
+init();
+
+function setupInstall() {
+  let deferredPrompt = null;
+  const banner = document.getElementById('installBanner');
+  const installBtn = document.getElementById('installBtn');
+  const installClose = document.getElementById('installClose');
+  const fabInstall = document.getElementById('fabInstall');
+  const qrPanel = document.getElementById('qrPanel');
+  const qrClose = document.getElementById('qrClose');
+
+  // 检测是否已是安装模式（standalone）
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  if (isStandalone) {
+    // 已安装为 App，不需要再显示安装按钮
+    console.log('[PWA] 已在 standalone 模式运行（已安装）');
+    return;
+  }
+
+  // 捕获 beforeinstallprompt 事件（安卓 Chrome / 桌面 Chrome 支持）
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault();
+    deferredPrompt = e;
+    // 显示顶部安装横幅
+    banner.style.display = 'block';
+    console.log('[PWA] beforeinstallprompt 已捕获，可一键安装');
+  });
+
+  // 点击安装按钮
+  installBtn.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const choice = await deferredPrompt.userChoice;
+      if (choice.outcome === 'accepted') {
+        console.log('[PWA] 用户已接受安装');
+      }
+      deferredPrompt = null;
+      banner.style.display = 'none';
+    } else {
+      // 浏览器不支持 beforeinstallprompt，给出更详细的各浏览器操作指引
+      alert(
+        '📱 安卓手机安装步骤（任选一个浏览器）：\n\n' +
+        '【推荐 · Chrome / Edge / 三星浏览器】\n' +
+        '  右上角 ⋮ 菜单 →「安装应用」\n\n' +
+        '【华为浏览器】\n' +
+        '  右下角 ▤ 菜单 →「添加到桌面」→「安装」\n\n' +
+        '【小米 / 红米浏览器】\n' +
+        '  右上角 ⋮ →「更多工具」→「安装应用」\n\n' +
+        '【OPPO / vivo 浏览器】\n' +
+        '  底部菜单 →「添加到桌面」→「安装到桌面」\n\n' +
+        '【QQ 浏览器 / UC 浏览器】\n' +
+        '  菜单 →「添加到桌面」→「安装为应用」\n\n' +
+        '─────────────────────────\n' +
+        '🍎 苹果手机 / 平板：\n' +
+        '  请用 Safari 打开本页面 → 底部「分享」→「添加到主屏幕」'
+      );
+    }
+  });
+
+  // 关闭横幅
+  installClose.addEventListener('click', () => { banner.style.display = 'none'; });
+
+  // 桌面端：显示右下角浮动按钮（用于打开二维码面板）
+  // 移动端：如果已通过 beforeinstallprompt 显示了横幅，就不显示浮动按钮
+  const isDesktop = !isMobile();
+  if (isDesktop) {
+    fabInstall.style.display = 'flex';
+  }
+
+  // 浮动按钮点击 → 显示/隐藏二维码面板
+  fabInstall.addEventListener('click', () => {
+    const visible = qrPanel.style.display !== 'none';
+    if (visible) {
+      qrPanel.style.display = 'none';
+    } else {
+      showQRPanel();
+    }
+  });
+
+  // 关闭二维码面板
+  qrClose.addEventListener('click', () => { qrPanel.style.display = 'none'; });
+
+  // 监听 appinstalled 事件
+  window.addEventListener('appinstalled', () => {
+    banner.style.display = 'none';
+    fabInstall.style.display = 'none';
+    console.log('[PWA] 应用已成功安装');
+  });
+}
+
+/* 生成并显示二维码面板 */
+function showQRPanel() {
+  const qrPanel = document.getElementById('qrPanel');
+  const qrImg = document.getElementById('qrImg');
+  const qrUrl = document.getElementById('qrUrl');
+  const url = window.location.href; // 当前页面的完整 URL（含局域网 IP）
+
+  // 用在线 API 生成二维码（安装时需要网络，安装后即可离线）
+  qrImg.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=8&data=${encodeURIComponent(url)}" alt="扫码打开">`;
+  qrUrl.textContent = url;
+
+  // 检测是否是 iOS（显示苹果指引）
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  document.getElementById('qrStepsAndroid').style.display = isIOS ? 'none' : 'block';
+  document.getElementById('qrStepsIOS').style.display = isIOS ? 'block' : 'none';
+
+  qrPanel.style.display = 'block';
+}
+</script>
+</body>
+</html>
