@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>安装指南 - 微信聊天模拟</title>
+<meta name="theme-color" content="#07C160">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: #EDEDED; color: #191919; line-height: 1.6; padding-top: env(safe-area-inset-top); }
+.hero { background: linear-gradient(135deg, #07C160 0%, #06AD56 100%); color: #fff; text-align: center; padding: 40px 20px 36px; }
+.hero-icon { width: 80px; height: 80px; border-radius: 18px; background: rgba(255,255,255,.18); display: flex; align-items: center; justify-content: center; font-size: 40px; margin: 0 auto 16px; backdrop-filter: blur(10px); }
+.hero h1 { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+.hero p { font-size: 14px; opacity: .9; }
+.hero .ver { display: inline-block; background: rgba(255,255,255,.2); padding: 2px 12px; border-radius: 20px; font-size: 12px; margin-top: 10px; }
+.url-card { margin: -20px 16px 20px; background: #fff; border-radius: 14px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,.08); position: relative; }
+.url-card label { font-size: 13px; color: #999; display: block; margin-bottom: 8px; }
+.url-box { display: flex; align-items: center; gap: 10px; }
+.url-box input { flex: 1; border: 1px solid #E2E2E2; border-radius: 8px; padding: 10px 14px; font-size: 14px; color: #07C160; font-weight: 600; background: #F7F7F7; outline: none; }
+.url-box button { flex-shrink: 0; padding: 10px 18px; border: none; border-radius: 8px; background: #07C160; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; transition: opacity .15s; }
+.url-box button:active { opacity: .8; }
+.section { margin: 0 16px 20px; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.04); }
+.section-head { display: flex; align-items: center; gap: 10px; padding: 16px 20px; border-bottom: 1px solid #F0F0F0; }
+.section-head .s-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+.section-head.android .s-icon { background: #E8F5E9; }
+.section-head.ios .s-icon { background: #F5F5F7; }
+.section-head.apk .s-icon { background: #FFF3E0; }
+.section-head.feat .s-icon { background: #E3F2FD; }
+.section-head h2 { font-size: 17px; font-weight: 600; }
+.section-body { padding: 16px 20px; }
+.step { display: flex; gap: 14px; margin-bottom: 18px; }
+.step:last-child { margin-bottom: 0; }
+.step-num { width: 28px; height: 28px; border-radius: 50%; background: #07C160; color: #fff; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.step.ios-step .step-num { background: #007AFF; }
+.step.apk-step .step-num { background: #FF9500; }
+.step-text { font-size: 14px; color: #333; line-height: 1.7; }
+.step-text b { color: #07C160; }
+.step-text .tip { display: block; background: #FFF8E1; border-left: 3px solid #FFC107; padding: 8px 12px; border-radius: 0 6px 6px 0; margin-top: 6px; font-size: 13px; color: #795548; }
+.browser-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-top: 12px; }
+.browser-item { background: #F7F7F7; border-radius: 10px; padding: 12px; font-size: 13px; }
+.browser-item b { display: block; color: #07C160; margin-bottom: 3px; font-size: 14px; }
+.browser-item span { color: #666; line-height: 1.5; }
+.note { background: #E8F5E9; border-radius: 10px; padding: 14px 16px; font-size: 13px; color: #2E7D32; line-height: 1.7; margin-top: 12px; }
+.note.ios-note { background: #E3F2FD; color: #1565C0; }
+.note.warn { background: #FFF3E0; color: #E65100; }
+.feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.feat-item { background: #F7F7F7; border-radius: 10px; padding: 14px; text-align: center; }
+.feat-item .f-icon { font-size: 26px; margin-bottom: 6px; }
+.feat-item .f-label { font-size: 12px; color: #555; }
+.footer { text-align: center; padding: 24px 16px calc(24px + env(safe-area-inset-bottom)); font-size: 12px; color: #999; }
+.footer a { color: #07C160; text-decoration: none; }
+@media (max-width: 380px) { .feat-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-icon">💬</div>
+  <h1>微信聊天模拟</h1>
+  <p>仿微信界面 · 支持离线运行 · 无需电脑即可安装</p>
+  <div class="ver">v4 微信风格界面</div>
+</div>
+
+<div class="url-card">
+  <label>公网访问地址（复制到手机浏览器打开）</label>
+  <div class="url-box">
+    <input type="text" value="https://hongkuanyu.github.io/wechat-sim-pwa/" id="urlInput" readonly>
+    <button onclick="copyUrl()">复制</button>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-head android">
+    <div class="s-icon">🤖</div>
+    <h2>安卓手机安装</h2>
+  </div>
+  <div class="section-body">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text">打开手机浏览器（推荐 <b>Chrome</b>），输入上面的网址</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text">页面顶部弹出绿色安装横幅 → 点击「<b>安装</b>」
+        <span class="tip">如果没有看到横幅：点击浏览器菜单（⋮）→ 选择「安装应用」或「添加到桌面」</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text">桌面出现绿色「微」字图标，像普通 App 一样全屏运行，没有地址栏
+        <span class="tip">首次加载成功后，断网（飞行模式）也能打开使用</span>
+      </div>
+    </div>
+
+    <div class="browser-list">
+      <div class="browser-item"><b>Chrome</b><span>⋮ 菜单 → 安装应用</span></div>
+      <div class="browser-item"><b>Edge</b><span>⋮ 菜单 → 安装应用</span></div>
+      <div class="browser-item"><b>华为浏览器</b><span>▤ → 添加到桌面</span></div>
+      <div class="browser-item"><b>小米浏览器</b><span>⋮ → 安装应用</span></div>
+      <div class="browser-item"><b>OPPO浏览器</b><span>菜单 → 添加到桌面</span></div>
+      <div class="browser-item"><b>vivo浏览器</b><span>菜单 → 添加到桌面</span></div>
+      <div class="browser-item"><b>QQ浏览器</b><span>菜单 → 安装为应用</span></div>
+      <div class="browser-item"><b>UC浏览器</b><span>菜单 → 添加到桌面</span></div>
+    </div>
+
+    <div class="note warn">
+      ⚠ 微信扫码后请在微信里点右上角「⋯」→「在浏览器打开」，微信内置浏览器不支持安装 PWA。
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-head apk">
+    <div class="s-icon">📦</div>
+    <h2>安卓 APK 直装（可选）</h2>
+  </div>
+  <div class="section-body">
+    <div class="step apk-step">
+      <div class="step-num">1</div>
+      <div class="step-text">将 <b>wechat-sim-app.apk</b> 文件传到手机（微信发送 / USB / 云盘均可）</div>
+    </div>
+    <div class="step apk-step">
+      <div class="step-num">2</div>
+      <div class="step-text">在手机上点击 APK 文件安装
+        <span class="tip">手机会提示「未知来源应用」，点击「允许安装」即可</span>
+      </div>
+    </div>
+    <div class="step apk-step">
+      <div class="step-num">3</div>
+      <div class="step-text">安装完成后桌面出现「微信聊天」图标，点击打开
+        <span class="tip">APK 首次打开需要网络加载页面，加载成功一次后可离线使用</span>
+      </div>
+    </div>
+    <div class="note">
+      APK 本质是 TWA 壳应用，打开后加载公网页面，体验与浏览器安装的 PWA 一致。推荐优先使用浏览器安装方式。
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-head ios">
+    <div class="s-icon">🍎</div>
+    <h2>苹果 iPhone / iPad 安装</h2>
+  </div>
+  <div class="section-body">
+    <div class="step ios-step">
+      <div class="step-num">1</div>
+      <div class="step-text">用 <b>Safari 浏览器</b>打开上面的网址
+        <span class="tip">必须用 Safari，Chrome/Edge 等浏览器不支持安装 PWA</span>
+      </div>
+    </div>
+    <div class="step ios-step">
+      <div class="step-num">2</div>
+      <div class="step-text">点击底部中间的「<b>分享</b>」按钮（方框+向上箭头图标）</div>
+    </div>
+    <div class="step ios-step">
+      <div class="step-num">3</div>
+      <div class="step-text">向下滑动菜单，找到并点击「<b>添加到主屏幕</b>」</div>
+    </div>
+    <div class="step ios-step">
+      <div class="step-num">4</div>
+      <div class="step-text">命名为「微信聊天」→ 点击右上角「<b>添加</b>」</div>
+    </div>
+    <div class="step ios-step">
+      <div class="step-num">5</div>
+      <div class="step-text">桌面出现绿色图标，点击即可全屏运行，无地址栏
+        <span class="tip">首次加载需要网络，之后可离线使用</span>
+      </div>
+    </div>
+    <div class="note ios-note">
+      iOS 上必须使用 Safari 浏览器才能安装 PWA。安装后体验与原生 App 一致。
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-head feat">
+    <div class="s-icon">✨</div>
+    <h2>功能亮点（v4 微信风格）</h2>
+  </div>
+  <div class="section-body">
+    <div class="feat-grid">
+      <div class="feat-item"><div class="f-icon">💬</div><div class="f-label">微信/通讯录/发现/我<br>四标签底部导航</div></div>
+      <div class="feat-item"><div class="f-icon">➕</div><div class="f-label">加号面板<br>红包/转账/通话</div></div>
+      <div class="feat-item"><div class="f-icon">🔄</div><div class="f-label">身份切换<br>我/对方自由切换</div></div>
+      <div class="feat-item"><div class="f-icon">👤</div><div class="f-label">通讯录<br>联系人管理</div></div>
+      <div class="feat-item"><div class="f-icon">⭐</div><div class="f-label">朋友圈<br>动态/点赞/评论</div></div>
+      <div class="feat-item"><div class="f-icon">📱</div><div class="f-label">离线运行<br>无需网络可用</div></div>
+      <div class="feat-item"><div class="f-icon">📷</div><div class="f-label">自定义头像<br>支持图片上传</div></div>
+      <div class="feat-item"><div class="f-icon">💾</div><div class="f-label">数据持久<br>刷新不丢失</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-head feat">
+    <div class="s-icon">🔧</div>
+    <h2>兼容性验证</h2>
+  </div>
+  <div class="section-body">
+    <div class="note">
+      ✅ 所有触控按钮 ≥ 44px，符合移动端标准<br>
+      ✅ 适配刘海屏/异形屏（safe-area-inset）<br>
+      ✅ PWA 离线缓存（Service Worker 三级回退）<br>
+      ✅ 软键盘适配（visualViewport）<br>
+      ✅ 多尺寸图标（72px~512px + maskable）<br>
+      ✅ 所有 JS 元素引用均有对应 HTML<br>
+      ✅ 无旧版残留代码<br>
+      ✅ 无需电脑，手机浏览器直接安装<br>
+      ✅ 适配所有主流手机浏览器<br>
+      ✅ 断网后可离线使用
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  微信聊天模拟 v4 · PWA 版<br>
+  公网地址：<a href="https://hongkuanyu.github.io/wechat-sim-pwa/">hongkuanyu.github.io/wechat-sim-pwa</a>
+</div>
+
+<script>
+function copyUrl() {
+  var input = document.getElementById('urlInput');
+  input.select();
+  input.setSelectionRange(0, 99999);
+  try {
+    document.execCommand('copy');
+    var btn = event.target;
+    var orig = btn.textContent;
+    btn.textContent = '已复制';
+    btn.style.background = '#999';
+    setTimeout(function() { btn.textContent = orig; btn.style.background = ''; }, 1500);
+  } catch(e) {}
+}
+</script>
+</body>
+</html>
