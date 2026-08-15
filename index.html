@@ -95,7 +95,7 @@
     display: flex; align-items: center; gap: 14px;
     background: #fff; padding: 20px 16px; margin-bottom: 8px;
     border-bottom: 0.5px solid #F0F0F0; border-top: none;
-    cursor: pointer;
+    cursor: pointer; box-shadow: 0 1px 2px rgba(0,0,0,0.04);
   }
   .me-card-big .me-av {
     width: 58px; height: 58px; border-radius: 8px; flex-shrink: 0;
@@ -104,13 +104,13 @@
   }
   .me-card-big .me-av img { width: 100%; height: 100%; object-fit: cover; }
   .me-card-big .me-info { flex: 1; min-width: 0; }
-  .me-card-big .me-nm { font-size: 19px; color: #191919; font-weight: 500; }
-  .me-card-big .me-wx { font-size: 12px; color: #B2B2B2; margin-top: 4px; }
+  .me-card-big .me-nm { font-size: 19px; color: #333333; font-weight: 500; }
+  .me-card-big .me-wx { font-size: 12px; color: #888888; margin-top: 4px; }
   .me-card-big .me-arrow { color: #C8C8CC; font-size: 18px; }
 
   .me-group {
     background: #fff; border-top: 0.5px solid #F0F0F0; border-bottom: 0.5px solid #F0F0F0;
-    margin-bottom: 8px;
+    margin-bottom: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.04);
   }
   .me-group .me-row {
     display: flex; align-items: center; padding: 13px 16px;
@@ -119,7 +119,7 @@
   .me-group .me-row:active { background: #ECECEC; }
   .me-group .me-row:last-child { border-bottom: none; }
   .me-group .me-ico { width: 24px; height: 24px; font-size: 18px; margin-right: 12px; text-align: center; }
-  .me-group .me-name { flex: 1; font-size: 16px; color: #191919; }
+  .me-group .me-name { flex: 1; font-size: 16px; color: #333333; }
   .me-group .me-arrow { color: #C8C8CC; font-size: 16px; }
 
   /* —— 中间聊天列表栏（仿微信聊天列表） —— */
@@ -131,8 +131,9 @@
   .sidebar-title-bar {
     display: flex; align-items: center; justify-content: space-between;
     height: 44px; padding: 0 16px; flex-shrink: 0;
+    background: #FFFFFF; border-bottom: 0.5px solid #E5E5E5;
   }
-  .sidebar-title-bar .st-title { font-size: 17px; font-weight: 600; color: #191919; }
+  .sidebar-title-bar .st-title { font-size: 17px; font-weight: 600; color: #333333; }
   .sidebar-title-bar .st-add {
     width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
     font-size: 24px; color: #191919; cursor: pointer; border-radius: 6px;
@@ -167,11 +168,11 @@
   .contact-item .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .contact-item .meta { flex: 1; min-width: 0; align-self: center; }
   .contact-item .name {
-    font-size: 17px; color: #191919; font-weight: 400;
+    font-size: 17px; color: #333333; font-weight: 400;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   .contact-item .last {
-    font-size: 13px; color: #B2B2B2; margin-top: 3px;
+    font-size: 13px; color: #888888; margin-top: 3px;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   .contact-item .time-stamp {
@@ -198,7 +199,7 @@
     display: none; width: 32px; height: 32px; align-items: center; justify-content: center;
     font-size: 24px; color: #181818; margin-right: 0;
   }
-  .chat-head .title { font-size: 17px; font-weight: 600; color: #111; flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; text-align: center; }
+  .chat-head .title { font-size: 17px; font-weight: 600; color: #333333; flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; text-align: center; }
   .chat-head .more-btn {
     width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
     font-size: 20px; color: #181818; cursor: pointer; flex-shrink: 0; border-radius: 6px;
@@ -466,11 +467,12 @@
   body.view-moments .page-moments { display: flex; }
   body.view-me .page-me { display: flex; }
   .pc-head {
-    height: 44px; min-height: 44px; flex-shrink: 0; background: #EDEDED;
+    height: 44px; min-height: 44px; flex-shrink: 0; background: #FFFFFF;
     display: flex; align-items: center; padding: 0 16px; gap: 8px;
+    border-bottom: 0.5px solid #E5E5E5;
   }
   .pc-head .mobile-back { display: none; width: 32px; height: 32px; align-items: center; justify-content: center; font-size: 24px; color: #181818; }
-  .pc-head .title { font-size: 17px; font-weight: 600; color: #111; flex: 1; text-align: center; }
+  .pc-head .title { font-size: 17px; font-weight: 600; color: #333333; flex: 1; text-align: center; }
   .pc-head .add-friend-btn {
     width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
     font-size: 22px; color: #181818; cursor: pointer; border-radius: 6px;
@@ -498,7 +500,7 @@
   }
   .pc-row .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .pc-row .info { flex: 1; min-width: 0; }
-  .pc-row .info .nm { font-size: 16px; color: #191919; }
+  .pc-row .info .nm { font-size: 16px; color: #333333; }
   .pc-row .info .reg { font-size: 12px; color: #B2B2B2; margin-top: 2px; }
   .pc-row .chat-arrow { color: #C8C8CC; font-size: 18px; }
   .pc-func-row {
@@ -510,7 +512,7 @@
     width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;
     display: flex; align-items: center; justify-content: center; font-size: 18px; color: #fff;
   }
-  .pc-func-row .pf-name { flex: 1; font-size: 16px; color: #191919; }
+  .pc-func-row .pf-name { flex: 1; font-size: 16px; color: #333333; }
   .pc-func-row .pf-arrow { color: #C8C8CC; font-size: 18px; }
 
   /* ============ 朋友圈页面 ============ */
@@ -519,11 +521,12 @@
     overflow: hidden; min-width: 0;
   }
   .pm-head {
-    height: 44px; min-height: 44px; flex-shrink: 0; background: #EDEDED;
+    height: 44px; min-height: 44px; flex-shrink: 0; background: #FFFFFF;
     display: flex; align-items: center; padding: 0 16px; gap: 8px;
+    border-bottom: 0.5px solid #E5E5E5;
   }
   .pm-head .mobile-back { display: none; width: 32px; height: 32px; align-items: center; justify-content: center; font-size: 24px; color: #181818; }
-  .pm-head .title { font-size: 17px; font-weight: 600; color: #111; flex: 1; text-align: center; }
+  .pm-head .title { font-size: 17px; font-weight: 600; color: #333333; flex: 1; text-align: center; }
   .pm-head .post-btn {
     width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
     font-size: 22px; color: #181818; cursor: pointer; border-radius: 6px;
@@ -557,7 +560,7 @@
   .pm-item .av img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .pm-item .body { flex: 1; min-width: 0; }
   .pm-item .author { font-size: 15px; font-weight: 600; color: #576B95; }
-  .pm-item .text { font-size: 15px; color: #191919; line-height: 1.5; margin-top: 4px; word-break: break-word; }
+  .pm-item .text { font-size: 15px; color: #333333; line-height: 1.5; margin-top: 4px; word-break: break-word; }
   .pm-item .meta { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; }
   .pm-item .ts { font-size: 12px; color: #B2B2B2; }
   .pm-item .actions { display: flex; gap: 10px; }
@@ -585,14 +588,15 @@
   body.view-discover .page-discover { display: flex; }
   body.view-discover .sidebar, body.view-discover .chat, body.view-discover .navbar { display: none; }
   .pd-head {
-    height: 44px; min-height: 44px; flex-shrink: 0; background: #EDEDED;
+    height: 44px; min-height: 44px; flex-shrink: 0; background: #FFFFFF;
     display: flex; align-items: center; justify-content: center; padding: 0 16px;
+    border-bottom: 0.5px solid #E5E5E5;
   }
-  .pd-head .title { font-size: 17px; font-weight: 600; color: #111; }
+  .pd-head .title { font-size: 17px; font-weight: 600; color: #333333; }
   .pd-list { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 8px 0; }
   .pd-group {
     background: #FFFFFF; border-top: 0.5px solid #E0E0E0; border-bottom: 0.5px solid #E0E0E0;
-    margin-bottom: 8px;
+    margin-bottom: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.04);
   }
   .pd-group:first-child { border-top: none; }
   .pd-item {
@@ -605,7 +609,7 @@
     width: 28px; height: 28px; border-radius: 6px; flex-shrink: 0;
     display: flex; align-items: center; justify-content: center; font-size: 16px; color: #fff;
   }
-  .pd-item .pd-name { flex: 1; font-size: 16px; color: #191919; }
+  .pd-item .pd-name { flex: 1; font-size: 16px; color: #333333; }
   .pd-item .pd-arrow { color: #C8C8CC; font-size: 16px; }
 
   /* ============ 一键安装相关样式 ============ */
@@ -658,6 +662,54 @@
     transition: transform .15s;
   }
   .fab-install:hover { transform: scale(1.08); }
+
+  /* ============ TabBar 红点/未读数 ============ */
+  .tabbar .tab { position: relative; }
+  .tabbar .tab .badge {
+    position: absolute; top: 2px; left: 50%; margin-left: 6px;
+    min-width: 16px; height: 16px; border-radius: 8px;
+    background: #FA5151; color: #fff; font-size: 10px;
+    display: none; align-items: center; justify-content: center;
+    padding: 0 4px; line-height: 1; z-index: 2;
+  }
+  .tabbar .tab .badge.show { display: flex; }
+  .tabbar .tab .badge.dot {
+    width: 8px; height: 8px; min-width: 8px; border-radius: 50%; padding: 0;
+  }
+
+  /* ============ 聊天列表未读红点 ============ */
+  .contact-item .unread-dot {
+    position: absolute; right: 12px; bottom: 12px;
+    min-width: 18px; height: 18px; border-radius: 9px;
+    background: #FA5151; color: #fff; font-size: 11px;
+    display: none; align-items: center; justify-content: center;
+    padding: 0 5px; line-height: 1; z-index: 2;
+  }
+  .contact-item .unread-dot.show { display: flex; }
+
+  /* ============ 下拉刷新指示器 ============ */
+  .pull-refresh {
+    text-align: center; padding: 0; font-size: 12px; color: #888888;
+    background: #EDEDED; overflow: hidden; height: 0;
+    transition: height .2s ease; display: flex; align-items: center; justify-content: center;
+  }
+  .pull-refresh.show { height: 40px; }
+  .pull-refresh .pr-spinner {
+    width: 16px; height: 16px; border: 2px solid #ccc; border-top-color: #07C160;
+    border-radius: 50%; animation: pr-spin .6s linear infinite; margin-right: 8px;
+    display: none;
+  }
+  .pull-refresh.show .pr-spinner { display: block; }
+  @keyframes pr-spin { to { transform: rotate(360deg); } }
+
+  /* ============ 通讯录字母索引 ============ */
+  .pc-letter-bar {
+    position: fixed; right: 2px; top: 50%; transform: translateY(-50%);
+    z-index: 10; display: flex; flex-direction: column; align-items: center;
+    font-size: 10px; color: #888; line-height: 1.4; padding: 4px 2px;
+  }
+  .pc-letter-bar span { padding: 1px 2px; cursor: pointer; }
+  .pc-letter-bar span:active { color: #07C160; font-weight: 600; }
 
   /* 移动端：通讯录/朋友圈/我 全屏化 + 返回按钮 + TabBar 49px 触控高度 */
   @media (max-width: 768px) {
@@ -714,6 +766,7 @@
         <input id="searchInput" type="text" placeholder="🔍 搜索">
       </div>
     </div>
+    <div class="pull-refresh" id="pullRefresh"><span class="pr-spinner"></span><span class="pr-text">下拉刷新</span></div>
     <div class="contact-list" id="contactList"></div>
   </div>
 
@@ -790,6 +843,11 @@
           <div class="pd-name">扫一扫</div>
           <div class="pd-arrow">›</div>
         </div>
+        <div class="pd-item" data-discover="shake">
+          <div class="pd-icon" style="background:#576B95">📳</div>
+          <div class="pd-name">摇一摇</div>
+          <div class="pd-arrow">›</div>
+        </div>
         <div class="pd-item" data-discover="look">
           <div class="pd-icon" style="background:#10AEFF">👁</div>
           <div class="pd-name">看一看</div>
@@ -858,6 +916,7 @@
   <div class="tab active" data-nav="chat">
     <svg class="t-svg" viewBox="0 0 28 28" fill="currentColor"><path d="M9.5 3C4.8 3 1 6.2 1 10.2c0 2.3 1.2 4.3 3.1 5.7-.1.7-.5 1.9-1 2.9-.1.2.1.5.3.4 1.3-.2 2.6-.6 3.6-1 .8.3 1.6.5 2.5.6-.1-.5-.2-1.1-.2-1.6 0-4 3.8-7.3 8.5-7.3.3 0 .6 0 .8.1C17.6 5.8 13.9 3 9.5 3zM7 8.3a1.3 1.3 0 110 2.6 1.3 1.3 0 010-2.6zm5 0a1.3 1.3 0 110 2.6 1.3 1.3 0 010-2.6z"/><path d="M27 15.5c0-3.6-3.4-6.5-7.5-6.5S12 11.9 12 15.5c0 3.6 3.4 6.5 7.5 6.5.9 0 1.7-.1 2.5-.3.7.3 1.7.6 2.6.8.2 0 .4-.2.3-.4-.4-.7-.7-1.5-.8-2 1.8-1.2 2.9-3 2.9-5.1zm-9.5-.8a.8.8 0 110 1.6.8.8 0 010-1.6zm4 0a.8.8 0 110 1.6.8.8 0 010-1.6z"/></svg>
     <div class="t-txt">微信</div>
+    <span class="badge" id="badgeChat"></span>
   </div>
   <div class="tab" data-nav="contacts">
     <svg class="t-svg" viewBox="0 0 28 28" fill="currentColor"><path d="M14 2C8.5 2 4 6.5 4 12c0 5.5 4.5 10 10 10s10-4.5 10-10c0-5.5-4.5-10-10-10zm0 5c1.7 0 3 1.3 3 3s-1.3 3-3 3-3-1.3-3-3 1.3-3 3-3zm0 12c-2.5 0-4.7-1.3-6-3.2.1-2 4-3.1 6-3.1s5.9 1.1 6 3.1c-1.3 1.9-3.5 3.2-6 3.2z"/></svg>
@@ -962,7 +1021,8 @@ let state = {
   current: null,         // 当前选中的联系人id
   me: { avatar: null, color: '#07C160', name: '我' },
   moments: [],           // 朋友圈动态: [{id, authorId, authorName, color, avatar, text, ts, likes:[], comments:[{from,text}]}]
-  currentRole: 'me'      // 当前发言身份: 'me' 或 'friend'（可切换成对方自己回复自己）
+  currentRole: 'me',     // 当前发言身份: 'me' 或 'friend'（可切换成对方自己回复自己）
+  unread: {}             // { 联系人id: 未读消息数 }
 };
 
 const REPLY_POOL = ['收到了','好的','嗯嗯','哈哈','在的','OK','明白','没问题','稍等我看看','哈哈哈','行','收到收到','谢谢','好嘞','不错不错','好的好的'];
@@ -979,6 +1039,7 @@ function load() {
         if (!state.chats) state.chats = {};
         if (!state.me) state.me = { avatar: null, color: '#07C160', name: '我' };
         if (!state.moments) state.moments = [];
+        if (!state.unread) state.unread = {};
       }
     }
   } catch (e) { console.warn('读取本地数据失败', e); }
@@ -1083,6 +1144,7 @@ function addContact(name) {
 function selectContact(id) {
   state.current = id;
   state.currentRole = 'me'; // 切换联系人时重置为"我"发言
+  state.unread[id] = 0; // 清除未读
   save();
   // 移动端：选中后切到聊天视图
   if (isMobile()) setMobileView('chat');
@@ -1090,6 +1152,7 @@ function selectContact(id) {
   switchRole('me');
   renderSidebar();
   renderChat();
+  updateTabBarBadge();
 }
 
 function deleteContact(id) {
@@ -1098,6 +1161,7 @@ function deleteContact(id) {
   if (!confirm(`确定删除联系人「${c.name}」及其聊天记录？`)) return;
   state.contacts = state.contacts.filter(x => x.id !== id);
   delete state.chats[id];
+  delete state.unread[id];
   if (state.current === id) {
     state.current = null;
     if (isMobile()) setMobileView('list');
@@ -1105,6 +1169,7 @@ function deleteContact(id) {
   save();
   renderSidebar();
   renderChat();
+  updateTabBarBadge();
 }
 
 /* ---------- 消息发送 ---------- */
@@ -1112,9 +1177,14 @@ function pushMessage(type, data) {
   if (!state.current) return;
   const msg = Object.assign({ id: uid(), type, ts: nowTime() }, data);
   state.chats[state.current].push(msg);
+  // 未读消息：移动端不在聊天视图时，对方消息计为未读
+  if (msg.from === 'friend' && isMobile() && !document.body.classList.contains('chat-view')) {
+    state.unread[state.current] = (state.unread[state.current] || 0) + 1;
+  }
   save();
   renderChat();
   renderSidebar();
+  updateTabBarBadge();
 }
 function sendText() {
   const input = document.getElementById('msgInput');
@@ -1173,6 +1243,10 @@ function renderSidebar() {
     const msgs = state.chats[c.id] || [];
     const last = msgs.length ? previewText(msgs[msgs.length - 1]) : '';
     const lastTs = msgs.length ? msgs[msgs.length - 1].ts : '';
+    const unreadCount = state.unread[c.id] || 0;
+    const unreadHTML = unreadCount > 0
+      ? `<div class="unread-dot show">${unreadCount > 99 ? '99+' : unreadCount}</div>`
+      : '';
     return `
       <div class="contact-item ${c.id === state.current ? 'active' : ''}" data-id="${c.id}">
         <div data-avatar-id="${c.id}" class="avatar-entry">${avatarHTML(c.name, c.color, c.avatar)}</div>
@@ -1181,6 +1255,7 @@ function renderSidebar() {
           <div class="last">${escapeHtml(last)}</div>
         </div>
         <div class="time-stamp">${lastTs}</div>
+        ${unreadHTML}
         <div class="del" data-del="${c.id}" title="删除">×</div>
       </div>`;
   }).join('');
@@ -1192,6 +1267,68 @@ function previewText(m) {
   if (m.type === 'voice') return '[语音通话] ' + m.duration;
   if (m.type === 'video') return '[视频通话] ' + m.duration;
   return '';
+}
+
+/* ---------- TabBar 未读红点 ---------- */
+function updateTabBarBadge() {
+  const total = Object.values(state.unread || {}).reduce((s, v) => s + v, 0);
+  const badge = document.getElementById('badgeChat');
+  if (!badge) return;
+  if (total > 0) {
+    badge.classList.add('show');
+    badge.classList.remove('dot');
+    badge.textContent = total > 99 ? '99+' : total;
+  } else {
+    badge.classList.remove('show');
+  }
+}
+
+/* ---------- 下拉刷新 ---------- */
+function setupPullRefresh() {
+  const list = document.getElementById('contactList');
+  const indicator = document.getElementById('pullRefresh');
+  if (!list || !indicator) return;
+  let startY = 0, pulling = false, pullDist = 0;
+  const PULL_THRESHOLD = 50;
+
+  list.addEventListener('touchstart', e => {
+    if (list.scrollTop === 0) {
+      startY = e.touches[0].clientY;
+      pulling = true;
+      pullDist = 0;
+    }
+  }, { passive: true });
+
+  list.addEventListener('touchmove', e => {
+    if (!pulling) return;
+    pullDist = Math.max(0, e.touches[0].clientY - startY);
+    if (pullDist > 0 && pullDist < 80) {
+      indicator.style.height = (pullDist * 0.5) + 'px';
+      const text = indicator.querySelector('.pr-text');
+      if (text) text.textContent = pullDist >= PULL_THRESHOLD ? '松开刷新' : '下拉刷新';
+    }
+  }, { passive: true });
+
+  list.addEventListener('touchend', () => {
+    if (!pulling) return;
+    pulling = false;
+    if (pullDist >= PULL_THRESHOLD) {
+      indicator.classList.add('show');
+      indicator.style.height = '';
+      const text = indicator.querySelector('.pr-text');
+      if (text) text.textContent = '刷新中…';
+      setTimeout(() => {
+        renderSidebar();
+        indicator.classList.remove('show');
+        indicator.style.height = '';
+        if (text) text.textContent = '下拉刷新';
+        flashTip('已刷新');
+      }, 800);
+    } else {
+      indicator.style.height = '';
+    }
+    pullDist = 0;
+  });
 }
 
 /* ---------- 渲染：聊天窗口 ---------- */
@@ -1447,6 +1584,11 @@ function renderMePage() {
         <div class="me-name">朋友圈</div>
         <div class="me-arrow">›</div>
       </div>
+      <div class="me-row" data-me-name="相册">
+        <div class="me-ico" style="width:24px;height:24px;border-radius:6px;background:#5AA8E8;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff">🖼</div>
+        <div class="me-name">相册</div>
+        <div class="me-arrow">›</div>
+      </div>
       <div class="me-row" data-me-name="卡包">
         <div class="me-ico" style="width:24px;height:24px;border-radius:6px;background:#5AA8E8;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff">🗂</div>
         <div class="me-name">卡包</div>
@@ -1528,21 +1670,37 @@ function renderContactsPage() {
     <div class="info"><div class="nm">${escapeHtml(state.me.name)}</div><div class="reg">这是我</div></div>
   </div>`;
 
-  // 好友列表
+  // 好友列表 - 按首字母分组
   let friendsHTML = '';
   if (sorted.length === 0) {
     friendsHTML = `<div class="pm-empty" style="padding:30px 20px">还没有联系人<br>点击右上「+」添加</div>`;
   } else {
-    friendsHTML = `<div class="pc-group-head" style="margin-top:8px">好友（${sorted.length}）</div>`;
-    friendsHTML += sorted.map(c => `
-      <div class="pc-row" data-pc-id="${c.id}">
-        ${avatarHTML(c.name, c.color, c.avatar)}
-        <div class="info">
-          <div class="nm">${escapeHtml(c.name)}</div>
-          <div class="reg">微信号: wx_${c.id.slice(-6)}</div>
-        </div>
-        <span class="chat-arrow">›</span>
-      </div>`).join('');
+    const groups = {};
+    const letterOrder = [];
+    sorted.forEach(c => {
+      const ch = c.name.charAt(0).toUpperCase();
+      const key = /[A-Z]/.test(ch) ? ch : '#';
+      if (!groups[key]) { groups[key] = []; letterOrder.push(key); }
+      groups[key].push(c);
+    });
+    letterOrder.sort();
+    friendsHTML = `<div class="pc-group-head" style="margin-top:8px"></div>`;
+    letterOrder.forEach(letter => {
+      friendsHTML += `<div class="pc-group-head">${letter}</div>`;
+      groups[letter].forEach(c => {
+        friendsHTML += `<div class="pc-row" data-pc-id="${c.id}">
+          ${avatarHTML(c.name, c.color, c.avatar)}
+          <div class="info">
+            <div class="nm">${escapeHtml(c.name)}</div>
+            <div class="reg">微信号: wx_${c.id.slice(-6)}</div>
+          </div>
+          <span class="chat-arrow">›</span>
+        </div>`;
+      });
+    });
+    if (!kw && letterOrder.length > 0) {
+      friendsHTML += `<div class="pc-letter-bar">${letterOrder.map(l => `<span data-letter="${l}">${l}</span>`).join('')}</div>`;
+    }
   }
 
   list.innerHTML = funcHTML + meHTML + friendsHTML;
@@ -1838,6 +1996,19 @@ function bindEvents() {
 
   // 通讯录：点行进入该联系人聊天
   document.getElementById('pcList').addEventListener('click', e => {
+    const letterSpan = e.target.closest('[data-letter]');
+    if (letterSpan) {
+      const letter = letterSpan.dataset.letter;
+      const list = document.getElementById('pcList');
+      const headers = list.querySelectorAll('.pc-group-head');
+      for (const h of headers) {
+        if (h.textContent.trim() === letter) {
+          h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          break;
+        }
+      }
+      return;
+    }
     const funcRow = e.target.closest('[data-pc-func]');
     if (funcRow) {
       const func = funcRow.dataset.pcFunc;
@@ -1877,6 +2048,8 @@ function bindEvents() {
         switchNav('moments');
       } else if (target === 'scan') {
         alert('扫一扫功能（示例占位）');
+      } else if (target === 'shake') {
+        flashTip('摇一摇：暂未检测到附近设备');
       } else if (target === 'channel') {
         alert('视频号功能（示例占位）');
       } else {
@@ -1928,6 +2101,8 @@ function init() {
   renderSidebar();
   renderChat();
   setupKeyboardHack();
+  setupPullRefresh();
+  updateTabBarBadge();
 
   /* ---------- Service Worker 注册（PWA 离线 + 安装到桌面的核心） ---------- */
   if ('serviceWorker' in navigator) {
