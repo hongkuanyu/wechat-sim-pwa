@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>下载微信聊天模拟</title>
+<meta name="theme-color" content="#07C160">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f5f5f5; color: #333; min-height: 100vh;
+  }
+  .header {
+    background: linear-gradient(135deg, #07C160 0%, #06AD56 100%);
+    color: #fff; padding: 48px 20px 40px; text-align: center;
+  }
+  .app-icon {
+    width: 88px; height: 88px; border-radius: 20px; margin: 0 auto 16px;
+    background: #fff; display: flex; align-items: center; justify-content: center;
+    font-size: 44px; box-shadow: 0 4px 16px rgba(0,0,0,.15);
+  }
+  .header h1 { font-size: 24px; font-weight: 600; }
+  .header p { font-size: 14px; opacity: .9; margin-top: 6px; }
+  .container { max-width: 480px; margin: 0 auto; padding: 0 16px 32px; }
+
+  .qr-section {
+    background: #fff; border-radius: 12px; padding: 24px 20px; margin-top: -20px;
+    text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,.06);
+  }
+  .qr-section h2 { font-size: 17px; color: #333; margin-bottom: 4px; }
+  .qr-section .sub { font-size: 13px; color: #888; margin-bottom: 16px; }
+  .qr-img {
+    width: 200px; height: 200px; margin: 0 auto; border-radius: 8px;
+    border: 1px solid #eee; overflow: hidden;
+  }
+  .qr-img img { width: 100%; height: 100%; }
+  .qr-tip { font-size: 12px; color: #999; margin-top: 12px; line-height: 1.6; }
+
+  .section { margin-top: 20px; }
+  .section-title {
+    font-size: 15px; font-weight: 600; color: #333; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-title .icon {
+    width: 28px; height: 28px; border-radius: 6px; display: flex;
+    align-items: center; justify-content: center; font-size: 16px; color: #fff;
+  }
+
+  .card {
+    background: #fff; border-radius: 12px; padding: 16px; margin-bottom: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+  }
+  .card h3 { font-size: 16px; color: #333; margin-bottom: 8px; }
+  .card p { font-size: 13px; color: #666; line-height: 1.6; }
+  .card .steps { font-size: 13px; color: #555; line-height: 2; }
+  .card .steps b { color: #07C160; }
+
+  .btn {
+    display: block; width: 100%; height: 48px; border-radius: 10px;
+    font-size: 16px; font-weight: 600; text-align: center; line-height: 48px;
+    text-decoration: none; margin-top: 12px; transition: transform .1s;
+  }
+  .btn:active { transform: scale(.97); }
+  .btn-green { background: #07C160; color: #fff; }
+  .btn-blue { background: #fff; color: #07C160; border: 2px solid #07C160; }
+
+  .features { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+  .feature {
+    background: #fff; border-radius: 10px; padding: 14px 12px; text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+  }
+  .feature .f-icon { font-size: 28px; margin-bottom: 6px; }
+  .feature .f-name { font-size: 12px; color: #666; }
+
+  .tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+  .tab-btn {
+    flex: 1; height: 40px; border-radius: 8px; font-size: 14px; font-weight: 500;
+    background: #fff; color: #888; border: 1px solid #e0e0e0; cursor: pointer;
+  }
+  .tab-btn.active { background: #07C160; color: #fff; border-color: #07C160; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .footer { text-align: center; padding: 24px 16px; font-size: 12px; color: #999; }
+  .url-box {
+    background: #f0f0f0; border-radius: 8px; padding: 10px 14px; margin-top: 12px;
+    font-size: 13px; color: #555; word-break: break-all; text-align: center;
+    border: 1px dashed #ccc;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="app-icon">💬</div>
+  <h1>微信聊天模拟</h1>
+  <p>仿微信界面 · 支持离线 · 手机直接安装</p>
+</div>
+
+<div class="container">
+
+  <!-- QR Code -->
+  <div class="qr-section">
+    <h2>扫码安装</h2>
+    <p class="sub">用手机扫一扫，直接打开安装</p>
+    <div class="qr-img">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=8&color=07C160&bgcolor=ffffff&data=https://hongkuanyu.github.io/wechat-sim-pwa/" alt="扫码安装">
+    </div>
+    <p class="qr-tip">安卓用任意浏览器扫码 · 苹果用系统相机或微信扫码后选「在Safari中打开」</p>
+  </div>
+
+  <!-- Install tabs -->
+  <div class="section">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('android')">安卓 Android</button>
+      <button class="tab-btn" onclick="switchTab('ios')">苹果 iOS</button>
+    </div>
+
+    <!-- Android -->
+    <div class="tab-content active" id="tab-android">
+      <div class="card">
+        <h3>方法一：浏览器直接安装（推荐）</h3>
+        <div class="steps">
+          1. 打开网址或扫码进入应用<br>
+          2. 点击页面顶部弹出的<b>绿色「安装」横幅</b><br>
+          3. 如果没有横幅：点浏览器右上角 <b>⋮</b> 菜单<br>
+          4. 选择<b>「安装应用」</b>或<b>「添加到桌面」</b><br>
+          5. 桌面出现绿色图标，点开即可全屏使用
+        </div>
+        <a class="btn btn-green" href="https://hongkuanyu.github.io/wechat-sim-pwa/">打开应用</a>
+      </div>
+
+      <div class="card">
+        <h3>方法二：下载 APK 安装包</h3>
+        <p>下载 APK 文件，直接点击安装。安装时手机会提示「未知来源」，允许即可。</p>
+        <p style="font-size:12px;color:#999;margin-top:6px">APK 大小约 885KB · 支持 Android 7.0+<br>本质是 TWA 壳，首次打开需联网</p>
+        <a class="btn btn-blue" href="wechat-sim-app.apk" download>下载 APK</a>
+      </div>
+
+      <div class="card">
+        <h3>各浏览器安装路径</h3>
+        <div class="steps" style="font-size:12px;line-height:1.8">
+          <b>Chrome</b>：⋮ → 安装应用<br>
+          <b>Edge</b>：⋮ → 安装应用<br>
+          <b>华为浏览器</b>：▤ → 添加到桌面 → 安装<br>
+          <b>小米浏览器</b>：⋮ → 更多工具 → 安装应用<br>
+          <b>OPPO</b>：底部菜单 → 添加到桌面 → 安装<br>
+          <b>vivo</b>：底部菜单 → 添加到桌面 → 安装<br>
+          <b>三星</b>：☰ → 安装应用<br>
+          <b>QQ浏览器</b>：菜单 → 添加到桌面 → 安装为应用
+        </div>
+        <p style="font-size:12px;color:#FA5151;margin-top:8px">微信内置浏览器、夸克浏览器不支持安装，请换用上述浏览器</p>
+      </div>
+    </div>
+
+    <!-- iOS -->
+    <div class="tab-content" id="tab-ios">
+      <div class="card">
+        <h3>Safari 添加到主屏幕</h3>
+        <div class="steps">
+          1. 用 <b>Safari</b> 打开应用网址（其他浏览器不行）<br>
+          2. 点底部中间的 <b>「分享」按钮</b>（方块+向上箭头）<br>
+          3. 向下滑动，找到 <b>「添加到主屏幕」</b><br>
+          4. 名称填「微信聊天」→ 点右上角 <b>「添加」</b><br>
+          5. 桌面出现绿色图标，点开全屏运行
+        </div>
+        <a class="btn btn-green" href="https://hongkuanyu.github.io/wechat-sim-pwa/">用 Safari 打开</a>
+      </div>
+
+      <div class="card">
+        <h3>注意事项</h3>
+        <div class="steps" style="font-size:13px">
+          必须使用 <b>Safari</b> 浏览器<br>
+          Chrome / Edge / 其他浏览器不支持安装 PWA<br>
+          首次打开需联网加载，加载后断网也能用<br>
+          iOS 16.4+ 支持完整 PWA 推送通知
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features -->
+  <div class="section">
+    <div class="section-title">
+      <div class="icon" style="background:#07C160">✨</div>
+      应用功能
+    </div>
+    <div class="features">
+      <div class="feature"><div class="f-icon">💬</div><div class="f-name">多联系人聊天</div></div>
+      <div class="feature"><div class="f-icon">🧧</div><div class="f-name">红包转账卡片</div></div>
+      <div class="feature"><div class="f-icon">📞</div><div class="f-name">语音视频通话</div></div>
+      <div class="feature"><div class="f-icon">📷</div><div class="f-name">朋友圈动态</div></div>
+      <div class="feature"><div class="f-icon">👤</div><div class="f-name">自定义头像</div></div>
+      <div class="feature"><div class="f-icon">🔄</div><div class="f-name">身份切换</div></div>
+      <div class="feature"><div class="f-icon">📭</div><div class="f-name">离线运行</div></div>
+      <div class="feature"><div class="f-icon">🔔</div><div class="f-name">未读红点提示</div></div>
+    </div>
+  </div>
+
+  <!-- URL -->
+  <div class="section">
+    <div class="card">
+      <h3>应用网址</h3>
+      <p>复制此网址到手机浏览器打开即可安装：</p>
+      <div class="url-box">https://hongkuanyu.github.io/wechat-sim-pwa/</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    微信聊天模拟 PWA v4 · 数据存储在本地 · 无需注册
+  </div>
+</div>
+
+<script>
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
+}
+</script>
+</body>
+</html>

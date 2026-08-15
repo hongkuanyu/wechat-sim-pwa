@@ -4,7 +4,7 @@
  *   - 静态资源（CSS/JS/图标）：缓存优先，后台更新
  *   - 首次安装时预缓存所有核心资源
  */
-const CACHE_NAME = 'wechat_sim_v3_20260815';
+const CACHE_NAME = 'wechat_sim_v4_20260815';
 const OFFLINE_URL = './offline.html';
 
 const PRECACHE_URLS = [
