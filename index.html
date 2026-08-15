@@ -25,7 +25,7 @@
   html, body { height: 100%; width: 100%; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
-    font-size: 14px; color: #111; background: #f5f5f5; overflow: hidden;
+    font-size: 14px; color: #333; background: #EDEDED; overflow: hidden;
     /* 苹果刘海屏安全区 */
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
@@ -127,7 +127,7 @@
     width: 300px; flex-shrink: 0; background: #FFFFFF;
     display: flex; flex-direction: column;
   }
-  .sidebar-head { padding: 0; background: #EDEDED; }
+  .sidebar-head { padding: 0; background: #FFFFFF; }
   .sidebar-title-bar {
     display: flex; align-items: center; justify-content: space-between;
     height: 44px; padding: 0 16px; flex-shrink: 0;
@@ -136,15 +136,15 @@
   .sidebar-title-bar .st-title { font-size: 17px; font-weight: 600; color: #333333; }
   .sidebar-title-bar .st-add {
     width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
-    font-size: 24px; color: #191919; cursor: pointer; border-radius: 6px;
+    font-size: 24px; color: #333333; cursor: pointer; border-radius: 6px;
   }
   .sidebar-title-bar .st-add:active { background: #DCDCDC; }
   .search-bar {
-    padding: 0 8px 8px; display: flex; align-items: center; gap: 6px;
-    background: #EDEDED;
+    padding: 8px 8px; display: flex; align-items: center; gap: 6px;
+    background: #FFFFFF;
   }
   .search-bar input {
-    flex: 1; height: 32px; border-radius: 6px; background: #FFFFFF;
+    flex: 1; height: 32px; border-radius: 6px; background: #EDEDED;
     padding: 0 12px; font-size: 14px; color: #333; text-align: center;
   }
   .search-bar input::placeholder { color: #B2B2B2; text-align: center; }
@@ -242,12 +242,12 @@
     max-width: 100%;
   }
   .msg-row.me .bubble { background: #95EC69; color: #000; }
-  .msg-row.friend .bubble { background: #fff; color: #111; }
+  .msg-row.friend .bubble { background: #fff; color: #333333; }
   .bubble::before {
-    content: ""; position: absolute; top: 13px; border: 6px solid transparent;
+    content: ""; position: absolute; top: 14px; border: 5px solid transparent;
   }
-  .msg-row.me .bubble::before { right: -10px; border-left-color: #95EC69; }
-  .msg-row.friend .bubble::before { left: -10px; border-right-color: #fff; }
+  .msg-row.me .bubble::before { right: -9px; border-left-color: #95EC69; }
+  .msg-row.friend .bubble::before { left: -9px; border-right-color: #fff; }
 
   /* 系统消息 */
   .msg-sys {
@@ -289,13 +289,12 @@
   .input-row { display: flex; align-items: flex-end; padding: 8px 10px; gap: 8px; padding-bottom: calc(8px + env(safe-area-inset-bottom)); }
   .voice-ico-btn {
     width: 34px; height: 34px; flex-shrink: 0; font-size: 20px;
-    background: #fff; border-radius: 6px; border: 1px solid #E2E2E2;
     display: flex; align-items: center; justify-content: center;
   }
   .input-row textarea {
     flex: 1; resize: none; height: 34px; max-height: 108px;
     border-radius: 6px; background: #fff; padding: 7px 10px;
-    font-size: 15px; line-height: 1.4; color: #111; border: 1px solid #E2E2E2;
+    font-size: 15px; line-height: 1.4; color: #333; border: none;
   }
   .emoji-btn {
     width: 34px; height: 34px; flex-shrink: 0; font-size: 22px;
@@ -303,7 +302,6 @@
   }
   .plus-btn {
     width: 34px; height: 34px; flex-shrink: 0; font-size: 24px; font-weight: 300;
-    background: #fff; border-radius: 6px; border: 1px solid #E2E2E2;
     display: flex; align-items: center; justify-content: center;
     color: #555; transition: transform .15s;
   }
@@ -351,7 +349,7 @@
   .modal-input {
     display: block; width: calc(100% - 40px); margin: 0 20px 12px;
     height: 42px; border-radius: 6px; background: #F2F2F2; padding: 0 12px;
-    font-size: 16px; color: #111; text-align: center;
+    font-size: 16px; color: #333; text-align: center;
   }
   .modal-input:focus { background: #fff; box-shadow: inset 0 0 0 1.5px #07C160; }
 
@@ -364,7 +362,7 @@
   .ma-label { font-size: 13px; color: #888; flex-shrink: 0; }
   .ma-select {
     flex: 1; height: 36px; border-radius: 6px; background: #fff;
-    border: 1px solid #E0E0E0; padding: 0 10px; font-size: 14px; color: #111;
+    border: 1px solid #E0E0E0; padding: 0 10px; font-size: 14px; color: #333;
     -webkit-appearance: auto; appearance: auto;
   }
 
@@ -429,7 +427,7 @@
     .messages { padding: 12px 10px; }
     .msg-row .content { max-width: 72%; }
     .bubble { font-size: 15px; }
-    .msg-row .avatar-wrap { width: 38px; height: 38px; font-size: 15px; }
+    .msg-row .avatar-wrap { width: 40px; height: 40px; font-size: 16px; }
 
     .card { width: 200px; }
     .msg-row .content { max-width: calc(100% - 56px); }
@@ -478,9 +476,9 @@
     font-size: 22px; color: #181818; cursor: pointer; border-radius: 6px;
   }
   .pc-head .add-friend-btn:active { background: #DCDCDC; }
-  .pc-search-bar { padding: 0 8px 8px; background: #EDEDED; }
+  .pc-search-bar { padding: 8px 8px; background: #FFFFFF; }
   .pc-search-bar input {
-    width: 100%; height: 32px; border-radius: 6px; background: #FFFFFF;
+    width: 100%; height: 32px; border-radius: 6px; background: #EDEDED;
     padding: 0 12px; font-size: 14px; color: #333; text-align: center;
   }
   .pc-search-bar input::placeholder { color: #B2B2B2; text-align: center; }
@@ -575,7 +573,7 @@
   }
   .pm-item .cmt {
     margin-top: 4px; padding: 6px 8px; background: #F7F7F7; border-radius: 4px;
-    font-size: 13px; color: #191919; line-height: 1.5;
+    font-size: 13px; color: #333333; line-height: 1.5;
   }
   .pm-item .cmt .who { color: #576B95; font-weight: 500; }
   .pm-empty { padding: 60px 20px; text-align: center; color: #B2B2B2; }
@@ -644,7 +642,7 @@
   }
   .qr-head {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 12px 16px 8px; font-size: 14px; font-weight: 600; color: #191919;
+    padding: 12px 16px 8px; font-size: 14px; font-weight: 600; color: #333333;
   }
   .qr-close { font-size: 20px; color: #999; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
   .qr-img { display: flex; justify-content: center; padding: 0 16px 8px; }
