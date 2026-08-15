@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>iOS 安装指南 - 微信聊天模拟</title>
+<meta name="theme-color" content="#07C160">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="微信聊天">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: #F2F2F7; color: #191919; line-height: 1.6; padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
+.hero { background: linear-gradient(135deg, #07C160 0%, #06AD56 100%); color: #fff; text-align: center; padding: 44px 20px 40px; }
+.hero-icon { width: 84px; height: 84px; border-radius: 20px; background: rgba(255,255,255,.18); display: flex; align-items: center; justify-content: center; font-size: 42px; margin: 0 auto 16px; }
+.hero h1 { font-size: 25px; font-weight: 700; margin-bottom: 6px; }
+.hero p { font-size: 14px; opacity: .9; }
+.url-card { margin: -24px 16px 20px; background: #fff; border-radius: 16px; padding: 22px 20px; box-shadow: 0 4px 24px rgba(0,0,0,.1); position: relative; }
+.url-card label { font-size: 13px; color: #8E8E93; display: block; margin-bottom: 10px; }
+.url-box { display: flex; align-items: center; gap: 10px; }
+.url-box input { flex: 1; border: 1.5px solid #E5E5EA; border-radius: 10px; padding: 12px 14px; font-size: 14px; color: #07C160; font-weight: 600; background: #F7F7F7; outline: none; }
+.url-box button { flex-shrink: 0; padding: 12px 20px; border: none; border-radius: 10px; background: #07C160; color: #fff; font-size: 15px; font-weight: 600; cursor: pointer; transition: transform .12s; }
+.url-box button:active { transform: scale(0.94); }
+.section { margin: 0 16px 20px; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,.05); }
+.section-head { display: flex; align-items: center; gap: 12px; padding: 18px 20px; border-bottom: 1px solid #F2F2F7; }
+.section-head .s-icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+.section-head.ios .s-icon { background: #F5F5F7; }
+.section-head.tip .s-icon { background: #FFF8E1; }
+.section-head h2 { font-size: 18px; font-weight: 600; }
+.section-body { padding: 18px 20px; }
+.step { display: flex; gap: 16px; margin-bottom: 20px; }
+.step:last-child { margin-bottom: 0; }
+.step-num { width: 32px; height: 32px; border-radius: 50%; background: #07C160; color: #fff; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; box-shadow: 0 2px 8px rgba(7,193,96,.3); }
+.step-text { font-size: 15px; color: #1C1C1E; line-height: 1.75; flex: 1; }
+.step-text b { color: #07C160; }
+.step-text .detail { display: block; background: #F5F5F7; border-radius: 10px; padding: 10px 14px; margin-top: 8px; font-size: 13px; color: #636366; line-height: 1.6; }
+.step-text .highlight { display: block; background: #E8F5E9; border-radius: 10px; padding: 10px 14px; margin-top: 8px; font-size: 13px; color: #2E7D32; line-height: 1.6; }
+.illustrate { display: flex; justify-content: center; gap: 8px; margin: 16px 0; }
+.illustrate .ill-box { background: #F5F5F7; border-radius: 12px; padding: 16px 12px; text-align: center; flex: 1; max-width: 100px; }
+.illustrate .ill-icon { font-size: 32px; margin-bottom: 6px; }
+.illustrate .ill-label { font-size: 11px; color: #8E8E93; }
+.note-box { background: #E3F2FD; border-radius: 12px; padding: 16px 18px; font-size: 14px; color: #1565C0; line-height: 1.7; }
+.note-box b { font-weight: 600; }
+.warn-box { background: #FFF3E0; border-radius: 12px; padding: 16px 18px; font-size: 14px; color: #E65100; line-height: 1.7; margin-top: 12px; }
+.footer { text-align: center; padding: 28px 16px; font-size: 12px; color: #8E8E93; }
+.footer a { color: #07C160; text-decoration: none; }
+.btn-open { display: block; margin: 20px 16px; text-align: center; background: #07C160; color: #fff; text-decoration: none; font-size: 17px; font-weight: 600; padding: 16px; border-radius: 14px; box-shadow: 0 4px 16px rgba(7,193,96,.35); transition: transform .12s; }
+.btn-open:active { transform: scale(0.97); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-icon">🍎</div>
+  <h1>iOS 安装指南</h1>
+  <p>iPhone / iPad · 微信聊天模拟 PWA</p>
+</div>
+
+<div class="url-card">
+  <label>安装网址（用 Safari 打开）</label>
+  <div class="url-box">
+    <input type="text" value="https://hongkuanyu.github.io/wechat-sim-pwa/" id="urlInput" readonly>
+    <button onclick="copyUrl()">复制</button>
+  </div>
+</div>
+
+<a href="https://hongkuanyu.github.io/wechat-sim-pwa/" class="btn-open">用 Safari 打开安装</a>
+
+<div class="section">
+  <div class="section-head ios">
+    <div class="s-icon">📱</div>
+    <h2>安装步骤（共 5 步）</h2>
+  </div>
+  <div class="section-body">
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text">
+        打开 <b>Safari 浏览器</b>，在地址栏输入上面的网址
+        <span class="detail">必须用 Safari，Chrome / Edge / QQ浏览器 等<b>不支持</b>安装 PWA</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text">
+        页面加载完成后，点击底部中间的「<b>分享</b>」按钮
+        <span class="detail">分享按钮图标：一个方框 + 向上的箭头 ↑<br>位置：Safari 底部工具栏正中间</span>
+      </div>
+    </div>
+
+    <div class="illustrate">
+      <div class="ill-box">
+        <div class="ill-icon">📤</div>
+        <div class="ill-label">点击分享按钮</div>
+      </div>
+      <div class="ill-box">
+        <div class="ill-icon">📋</div>
+        <div class="ill-label">弹出分享菜单</div>
+      </div>
+      <div class="ill-box">
+        <div class="ill-icon">➕</div>
+        <div class="ill-label">添加到主屏幕</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text">
+        在弹出的分享菜单中，<b>向下滑动</b>，找到「<b>添加到主屏幕</b>」并点击
+        <span class="detail">如果菜单较长，向下滑动到中间区域即可看到</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-text">
+        弹出命名窗口，将名称改为「<b>微信聊天</b>」，点击右上角「<b>添加</b>」
+        <span class="detail">也可以用默认名称，不影响使用</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-text">
+        回到手机桌面，可以看到绿色图标，点击即可<b>全屏运行</b>，没有地址栏
+        <span class="highlight">首次打开需要网络加载，加载成功一次后，断网也能使用</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-head tip">
+    <div class="s-icon">⚠️</div>
+    <h2>注意事项</h2>
+  </div>
+  <div class="section-body">
+    <div class="note-box">
+      <b>1. 必须用 Safari</b><br>
+      iOS 系统限制，只有 Safari 浏览器支持把网页安装为 App。Chrome、Edge、QQ浏览器、夸克等都无法安装 PWA。
+    </div>
+    <div class="warn-box">
+      <b>2. 微信扫码打不开？</b><br>
+      微信扫码后默认用微信内置浏览器打开，不支持安装。请在微信里点右上角「⋯」→「在浏览器打开」，切换到 Safari 后再操作。
+    </div>
+    <div class="warn-box">
+      <b>3. 没看到「添加到主屏幕」？</b><br>
+      确认你用的是 Safari，然后向下滑动分享菜单。如果还是找不到，可能 iOS 版本过旧（需 iOS 11.3 以上）。
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  微信聊天模拟 v4 · iOS 安装指南<br>
+  公网地址：<a href="https://hongkuanyu.github.io/wechat-sim-pwa/">hongkuanyu.github.io/wechat-sim-pwa</a>
+</div>
+
+<script>
+function copyUrl() {
+  var input = document.getElementById('urlInput');
+  input.select();
+  input.setSelectionRange(0, 99999);
+  try {
+    document.execCommand('copy');
+    var btn = event.target;
+    var orig = btn.textContent;
+    btn.textContent = '已复制';
+    btn.style.background = '#999';
+    setTimeout(function() { btn.textContent = orig; btn.style.background = ''; }, 1500);
+  } catch(e) {}
+}
+</script>
+</body>
+</html>
