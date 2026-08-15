@@ -204,10 +204,6 @@
     font-size: 20px; color: #181818; cursor: pointer; flex-shrink: 0; border-radius: 6px;
   }
   .chat-head .more-btn:active { background: #DCDCDC; }
-  .chat-head .reply-btn {
-    display: none;
-  }
-  .reply-btn:disabled { background: #bbb; }
 
   .messages {
     flex: 1; overflow-y: auto; padding: 16px 20px; background: #EDEDED;
@@ -230,7 +226,7 @@
   }
   .msg-row.me { flex-direction: row-reverse; }
   .msg-row .avatar-wrap {
-    width: 38px; height: 38px; border-radius: 6px; flex-shrink: 0; position: relative; overflow: hidden;
+    width: 40px; height: 40px; border-radius: 6px; flex-shrink: 0; position: relative; overflow: hidden;
     color: #fff; font-size: 16px;
     display: flex; align-items: center; justify-content: center;
   }
@@ -419,13 +415,9 @@
 
     /* 聊天栏：返回按钮显示 */
     .chat-head .mobile-back { display: flex; }
-    .chat-head { padding: 0 12px; gap: 8px; height: 52px; }
-    .chat-head .reply-btn { padding: 0 12px; font-size: 12px; height: 36px; }
+    .chat-head { padding: 0 12px; gap: 8px; height: 44px; }
 
-    .sidebar-head { padding: 12px 10px 8px; }
-    .add-row input { height: 40px; font-size: 14px; }
-    .add-btn { width: 40px; height: 40px; }
-    .search-box input { height: 34px; font-size: 13px; }
+    .sidebar-head { padding: 0; }
 
     .contact-item { min-height: 64px; padding: 12px 10px; }
     .contact-item .avatar-wrap { width: 44px; height: 44px; font-size: 19px; }
@@ -436,7 +428,7 @@
     .messages { padding: 12px 10px; }
     .msg-row .content { max-width: 72%; }
     .bubble { font-size: 15px; }
-    .msg-row .avatar-wrap { width: 36px; height: 36px; font-size: 15px; }
+    .msg-row .avatar-wrap { width: 38px; height: 38px; font-size: 15px; }
 
     .card { width: 200px; }
     .msg-row .content { max-width: calc(100% - 56px); }
@@ -716,7 +708,7 @@
     <div class="sidebar-head">
       <div class="sidebar-title-bar">
         <div class="st-title">微信</div>
-        <div class="st-add" id="stAddBtn" title="添加联系人">+</div>
+        <div class="st-add" id="stAddBtn" title="添加联系人"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
       </div>
       <div class="search-bar">
         <input id="searchInput" type="text" placeholder="🔍 搜索">
@@ -735,10 +727,10 @@
     <div class="messages" id="messages"></div>
     <div class="input-area">
       <div class="input-row">
-        <button class="voice-ico-btn" id="voiceIcoBtn" title="按住说话">🎤</button>
+        <button class="voice-ico-btn" id="voiceIcoBtn" title="按住说话"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5-3c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg></button>
         <textarea id="msgInput" placeholder="" rows="1"></textarea>
-        <button class="emoji-btn" id="emojiBtn">😊</button>
-        <button class="plus-btn" id="plusBtn">+</button>
+        <button class="emoji-btn" id="emojiBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="22" height="22"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r="1" fill="currentColor" stroke="none"/><path d="M8 14c1 1.5 2.5 2 4 2s3-.5 4-2"/></svg></button>
+        <button class="plus-btn" id="plusBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
         <button class="send-btn" id="sendBtn" style="display:none">发送</button>
       </div>
       <div class="plus-panel" id="plusPanel" style="display:none">
@@ -759,7 +751,7 @@
     <div class="pc-head">
       <button class="mobile-back" data-back-nav="chat">‹</button>
       <div class="title">通讯录</div>
-      <div class="add-friend-btn" id="pcAddBtn">+</div>
+      <div class="add-friend-btn" id="pcAddBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
     </div>
     <div class="pc-search-bar">
       <input type="text" id="pcSearchInput" placeholder="🔍 搜索">
@@ -830,7 +822,7 @@
       </div>
       <div class="pd-group">
         <div class="pd-item" data-discover="miniapp">
-          <div class="pd-icon" style="background:#10AEFF">_mini</div>
+          <div class="pd-icon" style="background:#10AEFF"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg></div>
           <div class="pd-name">小程序</div>
           <div class="pd-arrow">›</div>
         </div>
@@ -843,7 +835,7 @@
     <div class="pm-head">
       <button class="mobile-back" data-back-nav="discover">‹</button>
       <div class="title">朋友圈</div>
-      <button class="post-btn" id="pmPostBtn">＋ 发表</button>
+      <button class="post-btn" id="pmPostBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1-2h6l1 2"/></svg></button>
     </div>
     <div class="pm-cover">
       <div class="me-card">
@@ -1433,7 +1425,7 @@ function renderMePage() {
       </div>
       <div style="display:flex;align-items:center;gap:8px">
         <span style="font-size:14px;color:#B2B2B2">二维码</span>
-        <div style="width:22px;height:22px;border:1px solid #D0D0D0;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#999">▦</div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18" style="color:#B2B2B2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="3" height="3"/><rect x="18" y="14" width="3" height="3"/><rect x="14" y="18" width="3" height="3"/><rect x="18" y="18" width="3" height="3"/></svg>
         <div class="me-arrow">›</div>
       </div>
     </div>
