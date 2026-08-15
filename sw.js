@@ -1,10 +1,11 @@
-/* 微信聊天模拟 PWA - Service Worker (离线缓存)
+/* 微信聊天模拟 PWA - Service Worker v5 (2026-08-15 重新部署)
  * 策略：
- *   - 导航请求：网络优先，失败回退缓存，再失败回退 offline.html
- *   - 静态资源（CSS/JS/图标）：缓存优先，后台更新
- *   - 首次安装时预缓存所有核心资源
+ *   - 导航请求：始终网络优先，确保获取最新 HTML
+ *   - 静态资源：网络优先，失败回退缓存
+ *   - 安装时立即 skipWaiting，激活时立即 clients.claim
+ *   - 激活时删除所有旧版本缓存
  */
-const CACHE_NAME = 'wechat_sim_v4_20260815';
+const CACHE_NAME = 'wechat_sim_v5_20260815';
 const OFFLINE_URL = './offline.html';
 
 const PRECACHE_URLS = [
@@ -67,18 +68,17 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // 静态资源：缓存优先，后台更新
+  // 静态资源：网络优先，失败回退缓存
   event.respondWith(
-    caches.match(req).then(cached => {
-      const fetchPromise = fetch(req).then(resp => {
+    fetch(req)
+      .then(resp => {
         if (resp && resp.ok && resp.type === 'basic') {
           const clone = resp.clone();
           caches.open(CACHE_NAME).then(c => c.put(req, clone)).catch(() => {});
         }
         return resp;
-      }).catch(() => cached);
-      return cached || fetchPromise;
-    })
+      })
+      .catch(() => caches.match(req).then(cached => cached || new Response('', { status: 408 })))
   );
 });
 
