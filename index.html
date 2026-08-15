@@ -88,115 +88,124 @@
   }
   body.view-me .page-me { display: flex; }
   body.view-me .sidebar, body.view-me .chat { display: none; }
+  .me-status-bar { height: 0; flex-shrink: 0; }
 
-  .me-list { flex: 1; overflow-y: auto; padding: 12px 0; }
+  .me-list { flex: 1; overflow-y: auto; padding: 0; -webkit-overflow-scrolling: touch; }
   .me-card-big {
     display: flex; align-items: center; gap: 14px;
-    background: #fff; padding: 18px 16px; margin-bottom: 10px;
-    border-bottom: 1px solid #EEE; border-top: 1px solid #EEE;
+    background: #fff; padding: 20px 16px; margin-bottom: 8px;
+    border-bottom: 0.5px solid #F0F0F0; border-top: none;
     cursor: pointer;
   }
   .me-card-big .me-av {
-    width: 62px; height: 62px; border-radius: 8px; flex-shrink: 0;
+    width: 58px; height: 58px; border-radius: 8px; flex-shrink: 0;
     background: #07C160; color: #fff; font-size: 22px;
     display: flex; align-items: center; justify-content: center; overflow: hidden;
   }
   .me-card-big .me-av img { width: 100%; height: 100%; object-fit: cover; }
   .me-card-big .me-info { flex: 1; min-width: 0; }
-  .me-card-big .me-nm { font-size: 18px; color: #191919; font-weight: 600; }
-  .me-card-big .me-wx { font-size: 12px; color: #888; margin-top: 4px; }
-  .me-card-big .me-arrow { color: #BBB; font-size: 20px; }
+  .me-card-big .me-nm { font-size: 19px; color: #191919; font-weight: 500; }
+  .me-card-big .me-wx { font-size: 12px; color: #B2B2B2; margin-top: 4px; }
+  .me-card-big .me-arrow { color: #C8C8CC; font-size: 18px; }
 
   .me-group {
-    background: #fff; border-top: 1px solid #EEE; border-bottom: 1px solid #EEE;
-    margin-bottom: 10px;
+    background: #fff; border-top: 0.5px solid #F0F0F0; border-bottom: 0.5px solid #F0F0F0;
+    margin-bottom: 8px;
   }
   .me-group .me-row {
-    display: flex; align-items: center; padding: 14px 16px;
-    border-bottom: 1px solid #F2F2F2; cursor: pointer;
+    display: flex; align-items: center; padding: 13px 16px;
+    border-bottom: 0.5px solid #F5F5F5; cursor: pointer; min-height: 54px;
   }
+  .me-group .me-row:active { background: #ECECEC; }
   .me-group .me-row:last-child { border-bottom: none; }
   .me-group .me-ico { width: 24px; height: 24px; font-size: 18px; margin-right: 12px; text-align: center; }
-  .me-group .me-name { flex: 1; font-size: 15px; color: #191919; }
-  .me-group .me-arrow { color: #BBB; font-size: 18px; }
+  .me-group .me-name { flex: 1; font-size: 16px; color: #191919; }
+  .me-group .me-arrow { color: #C8C8CC; font-size: 16px; }
 
-  /* —— 中间联系人列表栏 —— */
+  /* —— 中间聊天列表栏（仿微信聊天列表） —— */
   .sidebar {
-    width: 300px; flex-shrink: 0; background: #F4F4F4;
-    display: flex; flex-direction: column; border-right: 1px solid #E2E2E2;
+    width: 300px; flex-shrink: 0; background: #FFFFFF;
+    display: flex; flex-direction: column;
   }
-  .sidebar-head { padding: 14px 12px 10px; }
-  .add-row { display: flex; gap: 8px; }
-  .add-row input {
-    flex: 1; height: 34px; border-radius: 6px; background: #E3E3E3;
-    padding: 0 12px; font-size: 13px; color: #333;
+  .sidebar-head { padding: 0; background: #EDEDED; }
+  .sidebar-title-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 44px; padding: 0 16px; flex-shrink: 0;
   }
-  .add-row input::placeholder { color: #999; }
-  .add-btn {
-    width: 34px; height: 34px; border-radius: 6px; background: #07C160;
-    color: #fff; font-size: 20px; line-height: 1;
-    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  .sidebar-title-bar .st-title { font-size: 17px; font-weight: 600; color: #191919; }
+  .sidebar-title-bar .st-add {
+    width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+    font-size: 24px; color: #191919; cursor: pointer; border-radius: 6px;
   }
-  .search-box { margin-top: 8px; }
-  .search-box input {
-    width: 100%; height: 28px; border-radius: 6px; background: #E3E3E3;
-    padding: 0 12px; font-size: 12px; color: #333;
+  .sidebar-title-bar .st-add:active { background: #DCDCDC; }
+  .search-bar {
+    padding: 0 8px 8px; display: flex; align-items: center; gap: 6px;
+    background: #EDEDED;
   }
+  .search-bar input {
+    flex: 1; height: 32px; border-radius: 6px; background: #FFFFFF;
+    padding: 0 12px; font-size: 14px; color: #333; text-align: center;
+  }
+  .search-bar input::placeholder { color: #B2B2B2; text-align: center; }
+  .search-bar .sb-icon { position: absolute; left: 50%; transform: translateX(-50%); color: #B2B2B2; font-size: 14px; pointer-events: none; display: none; }
 
-  .contact-list { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .contact-list { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; background: #FFFFFF; }
   .contact-item {
-    display: flex; align-items: center; gap: 10px;
-    padding: 10px 12px; cursor: pointer; position: relative;
-    border-bottom: 1px solid #ECECEC;
-    min-height: 56px;
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 12px 16px; cursor: pointer; position: relative;
+    border-bottom: 0.5px solid #F0F0F0;
+    min-height: 64px; background: #FFFFFF;
   }
-  .contact-item:hover { background: #ECECEC; }
-  .contact-item.active { background: #DCDCDC; }
+  .contact-item:active { background: #ECECEC; }
+  .contact-item.active { background: #ECECEC; }
   .contact-item .avatar-wrap {
-    width: 40px; height: 40px; border-radius: 6px; flex-shrink: 0; position: relative;
-    color: #fff; font-size: 17px; overflow: hidden;
+    width: 48px; height: 48px; border-radius: 6px; flex-shrink: 0; position: relative;
+    color: #fff; font-size: 20px; overflow: hidden;
     display: flex; align-items: center; justify-content: center;
+    align-self: center;
   }
   .contact-item .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .contact-item .avatar-edit-hint {
-    position: absolute; inset: 0; background: rgba(0,0,0,.5); color: #fff; font-size: 10px;
-    display: none; align-items: center; justify-content: center;
-  }
-  .contact-item .meta { flex: 1; min-width: 0; }
+  .contact-item .meta { flex: 1; min-width: 0; align-self: center; }
   .contact-item .name {
-    font-size: 14px; color: #191919; font-weight: 500;
+    font-size: 17px; color: #191919; font-weight: 400;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   .contact-item .last {
-    font-size: 12px; color: #999; margin-top: 3px;
+    font-size: 13px; color: #B2B2B2; margin-top: 3px;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
+  .contact-item .time-stamp {
+    font-size: 11px; color: #B2B2B2; flex-shrink: 0; align-self: flex-start; margin-top: 2px;
+  }
   .contact-item .del {
-    position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+    position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
     width: 36px; height: 36px; min-width: 36px; min-height: 36px; border-radius: 50%; background: #ccc;
     color: #fff; font-size: 16px; line-height: 1; z-index: 3;
     display: none; align-items: center; justify-content: center;
   }
   .contact-item:hover .del { display: flex; }
-  .empty-list { padding: 30px 12px; text-align: center; color: #aaa; font-size: 13px; }
+  .empty-list { padding: 30px 12px; text-align: center; color: #B2B2B2; font-size: 14px; }
 
   /* —— 右侧聊天窗口 —— */
   .chat {
-    flex: 1; display: flex; flex-direction: column; background: #F5F5F5; min-width: 0;
+    flex: 1; display: flex; flex-direction: column; background: #EDEDED; min-width: 0;
   }
   .chat-head {
-    height: 56px; min-height: 48px; flex-shrink: 0; background: #F5F5F5;
-    border-bottom: 1px solid #E2E2E2;
-    display: flex; align-items: center; padding: 0 20px; gap: 12px;
+    height: 44px; min-height: 44px; flex-shrink: 0; background: #EDEDED;
+    display: flex; align-items: center; padding: 0 16px; gap: 8px;
   }
   .chat-head .mobile-back {
     display: none; width: 32px; height: 32px; align-items: center; justify-content: center;
-    font-size: 22px; color: #555; margin-right: 4px;
+    font-size: 24px; color: #181818; margin-right: 0;
   }
-  .chat-head .title { font-size: 16px; font-weight: 500; color: #191919; flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-  .reply-btn {
-    height: 32px; min-height: 32px; padding: 0 12px; border-radius: 4px; background: #07C160;
-    color: #fff; font-size: 13px; display: flex; align-items: center; gap: 5px; flex-shrink: 0;
+  .chat-head .title { font-size: 17px; font-weight: 600; color: #111; flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; text-align: center; }
+  .chat-head .more-btn {
+    width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+    font-size: 20px; color: #181818; cursor: pointer; flex-shrink: 0; border-radius: 6px;
+  }
+  .chat-head .more-btn:active { background: #DCDCDC; }
+  .chat-head .reply-btn {
+    display: none;
   }
   .reply-btn:disabled { background: #bbb; }
 
@@ -421,8 +430,7 @@
     .contact-item { min-height: 64px; padding: 12px 10px; }
     .contact-item .avatar-wrap { width: 44px; height: 44px; font-size: 19px; }
     .contact-item .del {
-      display: flex;  /* 手机上常驻，没有 hover */
-      opacity: 0.7;
+      display: none;  /* 手机上隐藏，长按删除 */
     }
 
     .messages { padding: 12px 10px; }
@@ -459,32 +467,38 @@
 
   /* ============ 通讯录页面 ============ */
   .page-contacts {
-    flex: 1; display: none; flex-direction: column; background: #fff;
+    flex: 1; display: none; flex-direction: column; background: #FFFFFF;
     overflow: hidden; min-width: 0;
   }
   body.view-contacts .page-contacts { display: flex; }
   body.view-moments .page-moments { display: flex; }
   body.view-me .page-me { display: flex; }
   .pc-head {
-    height: 56px; min-height: 48px; flex-shrink: 0; background: #F5F5F5;
-    border-bottom: 1px solid #E2E2E2;
-    display: flex; align-items: center; padding: 0 20px; gap: 12px;
+    height: 44px; min-height: 44px; flex-shrink: 0; background: #EDEDED;
+    display: flex; align-items: center; padding: 0 16px; gap: 8px;
   }
-  .pc-head .mobile-back { display: none; width: 32px; height: 32px; align-items: center; justify-content: center; font-size: 22px; color: #555; }
-  .pc-head .title { font-size: 16px; font-weight: 500; color: #191919; flex: 1; }
+  .pc-head .mobile-back { display: none; width: 32px; height: 32px; align-items: center; justify-content: center; font-size: 24px; color: #181818; }
+  .pc-head .title { font-size: 17px; font-weight: 600; color: #111; flex: 1; text-align: center; }
   .pc-head .add-friend-btn {
-    height: 32px; padding: 0 12px; border-radius: 4px; background: #07C160;
-    color: #fff; font-size: 13px; display: flex; align-items: center; gap: 5px;
+    width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+    font-size: 22px; color: #181818; cursor: pointer; border-radius: 6px;
   }
-  .pc-list { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 8px 0; }
+  .pc-head .add-friend-btn:active { background: #DCDCDC; }
+  .pc-search-bar { padding: 0 8px 8px; background: #EDEDED; }
+  .pc-search-bar input {
+    width: 100%; height: 32px; border-radius: 6px; background: #FFFFFF;
+    padding: 0 12px; font-size: 14px; color: #333; text-align: center;
+  }
+  .pc-search-bar input::placeholder { color: #B2B2B2; text-align: center; }
+  .pc-list { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 0; background: #FFFFFF; }
   .pc-group-head {
-    padding: 6px 16px; font-size: 12px; color: #888; background: #F7F7F7;
+    padding: 4px 16px; font-size: 12px; color: #888; background: #F7F7F7; height: 24px; line-height: 24px;
   }
   .pc-row {
-    display: flex; align-items: center; gap: 12px; padding: 10px 16px; cursor: pointer;
-    border-bottom: 1px solid #F0F0F0; min-height: 56px;
+    display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer;
+    border-bottom: 0.5px solid #F0F0F0; min-height: 56px; background: #FFFFFF;
   }
-  .pc-row:hover { background: #F5F5F5; }
+  .pc-row:active { background: #ECECEC; }
   .pc-row .avatar-wrap {
     width: 40px; height: 40px; border-radius: 6px; flex-shrink: 0; position: relative; overflow: hidden;
     color: #fff; font-size: 17px;
@@ -492,9 +506,20 @@
   }
   .pc-row .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .pc-row .info { flex: 1; min-width: 0; }
-  .pc-row .info .nm { font-size: 15px; color: #191919; }
+  .pc-row .info .nm { font-size: 16px; color: #191919; }
   .pc-row .info .reg { font-size: 12px; color: #B2B2B2; margin-top: 2px; }
   .pc-row .chat-arrow { color: #C8C8CC; font-size: 18px; }
+  .pc-func-row {
+    display: flex; align-items: center; gap: 12px; padding: 14px 16px; cursor: pointer;
+    border-bottom: 0.5px solid #F0F0F0; background: #FFFFFF; min-height: 56px;
+  }
+  .pc-func-row:active { background: #ECECEC; }
+  .pc-func-row .pf-icon {
+    width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 18px; color: #fff;
+  }
+  .pc-func-row .pf-name { flex: 1; font-size: 16px; color: #191919; }
+  .pc-func-row .pf-arrow { color: #C8C8CC; font-size: 18px; }
 
   /* ============ 朋友圈页面 ============ */
   .page-moments {
@@ -502,35 +527,35 @@
     overflow: hidden; min-width: 0;
   }
   .pm-head {
-    height: 56px; min-height: 48px; flex-shrink: 0; background: #F5F5F5;
-    border-bottom: 1px solid #E2E2E2;
-    display: flex; align-items: center; padding: 0 20px; gap: 12px;
+    height: 44px; min-height: 44px; flex-shrink: 0; background: #EDEDED;
+    display: flex; align-items: center; padding: 0 16px; gap: 8px;
   }
-  .pm-head .mobile-back { display: none; width: 32px; height: 32px; align-items: center; justify-content: center; font-size: 22px; color: #555; }
-  .pm-head .title { font-size: 16px; font-weight: 500; color: #191919; flex: 1; }
+  .pm-head .mobile-back { display: none; width: 32px; height: 32px; align-items: center; justify-content: center; font-size: 24px; color: #181818; }
+  .pm-head .title { font-size: 17px; font-weight: 600; color: #111; flex: 1; text-align: center; }
   .pm-head .post-btn {
-    height: 32px; padding: 0 12px; border-radius: 4px; background: #07C160;
-    color: #fff; font-size: 13px; display: flex; align-items: center; gap: 5px;
+    width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+    font-size: 22px; color: #181818; cursor: pointer; border-radius: 6px;
   }
+  .pm-head .post-btn:active { background: #DCDCDC; }
   /* 封面 + 我的头像 */
   .pm-cover {
-    height: 200px; background: linear-gradient(135deg, #4A90D9 0%, #07C160 100%);
+    height: 240px; background: linear-gradient(135deg, #4A90D9 0%, #07C160 100%);
     position: relative; flex-shrink: 0;
   }
   .pm-cover .me-card {
     position: absolute; right: 16px; bottom: -28px; display: flex; align-items: center; gap: 10px;
   }
-  .pm-cover .me-card .me-name { color: #fff; font-size: 16px; font-weight: 500; text-shadow: 0 1px 3px rgba(0,0,0,.4); }
+  .pm-cover .me-card .me-name { color: #fff; font-size: 17px; font-weight: 600; text-shadow: 0 1px 3px rgba(0,0,0,.4); }
   .pm-cover .me-card .me-av {
-    width: 56px; height: 56px; border-radius: 8px; border: 2px solid #fff; overflow: hidden;
-    background: #07C160; color: #fff; font-size: 22px;
+    width: 64px; height: 64px; border-radius: 8px; border: 2px solid #fff; overflow: hidden;
+    background: #07C160; color: #fff; font-size: 26px;
     display: flex; align-items: center; justify-content: center;
   }
   .pm-cover .me-card .me-av img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .pm-list { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 40px 0 16px; }
   .pm-item {
     display: flex; gap: 10px; padding: 14px 16px; background: #fff;
-    border-bottom: 1px solid #F0F0F0;
+    border-bottom: 0.5px solid #F0F0F0;
   }
   .pm-item .av {
     width: 42px; height: 42px; border-radius: 6px; flex-shrink: 0; overflow: hidden;
@@ -558,7 +583,38 @@
     font-size: 13px; color: #191919; line-height: 1.5;
   }
   .pm-item .cmt .who { color: #576B95; font-weight: 500; }
-  .pm-empty { padding: 60px 20px; text-align: center; color: #aaa; }
+  .pm-empty { padding: 60px 20px; text-align: center; color: #B2B2B2; }
+
+  /* ============ 发现页面（入口列表） ============ */
+  .page-discover {
+    flex: 1; display: none; flex-direction: column; background: #EDEDED;
+    overflow: hidden; min-width: 0;
+  }
+  body.view-discover .page-discover { display: flex; }
+  body.view-discover .sidebar, body.view-discover .chat, body.view-discover .navbar { display: none; }
+  .pd-head {
+    height: 44px; min-height: 44px; flex-shrink: 0; background: #EDEDED;
+    display: flex; align-items: center; justify-content: center; padding: 0 16px;
+  }
+  .pd-head .title { font-size: 17px; font-weight: 600; color: #111; }
+  .pd-list { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 8px 0; }
+  .pd-group {
+    background: #FFFFFF; border-top: 0.5px solid #E0E0E0; border-bottom: 0.5px solid #E0E0E0;
+    margin-bottom: 8px;
+  }
+  .pd-group:first-child { border-top: none; }
+  .pd-item {
+    display: flex; align-items: center; gap: 12px; padding: 14px 16px; cursor: pointer;
+    border-bottom: 0.5px solid #F0F0F0; min-height: 54px; background: #FFFFFF;
+  }
+  .pd-item:last-child { border-bottom: none; }
+  .pd-item:active { background: #ECECEC; }
+  .pd-item .pd-icon {
+    width: 28px; height: 28px; border-radius: 6px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 16px; color: #fff;
+  }
+  .pd-item .pd-name { flex: 1; font-size: 16px; color: #191919; }
+  .pd-item .pd-arrow { color: #C8C8CC; font-size: 16px; }
 
   /* ============ 一键安装相关样式 ============ */
   /* 顶部安装横幅 */
@@ -617,16 +673,19 @@
     .tabbar { height: 49px; }
     .tabbar .tab .t-txt { font-size: 11px; }
     .app { padding-bottom: calc(49px + env(safe-area-inset-bottom, 0)); }
-    .page-contacts, .page-moments, .page-me { padding-bottom: calc(49px + env(safe-area-inset-bottom, 0)); }
+    .page-contacts, .page-moments, .page-me, .page-discover { padding-bottom: calc(49px + env(safe-area-inset-bottom, 0)); }
 
     body.view-contacts .sidebar, body.view-contacts .chat { display: none; }
     body.view-contacts .page-contacts { display: flex; width: 100%; }
+    body.view-discover .sidebar, body.view-discover .chat, body.view-discover .navbar { display: none; }
+    body.view-discover .page-discover { display: flex; width: 100%; }
     body.view-moments .sidebar, body.view-moments .chat { display: none; }
     body.view-moments .page-moments { display: flex; width: 100%; }
     body.view-me .sidebar, body.view-me .chat, body.view-me .navbar { display: none; }
     body.view-me .page-me { display: flex; width: 100%; }
     .pc-head .mobile-back, .pm-head .mobile-back { display: flex; }
-    .pc-head, .pm-head { padding: 0 12px; height: 52px; }
+    .pc-head .mobile-back { display: none; } /* 通讯录是主Tab页，不需要返回 */
+    .pc-head, .pm-head { padding: 0 12px; height: 44px; }
     .pm-cover { height: 160px; }
     .pm-cover .me-card { right: 12px; bottom: -24px; }
     .pm-cover .me-card .me-av { width: 48px; height: 48px; font-size: 18px; }
@@ -652,15 +711,15 @@
     </div>
   </div>
 
-  <!-- 中间联系人列表 -->
+  <!-- 中间聊天列表（仿微信聊天列表） -->
   <div class="sidebar">
     <div class="sidebar-head">
-      <div class="add-row">
-        <input id="addInput" type="text" placeholder="输入好友昵称，回车添加" maxlength="20">
-        <button class="add-btn" id="addBtn" title="添加好友">+</button>
+      <div class="sidebar-title-bar">
+        <div class="st-title">微信</div>
+        <div class="st-add" id="stAddBtn" title="添加联系人">+</div>
       </div>
-      <div class="search-box">
-        <input id="searchInput" type="text" placeholder="搜索联系人">
+      <div class="search-bar">
+        <input id="searchInput" type="text" placeholder="🔍 搜索">
       </div>
     </div>
     <div class="contact-list" id="contactList"></div>
@@ -669,11 +728,9 @@
   <!-- 右侧聊天窗口 -->
   <div class="chat">
     <div class="chat-head">
-      <button class="mobile-back" id="backBtn" title="返回联系人">‹</button>
-      <div class="title" id="chatTitle">微信聊天</div>
-      <button class="reply-btn" id="replyBtn" disabled>
-        <span>🤖</span><span>回复</span>
-      </button>
+      <button class="mobile-back" id="backBtn" title="返回">‹</button>
+      <div class="title" id="chatTitle">微信</div>
+      <div class="more-btn" id="moreBtn" title="更多">⋯</div>
     </div>
     <div class="messages" id="messages"></div>
     <div class="input-area">
@@ -691,6 +748,7 @@
           <div class="pp-item" data-act="voice"><div class="pp-icon" style="background:#07C160">📞</div><div class="pp-label">语音通话</div></div>
           <div class="pp-item" data-act="video"><div class="pp-icon" style="background:#07C160">📹</div><div class="pp-label">视频通话</div></div>
           <div class="pp-item" data-act="role"><div class="pp-icon" id="ppRoleIcon" style="background:#576B95">我</div><div class="pp-label" id="ppRoleLabel">切换为对方</div></div>
+          <div class="pp-item" data-act="reply"><div class="pp-icon" style="background:#07C160">💬</div><div class="pp-label">好友回复</div></div>
         </div>
       </div>
     </div>
@@ -701,15 +759,89 @@
     <div class="pc-head">
       <button class="mobile-back" data-back-nav="chat">‹</button>
       <div class="title">通讯录</div>
-      <button class="add-friend-btn" id="pcAddBtn">＋ 添加</button>
+      <div class="add-friend-btn" id="pcAddBtn">+</div>
+    </div>
+    <div class="pc-search-bar">
+      <input type="text" id="pcSearchInput" placeholder="🔍 搜索">
     </div>
     <div class="pc-list" id="pcList"></div>
+  </div>
+
+  <!-- 发现页面（入口列表） -->
+  <div class="page-discover" id="pageDiscover">
+    <div class="pd-head">
+      <div class="title">发现</div>
+    </div>
+    <div class="pd-list">
+      <div class="pd-group">
+        <div class="pd-item" data-discover="moments">
+          <div class="pd-icon" style="background:#FA8C16">📷</div>
+          <div class="pd-name">朋友圈</div>
+          <div class="pd-arrow">›</div>
+        </div>
+      </div>
+      <div class="pd-group">
+        <div class="pd-item" data-discover="channel">
+          <div class="pd-icon" style="background:#FA5151">📺</div>
+          <div class="pd-name">视频号</div>
+          <div class="pd-arrow">›</div>
+        </div>
+        <div class="pd-item" data-discover="live">
+          <div class="pd-icon" style="background:#FF9500">🔴</div>
+          <div class="pd-name">直播</div>
+          <div class="pd-arrow">›</div>
+        </div>
+      </div>
+      <div class="pd-group">
+        <div class="pd-item" data-discover="scan">
+          <div class="pd-icon" style="background:#10AEFF">🔍</div>
+          <div class="pd-name">扫一扫</div>
+          <div class="pd-arrow">›</div>
+        </div>
+        <div class="pd-item" data-discover="look">
+          <div class="pd-icon" style="background:#10AEFF">👁</div>
+          <div class="pd-name">看一看</div>
+          <div class="pd-arrow">›</div>
+        </div>
+        <div class="pd-item" data-discover="search">
+          <div class="pd-icon" style="background:#10AEFF">🔎</div>
+          <div class="pd-name">搜一搜</div>
+          <div class="pd-arrow">›</div>
+        </div>
+      </div>
+      <div class="pd-group">
+        <div class="pd-item" data-discover="nearby">
+          <div class="pd-icon" style="background:#10AEFF">📍</div>
+          <div class="pd-name">附近</div>
+          <div class="pd-arrow">›</div>
+        </div>
+      </div>
+      <div class="pd-group">
+        <div class="pd-item" data-discover="shopping">
+          <div class="pd-icon" style="background:#FA5151">🛒</div>
+          <div class="pd-name">购物</div>
+          <div class="pd-arrow">›</div>
+        </div>
+        <div class="pd-item" data-discover="game">
+          <div class="pd-icon" style="background:#FA8C16">🎮</div>
+          <div class="pd-name">游戏</div>
+          <div class="pd-arrow">›</div>
+        </div>
+      </div>
+      <div class="pd-group">
+        <div class="pd-item" data-discover="miniapp">
+          <div class="pd-icon" style="background:#10AEFF">_mini</div>
+          <div class="pd-name">小程序</div>
+          <div class="pd-arrow">›</div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- 朋友圈页面 -->
   <div class="page-moments" id="pageMoments">
     <div class="pm-head">
-      <button class="mobile-back" data-back-nav="chat">‹</button>
+      <button class="mobile-back" data-back-nav="discover">‹</button>
       <div class="title">朋友圈</div>
       <button class="post-btn" id="pmPostBtn">＋ 发表</button>
     </div>
@@ -724,11 +856,7 @@
 
   <!-- "我"页面 -->
   <div class="page-me" id="pageMe">
-    <div class="pm-head">
-      <button class="mobile-back" data-back-nav="chat">‹</button>
-      <div class="title">我</div>
-      <div style="width:72px"></div>
-    </div>
+    <div class="me-status-bar"></div>
     <div class="me-list" id="meList"></div>
   </div>
 </div>
@@ -736,19 +864,19 @@
 <!-- 底部 TabBar：微信 / 通讯录 / 发现 / 我 -->
 <div class="tabbar">
   <div class="tab active" data-nav="chat">
-    <svg class="t-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8.5 3C4.36 3 1 6.13 1 10c0 2.13 1.05 4.03 2.7 5.3-.1.6-.42 1.74-.96 2.66-.12.2.03.44.26.4 1.2-.18 2.4-.58 3.27-.94.98.36 2.05.58 3.18.58.28 0 .56-.01.83-.04-.18-.6-.28-1.24-.28-1.9 0-3.76 3.58-6.81 8-6.81.27 0 .53.01.79.03C17.88 5.6 13.6 3 8.5 3zM6 8.5a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5zm5 0a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5z"/><path d="M23 15.06c0-3.1-2.91-5.62-6.5-5.62S10 11.96 10 15.06c0 3.1 2.91 5.62 6.5 5.62.83 0 1.62-.13 2.35-.37.65.27 1.5.57 2.34.7.18.03.31-.15.22-.31-.37-.62-.62-1.4-.7-1.85.81-.86 1.29-1.96 1.29-3.15zm-8.5-.75a1 1 0 110 2 1 1 0 010-2zm4 0a1 1 0 110 2 1 1 0 010-2z"/></svg>
+    <svg class="t-svg" viewBox="0 0 28 28" fill="currentColor"><path d="M9.5 3C4.8 3 1 6.2 1 10.2c0 2.3 1.2 4.3 3.1 5.7-.1.7-.5 1.9-1 2.9-.1.2.1.5.3.4 1.3-.2 2.6-.6 3.6-1 .8.3 1.6.5 2.5.6-.1-.5-.2-1.1-.2-1.6 0-4 3.8-7.3 8.5-7.3.3 0 .6 0 .8.1C17.6 5.8 13.9 3 9.5 3zM7 8.3a1.3 1.3 0 110 2.6 1.3 1.3 0 010-2.6zm5 0a1.3 1.3 0 110 2.6 1.3 1.3 0 010-2.6z"/><path d="M27 15.5c0-3.6-3.4-6.5-7.5-6.5S12 11.9 12 15.5c0 3.6 3.4 6.5 7.5 6.5.9 0 1.7-.1 2.5-.3.7.3 1.7.6 2.6.8.2 0 .4-.2.3-.4-.4-.7-.7-1.5-.8-2 1.8-1.2 2.9-3 2.9-5.1zm-9.5-.8a.8.8 0 110 1.6.8.8 0 010-1.6zm4 0a.8.8 0 110 1.6.8.8 0 010-1.6z"/></svg>
     <div class="t-txt">微信</div>
   </div>
   <div class="tab" data-nav="contacts">
-    <svg class="t-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16a1 1 0 011 1v14a1 1 0 01-1 1H4a1 1 0 01-1-1V5a1 1 0 011-1zm1 2v12h14V6H5zm3 2h8v2H8V8zm0 3h8v2H8v-2zm0 3h5v2H8v-2z"/><circle cx="16" cy="15" r="0.5"/></svg>
+    <svg class="t-svg" viewBox="0 0 28 28" fill="currentColor"><path d="M14 2C8.5 2 4 6.5 4 12c0 5.5 4.5 10 10 10s10-4.5 10-10c0-5.5-4.5-10-10-10zm0 5c1.7 0 3 1.3 3 3s-1.3 3-3 3-3-1.3-3-3 1.3-3 3-3zm0 12c-2.5 0-4.7-1.3-6-3.2.1-2 4-3.1 6-3.1s5.9 1.1 6 3.1c-1.3 1.9-3.5 3.2-6 3.2z"/></svg>
     <div class="t-txt">通讯录</div>
   </div>
-  <div class="tab" data-nav="moments">
-    <svg class="t-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 2c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8zm-1 4l1.5 3.5L16 13l-3.5 1.5L11 18l-1.5-3.5L6 13l3.5-1.5L11 8z"/></svg>
+  <div class="tab" data-nav="discover">
+    <svg class="t-svg" viewBox="0 0 28 28" fill="currentColor"><path d="M14 2C7.4 2 2 7.4 2 14s5.4 12 12 12 12-5.4 12-12S20.6 2 14 2zm0 2c5.5 0 10 4.5 10 10s-4.5 10-10 10S4 17.5 4 12 8.5 4 14 4z"/><path d="M19 9l-2.6 6.4L10 18l2.6-6.4L19 9z"/><circle cx="14" cy="14" r="1.2"/></svg>
     <div class="t-txt">发现</div>
   </div>
   <div class="tab" data-nav="me">
-    <svg class="t-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v3h20v-3c0-3.33-6.67-5-10-5z"/></svg>
+    <svg class="t-svg" viewBox="0 0 28 28" fill="currentColor"><path d="M14 3c-2.8 0-5 2.2-5 5s2.2 5 5 5 5-2.2 5-5-2.2-5-5-5zm0 12c-4 0-12 2-12 6v3h24v-3c0-4-8-6-12-6z"/></svg>
     <div class="t-txt">我</div>
   </div>
 </div>
@@ -1050,8 +1178,9 @@ function renderSidebar() {
     return;
   }
   list.innerHTML = filtered.map(c => {
-    const last = (state.chats[c.id] && state.chats[c.id].length)
-      ? previewText(state.chats[c.id][state.chats[c.id].length - 1]) : '';
+    const msgs = state.chats[c.id] || [];
+    const last = msgs.length ? previewText(msgs[msgs.length - 1]) : '';
+    const lastTs = msgs.length ? msgs[msgs.length - 1].ts : '';
     return `
       <div class="contact-item ${c.id === state.current ? 'active' : ''}" data-id="${c.id}">
         <div data-avatar-id="${c.id}" class="avatar-entry">${avatarHTML(c.name, c.color, c.avatar)}</div>
@@ -1059,6 +1188,7 @@ function renderSidebar() {
           <div class="name">${escapeHtml(c.name)}</div>
           <div class="last">${escapeHtml(last)}</div>
         </div>
+        <div class="time-stamp">${lastTs}</div>
         <div class="del" data-del="${c.id}" title="删除">×</div>
       </div>`;
   }).join('');
@@ -1076,17 +1206,14 @@ function previewText(m) {
 function renderChat() {
   const head = document.getElementById('chatTitle');
   const box = document.getElementById('messages');
-  const replyBtn = document.getElementById('replyBtn');
 
   if (!state.current) {
     head.textContent = '微信聊天';
-    replyBtn.disabled = true;
     box.innerHTML = `<div class="empty-chat"><div class="logo">💬</div><div>选择联系人开始聊天</div></div>`;
     return;
   }
   const contact = state.contacts.find(c => c.id === state.current);
   head.textContent = contact.name;
-  replyBtn.disabled = false;
 
   const chat = state.chats[state.current] || [];
   if (chat.length === 0) {
@@ -1264,10 +1391,10 @@ function autoResize(el) {
  *  导航切换：微信(聊天) / 通讯录 / 发现(朋友圈) / 我
  * ============================================================ */
 function switchNav(view) {
-  // view: 'chat' | 'contacts' | 'moments' | 'me'
+  // view: 'chat' | 'contacts' | 'discover' | 'moments' | 'me'
   const body = document.body;
   // 清掉所有视图 class
-  body.classList.remove('list-view', 'chat-view', 'view-contacts', 'view-moments', 'view-me');
+  body.classList.remove('list-view', 'chat-view', 'view-contacts', 'view-discover', 'view-moments', 'view-me');
   // 高亮底部 TabBar 选中的 tab
   document.querySelectorAll('.tabbar .tab').forEach(el => {
     el.classList.toggle('active', el.dataset.nav === view);
@@ -1278,6 +1405,8 @@ function switchNav(view) {
   } else if (view === 'contacts') {
     body.classList.add('view-contacts');
     renderContactsPage();
+  } else if (view === 'discover') {
+    body.classList.add('view-discover');
   } else if (view === 'moments') {
     body.classList.add('view-moments');
     renderMomentsPage();
@@ -1295,53 +1424,78 @@ function renderMePage() {
   const avatarTag = state.me.avatar
     ? `<img src="${state.me.avatar}" alt="" onerror="this.onerror=null;this.remove();this.parentElement.innerHTML='<span>${escapeHtml(meInitial)}</span>';">`
     : `<span>${escapeHtml(meInitial)}</span>`;
-  const rows = [
-    { ico: '💰', name: '服务' },
-    { ico: '👛', name: '钱包' },
-    { ico: '🏷', name: '收藏' },
-    { ico: '🤗', name: '表情' },
-    { ico: '⚙️', name: '设置', cb: () => alert('设置：\n• 所有数据已自动保存在本机 localStorage\n• 清空数据：在浏览器控制台执行 localStorage.clear() 并刷新') },
-  ];
   list.innerHTML = `
     <div class="me-card-big" id="meCardBig">
       <div class="me-av" style="background:${state.me.color}">${avatarTag}</div>
       <div class="me-info">
         <div class="me-nm">${escapeHtml(meName)}</div>
-        <div class="me-wx">微信号：wx_me_${Date.now().toString().slice(-5)}</div>
+        <div class="me-wx">微信号：wechat_sim</div>
       </div>
-      <div class="me-arrow">›</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:14px;color:#B2B2B2">二维码</span>
+        <div style="width:22px;height:22px;border:1px solid #D0D0D0;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#999">▦</div>
+        <div class="me-arrow">›</div>
+      </div>
     </div>
     <div class="me-group">
-      ${rows.map(r => `<div class="me-row" data-me-name="${r.name}">
-        <div class="me-ico">${r.ico}</div>
-        <div class="me-name">${r.name}</div>
+      <div class="me-row" data-me-name="服务">
+        <div class="me-ico" style="width:24px;height:24px;border-radius:6px;background:#3A7EE8;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff">💳</div>
+        <div class="me-name">服务</div>
         <div class="me-arrow">›</div>
-      </div>`).join('')}
+      </div>
+    </div>
+    <div class="me-group">
+      <div class="me-row" data-me-name="收藏">
+        <div class="me-ico" style="width:24px;height:24px;border-radius:6px;background:#FA9D3B;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff">⭐</div>
+        <div class="me-name">收藏</div>
+        <div class="me-arrow">›</div>
+      </div>
+      <div class="me-row" data-me-name="朋友圈">
+        <div class="me-ico" style="width:24px;height:24px;border-radius:6px;background:#FA8C16;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff">📷</div>
+        <div class="me-name">朋友圈</div>
+        <div class="me-arrow">›</div>
+      </div>
+      <div class="me-row" data-me-name="卡包">
+        <div class="me-ico" style="width:24px;height:24px;border-radius:6px;background:#5AA8E8;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff">🗂</div>
+        <div class="me-name">卡包</div>
+        <div class="me-arrow">›</div>
+      </div>
+      <div class="me-row" data-me-name="表情">
+        <div class="me-ico" style="width:24px;height:24px;border-radius:6px;background:#FAAD14;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff">😊</div>
+        <div class="me-name">表情</div>
+        <div class="me-arrow">›</div>
+      </div>
+    </div>
+    <div class="me-group">
+      <div class="me-row" data-me-name="设置">
+        <div class="me-ico" style="width:24px;height:24px;border-radius:6px;background:#7A7E83;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff">⚙</div>
+        <div class="me-name">设置</div>
+        <div class="me-arrow">›</div>
+      </div>
     </div>
     <div class="me-group">
       <div class="me-row" data-me-name="清空数据">
-        <div class="me-ico">🗑</div>
-        <div class="me-name" style="color:#E6454A">清空全部数据</div>
+        <div class="me-ico" style="width:24px;height:24px;border-radius:6px;background:#FA5151;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff">🗑</div>
+        <div class="me-name" style="color:#FA5151">清空全部数据</div>
         <div class="me-arrow">›</div>
       </div>
     </div>
   `;
-  // 事件绑定：点大卡片修改我的头像
+  // 事件绑定
   list.querySelector('#meCardBig').onclick = () => showEditMyAvatarModal();
-  // 菜单行
   list.querySelectorAll('.me-row').forEach(row => {
     row.onclick = () => {
       const name = row.dataset.meName;
-      const target = rows.find(r => r.name === name);
-      if (target && target.cb) { target.cb(); return; }
+      if (name === '朋友圈') { switchNav('moments'); return; }
+      if (name === '设置') { alert('设置：\n• 所有数据已自动保存在本机 localStorage\n• 清空数据：点击下方「清空全部数据」'); return; }
       if (name === '清空数据') {
         if (confirm('确定要清空所有联系人和聊天记录？此操作不可恢复！')) {
-          localStorage.removeItem(STORAGE_KEY);
+          localStorage.removeItem(STORE_KEY);
           location.reload();
         }
-      } else {
-        alert(`「${name}」功能入口（示例占位）`);
+        return;
       }
+      alert(`「${name}」功能入口（示例占位）`);
     };
   });
 }
@@ -1349,30 +1503,57 @@ function renderMePage() {
 /* ---------- 通讯录渲染 ---------- */
 function renderContactsPage() {
   const list = document.getElementById('pcList');
-  if (state.contacts.length === 0) {
-    list.innerHTML = `<div class="pm-empty">还没有联系人，点击右上「添加」</div>`;
-    return;
+  const kw = (document.getElementById('pcSearchInput').value || '').trim().toLowerCase();
+  const allContacts = state.contacts.slice().sort((a, b) => a.name.localeCompare(b.name, 'zh'));
+  const sorted = kw ? allContacts.filter(c => c.name.toLowerCase().includes(kw)) : allContacts;
+
+  // 功能入口行（微信风格）—— 搜索时隐藏
+  let funcHTML = kw ? '' : `<div class="pc-func-row" data-pc-func="new-friend">
+    <div class="pf-icon" style="background:#FA9D3B">👤</div>
+    <div class="pf-name">新的朋友</div>
+    <span class="pf-arrow">›</span>
+  </div>
+  <div class="pc-func-row" data-pc-func="group">
+    <div class="pf-icon" style="background:#04BE96">👥</div>
+    <div class="pf-name">群聊</div>
+    <span class="pf-arrow">›</span>
+  </div>
+  <div class="pc-func-row" data-pc-func="tag">
+    <div class="pf-icon" style="background:#10AEFF">🏷</div>
+    <div class="pf-name">标签</div>
+    <span class="pf-arrow">›</span>
+  </div>
+  <div class="pc-func-row" data-pc-func="official">
+    <div class="pf-icon" style="background:#576B95">📢</div>
+    <div class="pf-name">公众号</div>
+    <span class="pf-arrow">›</span>
+  </div>`;
+
+  // "我"行 —— 搜索时隐藏
+  let meHTML = kw ? '' : `<div class="pc-group-head" style="margin-top:8px"></div>
+  <div class="pc-row" data-pc-me="1" style="border-top:0.5px solid #E0E0E0">
+    ${avatarHTML(state.me.name, state.me.color, state.me.avatar)}
+    <div class="info"><div class="nm">${escapeHtml(state.me.name)}</div><div class="reg">这是我</div></div>
+  </div>`;
+
+  // 好友列表
+  let friendsHTML = '';
+  if (sorted.length === 0) {
+    friendsHTML = `<div class="pm-empty" style="padding:30px 20px">还没有联系人<br>点击右上「+」添加</div>`;
+  } else {
+    friendsHTML = `<div class="pc-group-head" style="margin-top:8px">好友（${sorted.length}）</div>`;
+    friendsHTML += sorted.map(c => `
+      <div class="pc-row" data-pc-id="${c.id}">
+        ${avatarHTML(c.name, c.color, c.avatar)}
+        <div class="info">
+          <div class="nm">${escapeHtml(c.name)}</div>
+          <div class="reg">微信号: wx_${c.id.slice(-6)}</div>
+        </div>
+        <span class="chat-arrow">›</span>
+      </div>`).join('');
   }
-  // 按拼音/字母简单分组（用首字符 code 排序，不做完整拼音转换）
-  const sorted = state.contacts.slice().sort((a, b) => a.name.localeCompare(b.name, 'zh'));
-  let html = `<div class="pc-group-head">好友（${sorted.length}）</div>`;
-  html += sorted.map(c => `
-    <div class="pc-row" data-pc-id="${c.id}">
-      ${avatarHTML(c.name, c.color, c.avatar)}
-      <div class="info">
-        <div class="nm">${escapeHtml(c.name)}</div>
-        <div class="reg">微信号: wx_${c.id.slice(-6)}</div>
-      </div>
-      <span class="chat-arrow">›</span>
-    </div>`).join('');
-  // 额外显示"我"自己
-  html = `<div class="pc-group-head">我</div>
-    <div class="pc-row" data-pc-me="1">
-      ${avatarHTML(state.me.name, state.me.color, state.me.avatar)}
-      <div class="info"><div class="nm">${escapeHtml(state.me.name)}</div><div class="reg">这是我</div></div>
-    </div>
-    <div class="pc-group-head" style="margin-top:4px">好友（${sorted.length}）</div>` + html.split('</div>').slice(1).join('</div>');
-  list.innerHTML = html;
+
+  list.innerHTML = funcHTML + meHTML + friendsHTML;
 }
 
 /* ---------- 朋友圈渲染 ---------- */
@@ -1518,27 +1699,9 @@ function setupKeyboardHack() {
 /* ---------- 事件绑定 ---------- */
 function bindEvents() {
   // 顶部"添加好友"按钮 => 打开带头像选择的弹窗
-  const addInput = document.getElementById('addInput');
-  document.getElementById('addBtn').onclick = () => {
-    addInput.value = '';
+  document.getElementById('stAddBtn').onclick = () => {
     showAddContactModal();
   };
-  addInput.addEventListener('keydown', e => {
-    if (e.key === 'Enter') {
-      if (addInput.value.trim()) {
-        // 回车：走带头像的弹窗，名字填进去
-        const v = addInput.value.trim();
-        addInput.value = '';
-        showInputModal('添加联系人', '确认昵称并可选设置头像', v, val => {
-          addContactWithAvatar(val.trim(), modalCtx.avatar || null);
-        }, {
-          showAvatarRow: true,
-          hideInput: false,
-          avatarCtx: { name: v, color: hashColor(v), avatar: null }
-        });
-      } else showAddContactModal();
-    }
-  });
 
   // 搜索过滤
   document.getElementById('searchInput').addEventListener('input', renderSidebar);
@@ -1615,14 +1778,26 @@ function bindEvents() {
         if (!state.current) { flashTip('请先选择联系人'); return; }
         switchRole(state.currentRole === 'me' ? 'friend' : 'me');
       }
+      else if (act === 'reply') {
+        if (!state.current) { flashTip('请先选择联系人'); return; }
+        friendReply();
+      }
       // 操作后关闭面板
       plusPanel.style.display = 'none';
       plusBtn.classList.remove('active');
     });
   });
 
-  // 模拟好友回复
-  document.getElementById('replyBtn').onclick = friendReply;
+  // 聊天窗口"更多"按钮
+  document.getElementById('moreBtn').onclick = () => {
+    if (!state.current) return;
+    if (confirm('清空当前聊天记录？')) {
+      state.chats[state.current] = [];
+      save();
+      renderChat();
+      renderSidebar();
+    }
+  };
 
   // 弹窗通用
   document.getElementById('modalOk').onclick = () => {
@@ -1671,6 +1846,13 @@ function bindEvents() {
 
   // 通讯录：点行进入该联系人聊天
   document.getElementById('pcList').addEventListener('click', e => {
+    const funcRow = e.target.closest('[data-pc-func]');
+    if (funcRow) {
+      const func = funcRow.dataset.pcFunc;
+      if (func === 'new-friend') { showAddContactModal(); return; }
+      alert(`「${funcRow.querySelector('.pf-name').textContent}」功能（示例占位）`);
+      return;
+    }
     const row = e.target.closest('[data-pc-id]');
     if (row) {
       const id = row.dataset.pcId;
@@ -1687,10 +1869,28 @@ function bindEvents() {
   });
   // 通讯录顶部"添加"按钮 => 复用添加联系人弹窗
   document.getElementById('pcAddBtn').addEventListener('click', showAddContactModal);
+  // 通讯录搜索过滤
+  document.getElementById('pcSearchInput').addEventListener('input', renderContactsPage);
 
   // 通讯录/朋友圈的移动端返回按钮
   document.querySelectorAll('[data-back-nav]').forEach(b => {
     b.addEventListener('click', () => switchNav(b.dataset.backNav));
+  });
+
+  // 发现页面：点击入口项
+  document.querySelectorAll('.pd-item[data-discover]').forEach(item => {
+    item.addEventListener('click', () => {
+      const target = item.dataset.discover;
+      if (target === 'moments') {
+        switchNav('moments');
+      } else if (target === 'scan') {
+        alert('扫一扫功能（示例占位）');
+      } else if (target === 'channel') {
+        alert('视频号功能（示例占位）');
+      } else {
+        alert(`「${item.querySelector('.pd-name').textContent}」功能（示例占位）`);
+      }
+    });
   });
 
   // 朋友圈：发表
